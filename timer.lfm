@@ -1,0 +1,89 @@
+object FrameTimer: TFrameTimer
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  Align = alClient
+  AutoSize = True
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '4.4.0.0'
+  TabOrder = 0
+  DesignLeft = 457
+  DesignTop = 27
+  object PanelCounter: TPanel
+    Left = 0
+    Height = 176
+    Top = 0
+    Width = 320
+    Align = alClient
+    AutoSize = True
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ClientHeight = 176
+    ClientWidth = 320
+    TabOrder = 0
+    object LabelTitle: TLabel
+      Left = 5
+      Height = 32
+      Top = 5
+      Width = 310
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Period Name'
+      Font.Height = -24
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object LabelTime: TLabel
+      Left = 5
+      Height = 130
+      Top = 41
+      Width = 310
+      Align = alClient
+      Alignment = taCenter
+      Caption = '00:00'
+      Font.Height = -64
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+  end
+  object PanelControl: TPanel
+    Left = 0
+    Height = 64
+    Top = 176
+    Width = 320
+    Align = alBottom
+    AutoSize = True
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 64
+    ClientWidth = 320
+    TabOrder = 1
+    object ButtonPause: TButton
+      Left = 5
+      Height = 25
+      Top = 5
+      Width = 310
+      Caption = 'Pause'
+      TabOrder = 0
+    end
+    object ButtonStop: TButton
+      Left = 5
+      Height = 25
+      Top = 34
+      Width = 310
+      Caption = 'Stop'
+      TabOrder = 1
+    end
+  end
+end

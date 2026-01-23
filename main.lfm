@@ -13,9 +13,9 @@ object FormTTimer: TFormTTimer
     Height = 418
     Top = 0
     Width = 320
-    ActivePage = TabSettings
+    ActivePage = TabTraining
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object TabSettings: TTabSheet
       Caption = 'Settings'
@@ -126,6 +126,14 @@ object FormTTimer: TFormTTimer
     end
     object TabTraining: TTabSheet
       Caption = 'Training'
+      ClientHeight = 390
+      ClientWidth = 312
+      inline FrameTimerUse: TFrameTimer
+        Height = 390
+        Width = 312
+        ClientHeight = 390
+        ClientWidth = 312
+      end
     end
   end
 end

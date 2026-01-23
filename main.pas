@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, EditBtn,
-  StdCtrls, Spin, ExtCtrls;
+  StdCtrls, Spin, ExtCtrls, timer;
 
 type
 
@@ -16,6 +16,7 @@ type
     ButtonStart: TButton;
     EditRestTime: TTimeEdit;
     EditPrepareTime: TTimeEdit;
+    FrameTimerUse: TFrameTimer;
     LabelPrepareTime: TLabel;
     LabelRoundTime: TLabel;
     LabelRounds: TLabel;
