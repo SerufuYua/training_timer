@@ -9,6 +9,8 @@ uses
 
 type
 
+  TStopEvent = procedure of object;
+
   { TFrameTimer }
 
   TFrameTimer = class(TFrame)
@@ -23,6 +25,7 @@ type
     procedure ButtonStopClick(Sender: TObject);
     procedure TimerCountTimer(Sender: TObject);
   protected
+    FStopEvent: TStopEvent;
     FPeriod: Integer;
     FWarningTime: Cardinal;
     procedure ResetTimer;
@@ -31,6 +34,7 @@ type
   public
     procedure Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
     property Period: Integer read FPeriod write SetPeriod;
+    property StopEvent: TStopEvent write FStopEvent;
   end;
 
 implementation
@@ -133,6 +137,8 @@ end;
 procedure TFrameTimer.ButtonStopClick(Sender: TObject);
 begin
   TimerCount.Enabled:= False;
+  if Assigned(FStopEvent) then
+    FStopEvent();
 end;
 
 procedure TFrameTimer.ShowTime(ATimeMs: Cardinal);

@@ -30,8 +30,8 @@ type
     TabSettings: TTabSheet;
     TabTraining: TTabSheet;
     procedure ButtonStartClick(Sender: TObject);
-  private
-
+  protected
+    procedure StopEvent;
   public
 
   end;
@@ -52,7 +52,13 @@ begin
                       EditRestTime.Value * 1000,
                       EditPrepareTime.Value * 1000,
                       EditWarningTime.Value * 1000);
+  FrameTimerUse.StopEvent:= {$ifdef FPC}@{$endif}StopEvent;
   ControlPageTimer.ActivePage:= TabTraining;
+end;
+
+procedure TFormTTimer.StopEvent;
+begin
+  ControlPageTimer.ActivePage:= TabSettings;
 end;
 
 end.
