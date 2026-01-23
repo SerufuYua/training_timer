@@ -4,6 +4,7 @@ object FormTTimer: TFormTTimer
   Top = 250
   Width = 320
   AutoSize = True
+  BorderIcons = [biSystemMenu]
   Caption = 'Training Timer'
   ClientHeight = 418
   ClientWidth = 320
@@ -32,6 +33,7 @@ object FormTTimer: TFormTTimer
         ChildSizing.TopBottomSpacing = 4
         ChildSizing.HorizontalSpacing = 4
         ChildSizing.VerticalSpacing = 4
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
         ClientHeight = 365
@@ -41,15 +43,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 5
-          Width = 74
+          Width = 161
           Caption = 'Rounds'
           Layout = tlCenter
         end
         object EditRounds: TSpinEdit
-          Left = 83
+          Left = 170
           Height = 23
           Top = 5
-          Width = 50
+          Width = 137
           TabOrder = 0
           Value = 3
         end
@@ -57,15 +59,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 32
-          Width = 74
+          Width = 161
           Caption = 'Round Time'
           Layout = tlCenter
         end
         object EditRoundTime: TSpinEdit
-          Left = 83
+          Left = 170
           Height = 23
           Top = 32
-          Width = 50
+          Width = 137
           TabOrder = 1
           Value = 90
         end
@@ -73,15 +75,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 59
-          Width = 74
+          Width = 161
           Caption = 'Rest Time'
           Layout = tlCenter
         end
         object EditRestTime: TSpinEdit
-          Left = 83
+          Left = 170
           Height = 23
           Top = 59
-          Width = 50
+          Width = 137
           TabOrder = 2
           Value = 60
         end
@@ -89,15 +91,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 86
-          Width = 74
+          Width = 161
           Caption = 'Prepare Time'
           Layout = tlCenter
         end
         object EditPrepareTime: TSpinEdit
-          Left = 83
+          Left = 170
           Height = 23
           Top = 86
-          Width = 50
+          Width = 137
           TabOrder = 3
           Value = 30
         end
@@ -105,15 +107,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 113
-          Width = 74
+          Width = 161
           Caption = 'Warning Time'
           Layout = tlCenter
         end
         object EditWarningTime: TSpinEdit
-          Left = 83
+          Left = 170
           Height = 23
           Top = 113
-          Width = 50
+          Width = 137
           TabOrder = 4
           Value = 10
         end
