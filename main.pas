@@ -48,10 +48,10 @@ implementation
 procedure TFormTTimer.ButtonStartClick(Sender: TObject);
 begin
   FrameTimerUse.Start(EditRounds.Value,
-                      EditRoundTime.Value,
-                      EditRestTime.Value,
-                      EditPrepareTime.Value,
-                      EditWarningTime.Value);
+                      EditRoundTime.Value * 1000,
+                      EditRestTime.Value * 1000,
+                      EditPrepareTime.Value * 1000,
+                      EditWarningTime.Value * 1000);
   ControlPageTimer.ActivePage:= TabTraining;
 end;
 

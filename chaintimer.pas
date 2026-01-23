@@ -9,11 +9,6 @@ uses
 
 type
 
-  TTimePeriod = record
-    Name, Sound: String;
-    Time: Integer;
-  end;
-
   { TFrameTimer }
 
   TFrameTimer = class(TFrame)
@@ -37,12 +32,60 @@ type
 
 implementation
 
+type
+  TTimePeriod = record
+    Name, FinalSound: String;
+    Time: Integer;
+  end;
+
+  TPeriodsList = Array of TTimePeriod;
+
+var
+ Periods: TPeriodsList;
+
+const
+  SoundStart = 'start.wav';
+  SoundEnd = 'end.wav';
+  SoundFinal = 'fin.wav';
+  SoundWarn = 'warn.wav';
+
 {$R *.lfm}
 
 { TFrameTimer }
 
 procedure TFrameTimer.Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
+var
+ i, lastPeriod: Integer;
 begin
+  { prepare periods list }
+  SetLength(Periods, APeriods * 2);
+
+  Periods[0].Name:= 'Prepare';
+  Periods[0].FinalSound:= SoundStart;
+  Periods[0].Time:= APrepareTime;
+
+  lastPeriod:= APeriods * 2 - 1;
+
+  for i:= 1 to lastPeriod do
+  begin
+    if ((i mod 2) = 0) then
+    begin
+      Periods[i].Name:= 'Rest';
+      Periods[i].Time:= ARestTime;
+      Periods[i].FinalSound:= SoundStart;
+    end
+    else
+    begin
+      Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1);
+      Periods[i].Time:= ARoundTime;
+      if (i = lastPeriod) then
+        Periods[i].FinalSound:= SoundFinal
+      else
+        Periods[i].FinalSound:= SoundEnd;
+    end;
+  end;
+
+  { enable timer }
   ResetTimer;
   TimerCount.Enabled:= True;
 end;

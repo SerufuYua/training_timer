@@ -51,7 +51,7 @@ object FormTTimer: TFormTTimer
           Top = 5
           Width = 50
           TabOrder = 0
-          Value = 1
+          Value = 3
         end
         object LabelRoundTime: TLabel
           Left = 5
