@@ -23,11 +23,14 @@ type
     procedure ButtonStopClick(Sender: TObject);
     procedure TimerCountTimer(Sender: TObject);
   protected
-    TimeMs: Cardinal;
+    FPeriod: Integer;
+    FWarningTime: Cardinal;
     procedure ResetTimer;
-    procedure ShowTime;
+    procedure ShowTime(ATimeMs: Cardinal);
+    procedure SetPeriod(AValue: Integer);
   public
     procedure Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
+    property Period: Integer read FPeriod write SetPeriod;
   end;
 
 implementation
@@ -35,7 +38,7 @@ implementation
 type
   TTimePeriod = record
     Name, FinalSound: String;
-    Time: Integer;
+    TimeMs: Integer;
   end;
 
   TPeriodsList = Array of TTimePeriod;
@@ -57,12 +60,15 @@ procedure TFrameTimer.Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTi
 var
  i, lastPeriod: Integer;
 begin
+  TimerCount.Enabled:= False;
+
   { prepare periods list }
+  FWarningTime:= AWarningTime;
   SetLength(Periods, APeriods * 2);
 
   Periods[0].Name:= 'Prepare';
   Periods[0].FinalSound:= SoundStart;
-  Periods[0].Time:= APrepareTime;
+  Periods[0].TimeMs:= APrepareTime;
 
   lastPeriod:= APeriods * 2 - 1;
 
@@ -71,13 +77,13 @@ begin
     if ((i mod 2) = 0) then
     begin
       Periods[i].Name:= 'Rest';
-      Periods[i].Time:= ARestTime;
+      Periods[i].TimeMs:= ARestTime;
       Periods[i].FinalSound:= SoundStart;
     end
     else
     begin
       Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1);
-      Periods[i].Time:= ARoundTime;
+      Periods[i].TimeMs:= ARoundTime;
       if (i = lastPeriod) then
         Periods[i].FinalSound:= SoundFinal
       else
@@ -92,14 +98,21 @@ end;
 
 procedure TFrameTimer.ResetTimer;
 begin
-  TimeMs:= 0;
-  ShowTime;
+  Period:= 0;
 end;
 
 procedure TFrameTimer.TimerCountTimer(Sender: TObject);
 begin
-  TimeMs:= TimeMs + TimerCount.Interval;
-  ShowTime;
+  if (Periods[Period].TimeMs > TimerCount.Interval) then
+  begin
+    Periods[Period].TimeMs:= Periods[Period].TimeMs - TimerCount.Interval;
+    ShowTime(Periods[Period].TimeMs);
+  end
+  else
+  begin
+    ShowTime(0);
+    Period:= Period + 1;
+  end;
 end;
 
 procedure TFrameTimer.ButtonPauseClick(Sender: TObject);
@@ -120,17 +133,28 @@ end;
 procedure TFrameTimer.ButtonStopClick(Sender: TObject);
 begin
   TimerCount.Enabled:= False;
-  ResetTimer;
 end;
 
-procedure TFrameTimer.ShowTime;
+procedure TFrameTimer.ShowTime(ATimeMs: Cardinal);
 var
   min, sec: Cardinal;
 begin
-  sec:= TimeMs div 1000;
+  sec:= ATimeMs div 1000;
   min:= sec div 60;
   sec:= sec - (min * 60);
   LabelTime.Caption:= IntToStr(min) + ':' + IntToStr(sec);
+end;
+
+procedure TFrameTimer.SetPeriod(AValue: Integer);
+begin
+  if (AValue < Length(Periods)) then
+  begin
+    FPeriod:= AValue;
+    ShowTime(Periods[AValue].TimeMs);
+    LabelTitle.Caption:= Periods[AValue].Name;
+  end
+  else
+    TimerCount.Enabled:= False;
 end;
 
 end.

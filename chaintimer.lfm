@@ -89,6 +89,7 @@ object FrameTimer: TFrameTimer
     end
   end
   object TimerCount: TTimer
+    Enabled = False
     Interval = 100
     OnTimer = TimerCountTimer
     Left = 16
