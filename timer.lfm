@@ -76,6 +76,7 @@ object FrameTimer: TFrameTimer
       Width = 310
       Caption = 'Pause'
       TabOrder = 0
+      OnClick = ButtonPauseClick
     end
     object ButtonStop: TButton
       Left = 5
@@ -84,6 +85,13 @@ object FrameTimer: TFrameTimer
       Width = 310
       Caption = 'Stop'
       TabOrder = 1
+      OnClick = ButtonStopClick
     end
+  end
+  object TimerCount: TTimer
+    Interval = 100
+    OnTimer = TimerCountTimer
+    Left = 16
+    Top = 16
   end
 end
