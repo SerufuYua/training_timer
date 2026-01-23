@@ -1,8 +1,131 @@
 object FormTTimer: TFormTTimer
   Left = 457
-  Height = 240
+  Height = 418
   Top = 250
   Width = 320
+  AutoSize = True
   Caption = 'Training Timer'
+  ClientHeight = 418
+  ClientWidth = 320
   LCLVersion = '4.4.0.0'
+  object ControlTimer: TPageControl
+    Left = 0
+    Height = 418
+    Top = 0
+    Width = 320
+    ActivePage = TabSettings
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 0
+    object TabSettings: TTabSheet
+      Caption = 'Settings'
+      ClientHeight = 390
+      ClientWidth = 312
+      object PanelSettings: TPanel
+        Left = 0
+        Height = 365
+        Top = 0
+        Width = 312
+        Align = alClient
+        BevelOuter = bvSpace
+        ChildSizing.LeftRightSpacing = 4
+        ChildSizing.TopBottomSpacing = 4
+        ChildSizing.HorizontalSpacing = 4
+        ChildSizing.VerticalSpacing = 4
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 365
+        ClientWidth = 312
+        TabOrder = 0
+        object LabelRounds: TLabel
+          Left = 5
+          Height = 23
+          Top = 5
+          Width = 69
+          Caption = 'Rounds'
+          Layout = tlCenter
+        end
+        object EditRounds: TSpinEdit
+          Left = 78
+          Height = 23
+          Top = 5
+          Width = 103
+          TabOrder = 0
+          Value = 1
+        end
+        object LabelRoundTime: TLabel
+          Left = 5
+          Height = 23
+          Top = 32
+          Width = 69
+          Caption = 'Round Time'
+          Layout = tlCenter
+        end
+        object EditRoundTime: TTimeEdit
+          Left = 78
+          Height = 23
+          Top = 32
+          Width = 103
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Flat = True
+          MaxLength = 0
+          TabOrder = 1
+          Text = '01:00'
+        end
+        object LabelRestTime: TLabel
+          Left = 5
+          Height = 23
+          Top = 59
+          Width = 69
+          Caption = 'Rest Time'
+          Layout = tlCenter
+        end
+        object EditRestTime: TTimeEdit
+          Left = 78
+          Height = 23
+          Top = 59
+          Width = 103
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Flat = True
+          MaxLength = 0
+          TabOrder = 2
+          Text = '01:00'
+        end
+        object LabelPrepareTime: TLabel
+          Left = 5
+          Height = 23
+          Top = 86
+          Width = 69
+          Caption = 'Prepare Time'
+          Layout = tlCenter
+        end
+        object EditPrepareTime: TTimeEdit
+          Left = 78
+          Height = 23
+          Top = 86
+          Width = 103
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Flat = True
+          MaxLength = 0
+          TabOrder = 3
+          Text = '00:10'
+        end
+      end
+      object ButtonStart: TButton
+        Left = 0
+        Height = 25
+        Top = 365
+        Width = 312
+        Align = alBottom
+        Caption = 'Start'
+        TabOrder = 1
+      end
+    end
+    object TabTraining: TTabSheet
+      Caption = 'Training'
+    end
+  end
 end
