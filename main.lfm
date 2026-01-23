@@ -1,0 +1,8 @@
+object FormTTimer: TFormTTimer
+  Left = 457
+  Height = 240
+  Top = 250
+  Width = 320
+  Caption = 'Training Timer'
+  LCLVersion = '4.4.0.0'
+end

@@ -1,0 +1,30 @@
+# Files ignored by GIT version control
+
+# Build tool (and compiler) temporary output
+lib
+
+# Lazarus IDE
+# lps (session settings) are user-specific, so they should not be versioned
+*.lps
+*.dbg
+*.res
+
+# Blender
+*.blend?
+
+# Unix executable
+/TrainingTimer
+# Windows executable
+/TrainingTimer.exe
+# Library files placed alongside Windows executable
+*.dll
+
+# other
+.vscode
+.~*
+*.ini
+*.res
+*.blend[0-9]
+*.conf
+*.log
+backup
