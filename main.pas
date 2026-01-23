@@ -5,8 +5,8 @@ unit main;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, EditBtn,
-  StdCtrls, Spin, ExtCtrls, timer;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  StdCtrls, Spin, ExtCtrls, ChainTimer;
 
 type
 
@@ -14,20 +14,22 @@ type
 
   TFormTTimer = class(TForm)
     ButtonStart: TButton;
-    EditRestTime: TTimeEdit;
-    EditPrepareTime: TTimeEdit;
+    EditPrepareTime: TSpinEdit;
+    EditWarningTime: TSpinEdit;
+    EditRoundTime: TSpinEdit;
+    EditRestTime: TSpinEdit;
     FrameTimerUse: TFrameTimer;
     LabelPrepareTime: TLabel;
+    LabelWarningTime: TLabel;
     LabelRoundTime: TLabel;
     LabelRounds: TLabel;
     LabelRestTime: TLabel;
-    ControlTimer: TPageControl;
+    ControlPageTimer: TPageControl;
     EditRounds: TSpinEdit;
     PanelSettings: TPanel;
     TabSettings: TTabSheet;
     TabTraining: TTabSheet;
-    EditRoundTime: TTimeEdit;
-    procedure PageControl1Change(Sender: TObject);
+    procedure ButtonStartClick(Sender: TObject);
   private
 
   public
@@ -43,9 +45,14 @@ implementation
 
 { TFormTTimer }
 
-procedure TFormTTimer.PageControl1Change(Sender: TObject);
+procedure TFormTTimer.ButtonStartClick(Sender: TObject);
 begin
-
+  FrameTimerUse.Start(EditRounds.Value,
+                      EditRoundTime.Value,
+                      EditRestTime.Value,
+                      EditPrepareTime.Value,
+                      EditWarningTime.Value);
+  ControlPageTimer.ActivePage:= TabTraining;
 end;
 
 end.

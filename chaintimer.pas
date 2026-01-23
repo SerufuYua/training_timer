@@ -1,4 +1,4 @@
-unit timer;
+unit ChainTimer;
 
 {$mode ObjFPC}{$H+}
 
@@ -32,8 +32,7 @@ type
     procedure ResetTimer;
     procedure ShowTime;
   public
-    procedure AddPeriod(AData: TTimePeriod);
-    procedure Start;
+    procedure Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
   end;
 
 implementation
@@ -42,12 +41,7 @@ implementation
 
 { TFrameTimer }
 
-procedure TFrameTimer.AddPeriod(AData: TTimePeriod);
-begin
-
-end;
-
-procedure TFrameTimer.Start;
+procedure TFrameTimer.Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
 begin
   ResetTimer;
   TimerCount.Enabled:= True;

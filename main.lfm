@@ -8,14 +8,14 @@ object FormTTimer: TFormTTimer
   ClientHeight = 418
   ClientWidth = 320
   LCLVersion = '4.4.0.0'
-  object ControlTimer: TPageControl
+  object ControlPageTimer: TPageControl
     Left = 0
     Height = 418
     Top = 0
     Width = 320
-    ActivePage = TabTraining
+    ActivePage = TabSettings
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object TabSettings: TTabSheet
       Caption = 'Settings'
@@ -41,15 +41,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 5
-          Width = 69
+          Width = 74
           Caption = 'Rounds'
           Layout = tlCenter
         end
         object EditRounds: TSpinEdit
-          Left = 78
+          Left = 83
           Height = 23
           Top = 5
-          Width = 103
+          Width = 50
           TabOrder = 0
           Value = 1
         end
@@ -57,61 +57,65 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 32
-          Width = 69
+          Width = 74
           Caption = 'Round Time'
           Layout = tlCenter
         end
-        object EditRoundTime: TTimeEdit
-          Left = 78
+        object EditRoundTime: TSpinEdit
+          Left = 83
           Height = 23
           Top = 32
-          Width = 103
-          ButtonWidth = 23
-          NumGlyphs = 1
-          Flat = True
-          MaxLength = 0
+          Width = 50
           TabOrder = 1
-          Text = '01:00'
+          Value = 90
         end
         object LabelRestTime: TLabel
           Left = 5
           Height = 23
           Top = 59
-          Width = 69
+          Width = 74
           Caption = 'Rest Time'
           Layout = tlCenter
         end
-        object EditRestTime: TTimeEdit
-          Left = 78
+        object EditRestTime: TSpinEdit
+          Left = 83
           Height = 23
           Top = 59
-          Width = 103
-          ButtonWidth = 23
-          NumGlyphs = 1
-          Flat = True
-          MaxLength = 0
+          Width = 50
           TabOrder = 2
-          Text = '01:00'
+          Value = 60
         end
         object LabelPrepareTime: TLabel
           Left = 5
           Height = 23
           Top = 86
-          Width = 69
+          Width = 74
           Caption = 'Prepare Time'
           Layout = tlCenter
         end
-        object EditPrepareTime: TTimeEdit
-          Left = 78
+        object EditPrepareTime: TSpinEdit
+          Left = 83
           Height = 23
           Top = 86
-          Width = 103
-          ButtonWidth = 23
-          NumGlyphs = 1
-          Flat = True
-          MaxLength = 0
+          Width = 50
           TabOrder = 3
-          Text = '00:10'
+          Value = 30
+        end
+        object LabelWarningTime: TLabel
+          Left = 5
+          Height = 23
+          Top = 113
+          Width = 74
+          Caption = 'Warning Time'
+          Layout = tlCenter
+        end
+        object EditWarningTime: TSpinEdit
+          Left = 83
+          Height = 23
+          Top = 113
+          Width = 50
+          TabOrder = 4
+          Value = 10
         end
       end
       object ButtonStart: TButton
@@ -122,6 +126,7 @@ object FormTTimer: TFormTTimer
         Align = alBottom
         Caption = 'Start'
         TabOrder = 1
+        OnClick = ButtonStartClick
       end
     end
     object TabTraining: TTabSheet
@@ -133,6 +138,30 @@ object FormTTimer: TFormTTimer
         Width = 312
         ClientHeight = 390
         ClientWidth = 312
+        inherited PanelCounter: TPanel
+          Height = 326
+          Width = 312
+          ClientHeight = 326
+          ClientWidth = 312
+          inherited LabelTitle: TLabel
+            Width = 302
+          end
+          inherited LabelTime: TLabel
+            Height = 280
+            Width = 302
+          end
+        end
+        inherited PanelControl: TPanel
+          Top = 326
+          Width = 312
+          ClientWidth = 312
+          inherited ButtonPause: TButton
+            Width = 302
+          end
+          inherited ButtonStop: TButton
+            Width = 302
+          end
+        end
       end
     end
   end

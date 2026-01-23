@@ -74,11 +74,12 @@
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
-        <Filename Value="timer.pas"/>
+        <Filename Value="chaintimer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrameTimer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ChainTimer"/>
       </Unit>
     </Units>
   </ProjectOptions>
