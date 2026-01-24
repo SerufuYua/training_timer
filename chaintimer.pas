@@ -54,7 +54,7 @@ var
 
 const
   SoundStart = 'data\sound\start.wav';
-  SoundEnd = 'end.wav';
+  SoundEnd = 'data\sound\end.wav';
   SoundFinal = 'fin.wav';
   SoundWarn = 'warn.wav';
 
