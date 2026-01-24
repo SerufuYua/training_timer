@@ -5,7 +5,7 @@ unit ChainTimer;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls;
+  Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, uplaysound;
 
 type
 
@@ -20,6 +20,7 @@ type
     LabelTitle: TLabel;
     PanelCounter: TPanel;
     PanelControl: TPanel;
+    PlaySound: Tplaysound;
     procedure ButtonPauseClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
     procedure LabelTimeResize(Sender: TObject);
@@ -52,7 +53,7 @@ var
  Periods: TPeriodsList;
 
 const
-  SoundStart = 'start.wav';
+  SoundStart = 'data\sound\start.wav';
   SoundEnd = 'end.wav';
   SoundFinal = 'fin.wav';
   SoundWarn = 'warn.wav';
@@ -118,6 +119,8 @@ begin
   else
   begin
     ShowTime(0);
+    PlaySound.SoundFile:= Periods[Period].FinalSound;
+    PlaySound.Execute;
     Period:= Period + 1;
   end;
 end;
