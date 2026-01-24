@@ -22,6 +22,7 @@ type
     PanelControl: TPanel;
     procedure ButtonPauseClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
+    procedure LabelTimeResize(Sender: TObject);
   protected
     TimerEnable: Boolean;
     FStopEvent: TStopEvent;
@@ -141,6 +142,11 @@ begin
   TimerEnable:= False;
   if Assigned(FStopEvent) then
     FStopEvent();
+end;
+
+procedure TFrameTimer.LabelTimeResize(Sender: TObject);
+begin
+  LabelTime.Font.Height:= LabelTime.Height;
 end;
 
 procedure TFrameTimer.ShowTime(ATimeMs: Cardinal);

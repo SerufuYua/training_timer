@@ -46,10 +46,11 @@ object FrameTimer: TFrameTimer
       Align = alClient
       Alignment = taCenter
       Caption = '00:00'
-      Font.Height = -64
+      Font.Height = 64
       Font.Style = [fsBold]
       Layout = tlCenter
       ParentFont = False
+      OnResize = LabelTimeResize
     end
   end
   object PanelControl: TPanel
