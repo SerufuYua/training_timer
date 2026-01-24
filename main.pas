@@ -29,7 +29,9 @@ type
     PanelSettings: TPanel;
     TabSettings: TTabSheet;
     TabTraining: TTabSheet;
+    TimerCount: TTimer;
     procedure ButtonStartClick(Sender: TObject);
+    procedure TimerCountTimer(Sender: TObject);
   protected
     procedure StopEvent;
   public
@@ -54,6 +56,11 @@ begin
                       EditWarningTime.Value * 1000);
   FrameTimerUse.StopEvent:= {$ifdef FPC}@{$endif}StopEvent;
   ControlPageTimer.ActivePage:= TabTraining;
+end;
+
+procedure TFormTTimer.TimerCountTimer(Sender: TObject);
+begin
+  FrameTimerUse.Update(TimerCount.Interval);
 end;
 
 procedure TFormTTimer.StopEvent;

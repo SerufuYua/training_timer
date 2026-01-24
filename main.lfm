@@ -140,31 +140,13 @@ object FormTTimer: TFormTTimer
         Width = 312
         ClientHeight = 390
         ClientWidth = 312
-        inherited PanelCounter: TPanel
-          Height = 326
-          Width = 312
-          ClientHeight = 326
-          ClientWidth = 312
-          inherited LabelTitle: TLabel
-            Width = 302
-          end
-          inherited LabelTime: TLabel
-            Height = 280
-            Width = 302
-          end
-        end
-        inherited PanelControl: TPanel
-          Top = 326
-          Width = 312
-          ClientWidth = 312
-          inherited ButtonPause: TButton
-            Width = 302
-          end
-          inherited ButtonStop: TButton
-            Width = 302
-          end
-        end
       end
     end
+  end
+  object TimerCount: TTimer
+    Interval = 100
+    OnTimer = TimerCountTimer
+    Left = 40
+    Top = 208
   end
 end

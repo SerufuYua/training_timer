@@ -20,11 +20,10 @@ type
     LabelTitle: TLabel;
     PanelCounter: TPanel;
     PanelControl: TPanel;
-    TimerCount: TTimer;
     procedure ButtonPauseClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
-    procedure TimerCountTimer(Sender: TObject);
   protected
+    TimerEnable: Boolean;
     FStopEvent: TStopEvent;
     FPeriod: Integer;
     FWarningTime: Cardinal;
@@ -32,6 +31,7 @@ type
     procedure ShowTime(ATimeMs: Cardinal);
     procedure SetPeriod(AValue: Integer);
   public
+    procedure Update(ATimeMsElapsed: Cardinal);
     procedure Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
     property Period: Integer read FPeriod write SetPeriod;
     property StopEvent: TStopEvent write FStopEvent;
@@ -64,7 +64,7 @@ procedure TFrameTimer.Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTi
 var
  i, lastPeriod: Integer;
 begin
-  TimerCount.Enabled:= False;
+  TimerEnable:= False;
 
   { prepare periods list }
   FWarningTime:= AWarningTime;
@@ -97,7 +97,7 @@ begin
 
   { enable timer }
   ResetTimer;
-  TimerCount.Enabled:= True;
+  TimerEnable:= True;
 end;
 
 procedure TFrameTimer.ResetTimer;
@@ -105,11 +105,13 @@ begin
   Period:= 0;
 end;
 
-procedure TFrameTimer.TimerCountTimer(Sender: TObject);
+procedure TFrameTimer.Update(ATimeMsElapsed: Cardinal);
 begin
-  if (Periods[Period].TimeMs > TimerCount.Interval) then
+  if (NOT TimerEnable) then Exit;
+
+  if (Periods[Period].TimeMs > ATimeMsElapsed) then
   begin
-    Periods[Period].TimeMs:= Periods[Period].TimeMs - TimerCount.Interval;
+    Periods[Period].TimeMs:= Periods[Period].TimeMs - ATimeMsElapsed;
     ShowTime(Periods[Period].TimeMs);
   end
   else
@@ -121,14 +123,14 @@ end;
 
 procedure TFrameTimer.ButtonPauseClick(Sender: TObject);
 begin
-  if TimerCount.Enabled then
+  if TimerEnable then
   begin
-    TimerCount.Enabled:= False;
+    TimerEnable:= False;
     ButtonPause.Caption:= 'Continue';
   end
   else
   begin
-    TimerCount.Enabled:= True;
+    TimerEnable:= True;
     ButtonPause.Caption:= 'Pause';
   end;
 
@@ -136,7 +138,7 @@ end;
 
 procedure TFrameTimer.ButtonStopClick(Sender: TObject);
 begin
-  TimerCount.Enabled:= False;
+  TimerEnable:= False;
   if Assigned(FStopEvent) then
     FStopEvent();
 end;
@@ -160,7 +162,7 @@ begin
     LabelTitle.Caption:= Periods[AValue].Name;
   end
   else
-    TimerCount.Enabled:= False;
+    TimerEnable:= False;
 end;
 
 end.
