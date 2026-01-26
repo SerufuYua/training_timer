@@ -28,13 +28,13 @@ type
     TimerEnable: Boolean;
     FStopEvent: TStopEvent;
     FPeriod: Integer;
-    FWarningTime: Cardinal;
+    FWarningTimeMs: Cardinal;
     procedure ResetTimer;
     procedure ShowTime(ATimeMs: Cardinal);
     procedure SetPeriod(AValue: Integer);
   public
     procedure TimeUpdate(ATimeMsElapsed: Cardinal);
-    procedure Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
+    procedure Start(APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
     property Period: Integer read FPeriod write SetPeriod;
     property StopEvent: TStopEvent write FStopEvent;
   end;
@@ -44,7 +44,7 @@ implementation
 type
   TTimePeriod = record
     Name, FinalSound: String;
-    TimeMs: Integer;
+    TimeMs: Cardinal;
   end;
 
   TPeriodsList = Array of TTimePeriod;
@@ -63,19 +63,19 @@ const
 
 { TFrameTimer }
 
-procedure TFrameTimer.Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
+procedure TFrameTimer.Start(APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
 var
  i, lastPeriod: Integer;
 begin
   TimerEnable:= False;
 
   { prepare periods list }
-  FWarningTime:= AWarningTime;
+  FWarningTimeMs:= AWarningTimeMs;
   SetLength(Periods, APeriods * 2);
 
   Periods[0].Name:= 'Prepare';
   Periods[0].FinalSound:= SoundStart;
-  Periods[0].TimeMs:= APrepareTime;
+  Periods[0].TimeMs:= APrepareTimeMs;
 
   lastPeriod:= APeriods * 2 - 1;
 
@@ -84,13 +84,13 @@ begin
     if ((i mod 2) = 0) then
     begin
       Periods[i].Name:= 'Rest';
-      Periods[i].TimeMs:= ARestTime;
+      Periods[i].TimeMs:= ARestTimeMs;
       Periods[i].FinalSound:= SoundStart;
     end
     else
     begin
       Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1);
-      Periods[i].TimeMs:= ARoundTime;
+      Periods[i].TimeMs:= ARoundTimeMs;
       if (i = lastPeriod) then
         Periods[i].FinalSound:= SoundFinal
       else
@@ -121,7 +121,7 @@ end;
 begin
   if (NOT TimerEnable) then Exit;
 
-  if IsTime(FWarningTime) then
+  if IsTime(FWarningTimeMs) then
   begin
     PlaySound.SoundFile:= SoundWarn;
     PlaySound.Execute;
