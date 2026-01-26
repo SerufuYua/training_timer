@@ -55,8 +55,9 @@ var
 const
   SoundStart = 'data\sound\start.wav';
   SoundEnd = 'data\sound\end.wav';
-  SoundFinal = 'fin.wav';
+  SoundFinal = 'data\sound\fin.wav';
   SoundWarn = 'data\sound\warn.wav';
+  SoundInit = 'data\sound\init.wav';
 
 {$R *.lfm}
 
@@ -108,13 +109,27 @@ begin
 end;
 
 procedure TFrameTimer.Update(ATimeMsElapsed: Cardinal);
+const
+  initTime = 1000;
+
+function IsTime(thisTime: Cardinal): Boolean; inline;
+begin
+  Result:= ((Periods[Period].TimeMs >= thisTime) AND
+            ((Periods[Period].TimeMs - ATimeMsElapsed) < thisTime));
+end;
+
 begin
   if (NOT TimerEnable) then Exit;
 
-  if ((Periods[Period].TimeMs >= FWarningTime) AND
-      ((Periods[Period].TimeMs - ATimeMsElapsed) < FWarningTime)) then
+  if IsTime(FWarningTime) then
   begin
     PlaySound.SoundFile:= SoundWarn;
+    PlaySound.Execute;
+  end
+  else
+  if (IsTime(initTime) OR IsTime(initTime * 2) OR IsTime(initTime * 3)) then
+  begin
+    PlaySound.SoundFile:= SoundInit;
     PlaySound.Execute;
   end;
 
