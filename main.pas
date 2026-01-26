@@ -60,7 +60,7 @@ end;
 
 procedure TFormTTimer.TimerCountTimer(Sender: TObject);
 begin
-  FrameTimerUse.Update(TimerCount.Interval);
+  FrameTimerUse.TimeUpdate(TimerCount.Interval);
 end;
 
 procedure TFormTTimer.StopEvent;

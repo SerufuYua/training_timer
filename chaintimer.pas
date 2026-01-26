@@ -33,7 +33,7 @@ type
     procedure ShowTime(ATimeMs: Cardinal);
     procedure SetPeriod(AValue: Integer);
   public
-    procedure Update(ATimeMsElapsed: Cardinal);
+    procedure TimeUpdate(ATimeMsElapsed: Cardinal);
     procedure Start(APeriods: Integer; ARoundTime, ARestTime, APrepareTime, AWarningTime: Cardinal);
     property Period: Integer read FPeriod write SetPeriod;
     property StopEvent: TStopEvent write FStopEvent;
@@ -108,7 +108,7 @@ begin
   Period:= 0;
 end;
 
-procedure TFrameTimer.Update(ATimeMsElapsed: Cardinal);
+procedure TFrameTimer.TimeUpdate(ATimeMsElapsed: Cardinal);
 const
   initTime = 1000;
 
