@@ -3,11 +3,11 @@ object FormTTimer: TFormTTimer
   Height = 418
   Top = 250
   Width = 320
-  AutoSize = True
   BorderIcons = [biSystemMenu]
   Caption = 'Training Timer'
   ClientHeight = 418
   ClientWidth = 320
+  SessionProperties = 'Height;Width'
   LCLVersion = '4.4.0.0'
   object ControlPageTimer: TPageControl
     Left = 0
@@ -20,13 +20,27 @@ object FormTTimer: TFormTTimer
     TabOrder = 0
     object TabSettings: TTabSheet
       Caption = 'Settings'
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
       ClientHeight = 390
       ClientWidth = 312
+      object BoxSettings: TComboBox
+        Left = 4
+        Height = 23
+        Top = 4
+        Width = 304
+        Align = alTop
+        ItemHeight = 15
+        TabOrder = 2
+        Text = 'BoxSettings'
+      end
       object PanelSettings: TPanel
-        Left = 0
-        Height = 365
-        Top = 0
-        Width = 312
+        Left = 4
+        Height = 326
+        Top = 31
+        Width = 304
         Align = alClient
         BevelOuter = bvSpace
         ChildSizing.LeftRightSpacing = 4
@@ -36,22 +50,22 @@ object FormTTimer: TFormTTimer
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 365
-        ClientWidth = 312
+        ClientHeight = 326
+        ClientWidth = 304
         TabOrder = 0
         object LabelRounds: TLabel
           Left = 5
           Height = 23
           Top = 5
-          Width = 161
+          Width = 157
           Caption = 'Rounds'
           Layout = tlCenter
         end
         object EditRounds: TSpinEdit
-          Left = 170
+          Left = 166
           Height = 23
           Top = 5
-          Width = 137
+          Width = 133
           TabOrder = 0
           Value = 3
         end
@@ -59,15 +73,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 32
-          Width = 161
+          Width = 157
           Caption = 'Round Time'
           Layout = tlCenter
         end
         object EditRoundTime: TSpinEdit
-          Left = 170
+          Left = 166
           Height = 23
           Top = 32
-          Width = 137
+          Width = 133
           TabOrder = 1
           Value = 90
         end
@@ -75,15 +89,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 59
-          Width = 161
+          Width = 157
           Caption = 'Rest Time'
           Layout = tlCenter
         end
         object EditRestTime: TSpinEdit
-          Left = 170
+          Left = 166
           Height = 23
           Top = 59
-          Width = 137
+          Width = 133
           TabOrder = 2
           Value = 60
         end
@@ -91,15 +105,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 86
-          Width = 161
+          Width = 157
           Caption = 'Prepare Time'
           Layout = tlCenter
         end
         object EditPrepareTime: TSpinEdit
-          Left = 170
+          Left = 166
           Height = 23
           Top = 86
-          Width = 137
+          Width = 133
           TabOrder = 3
           Value = 30
         end
@@ -107,24 +121,24 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 113
-          Width = 161
+          Width = 157
           Caption = 'Warning Time'
           Layout = tlCenter
         end
         object EditWarningTime: TSpinEdit
-          Left = 170
+          Left = 166
           Height = 23
           Top = 113
-          Width = 137
+          Width = 133
           TabOrder = 4
           Value = 10
         end
       end
       object ButtonStart: TButton
-        Left = 0
+        Left = 4
         Height = 25
-        Top = 365
-        Width = 312
+        Top = 361
+        Width = 304
         Align = alBottom
         Caption = 'Start'
         TabOrder = 1
@@ -140,6 +154,30 @@ object FormTTimer: TFormTTimer
         Width = 312
         ClientHeight = 390
         ClientWidth = 312
+        inherited PanelCounter: TPanel
+          Height = 326
+          Width = 312
+          ClientHeight = 326
+          ClientWidth = 312
+          inherited LabelTitle: TLabel
+            Width = 302
+          end
+          inherited LabelTime: TLabel
+            Height = 280
+            Width = 302
+          end
+        end
+        inherited PanelControl: TPanel
+          Top = 326
+          Width = 312
+          ClientWidth = 312
+          inherited ButtonPause: TButton
+            Width = 302
+          end
+          inherited ButtonStop: TButton
+            Width = 302
+          end
+        end
       end
     end
   end
@@ -148,5 +186,12 @@ object FormTTimer: TFormTTimer
     OnTimer = TimerCountTimer
     Left = 40
     Top = 208
+  end
+  object PropStorage: TXMLPropStorage
+    StoredValues = <>
+    FileName = 'settings.xml'
+    RootNodePath = 'main'
+    Left = 40
+    Top = 272
   end
 end

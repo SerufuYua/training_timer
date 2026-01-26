@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  StdCtrls, Spin, ExtCtrls, ChainTimer;
+  StdCtrls, Spin, ExtCtrls, XMLPropStorage, ChainTimer;
 
 type
 
@@ -14,6 +14,7 @@ type
 
   TFormTTimer = class(TForm)
     ButtonStart: TButton;
+    BoxSettings: TComboBox;
     EditPrepareTime: TSpinEdit;
     EditWarningTime: TSpinEdit;
     EditRoundTime: TSpinEdit;
@@ -30,6 +31,7 @@ type
     TabSettings: TTabSheet;
     TabTraining: TTabSheet;
     TimerCount: TTimer;
+    PropStorage: TXMLPropStorage;
     procedure ButtonStartClick(Sender: TObject);
     procedure TimerCountTimer(Sender: TObject);
   protected
