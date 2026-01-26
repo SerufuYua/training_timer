@@ -27,4 +27,6 @@ lib
 *.blend[0-9]
 *.conf
 *.log
+*.aup3-shm
+*.aup3-wal
 backup
