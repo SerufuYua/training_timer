@@ -3,7 +3,7 @@ object FormTTimer: TFormTTimer
   Height = 418
   Top = 250
   Width = 320
-  BorderIcons = [biSystemMenu]
+  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Training Timer'
   ClientHeight = 418
   ClientWidth = 320
@@ -351,9 +351,20 @@ object FormTTimer: TFormTTimer
               Width = 302
             end
           end
-          inherited LabelTime: TLabel
+          inherited PanelTime: TPanel
             Height = 264
             Width = 302
+            ClientHeight = 264
+            ClientWidth = 302
+            inherited LabelTime: TLabel
+              Height = 130
+              Width = 302
+            end
+            inherited ShapeSignal: TShape
+              Height = 130
+              Top = 134
+              Width = 302
+            end
           end
         end
         inherited PanelControl: TPanel
