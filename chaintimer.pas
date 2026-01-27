@@ -14,6 +14,7 @@ type
   { TFrameTimer }
 
   TFrameTimer = class(TFrame)
+    ButtonRestart: TButton;
     ButtonStop: TButton;
     ButtonPause: TButton;
     LabelTime: TLabel;
@@ -26,6 +27,7 @@ type
     PlaySound: Tplaysound;
     ShapeSignal: TShape;
     procedure ButtonPauseClick(Sender: TObject);
+    procedure ButtonRestartClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
     procedure LabelTimeResize(Sender: TObject);
   protected
@@ -202,6 +204,11 @@ begin
     ButtonPause.Caption:= 'Pause';
   end;
 
+end;
+
+procedure TFrameTimer.ButtonRestartClick(Sender: TObject);
+begin
+  ResetTimer;
 end;
 
 procedure TFrameTimer.ButtonStopClick(Sender: TObject);
