@@ -5,7 +5,7 @@ unit ChainTimer;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, uplaysound;
+  Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, Graphics, uplaysound;
 
 type
 
@@ -34,6 +34,7 @@ type
     FPeriod: Integer;
     FPeriodTimeMs, FWarningTimeMs: Cardinal;
     FFinalSound: String;
+    FSignalColor: TColor;
     procedure ResetTimer;
     procedure ShowTime(ATimeMs: Cardinal);
     procedure WritePeriod(AValue: Integer);
@@ -45,9 +46,6 @@ type
   end;
 
 implementation
-
-uses
-  Graphics;
 
 type
   TTimePeriod = record
@@ -136,6 +134,7 @@ end;
 begin
   if (NOT TimerEnable) then Exit;
 
+  { warning and initial signals }
   if IsTime(FWarningTimeMs) then
   begin
     PlaySound.SoundFile:= SoundWarn;
@@ -148,6 +147,34 @@ begin
     PlaySound.Execute;
   end;
 
+  { color blink initial signal }
+  if (IsTime(initTime * 1) OR
+      IsTime(initTime * 2) OR
+      IsTime(initTime * 3)) then
+  begin
+    ShapeSignal.Brush.Color:= clBlack;
+  end
+  else
+  if (IsTime(initTime * 1 - (initTime div 2)) OR
+      IsTime(initTime * 2 - (initTime div 2)) OR
+      IsTime(initTime * 3 - (initTime div 2))) then
+  begin
+    ShapeSignal.Brush.Color:= FSignalColor;
+  end;
+
+  { color blink warning signal }
+  if IsTime(FWarningTimeMs) then
+  begin
+    ShapeSignal.Brush.Color:= clGray;
+  end
+  else
+  if ((FWarningTimeMs > initTime) AND
+      (IsTime(FWarningTimeMs - (initTime div 2)))) then
+  begin
+    ShapeSignal.Brush.Color:= FSignalColor;
+  end;
+
+  { count time and change period }
   if (FPeriodTimeMs > ATimeMsElapsed) then
   begin
     FPeriodTimeMs:= FPeriodTimeMs - ATimeMsElapsed;
@@ -206,7 +233,8 @@ begin
     FPeriod:= AValue;
     ShowTime(Periods[AValue].TimeMs);
     LabelPeriod.Caption:= Periods[AValue].Name;
-    ShapeSignal.Brush.Color:= Periods[AValue].Color;
+    FSignalColor:= Periods[AValue].Color;
+    ShapeSignal.Brush.Color:= FSignalColor;
     FWarningTimeMs:= Periods[AValue].WarningTimeMs;
     FPeriodTimeMs:= Periods[AValue].TimeMs;
     FFinalSound:= Periods[AValue].FinalSound;
