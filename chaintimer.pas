@@ -19,10 +19,12 @@ type
     LabelTime: TLabel;
     LabelPeriod: TLabel;
     LabelSet: TLabel;
+    PanelTime: TPanel;
     PanelLabels: TPanel;
     PanelCounter: TPanel;
     PanelControl: TPanel;
     PlaySound: Tplaysound;
+    ShapeSignal: TShape;
     procedure ButtonPauseClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
     procedure LabelTimeResize(Sender: TObject);
@@ -43,10 +45,14 @@ type
 
 implementation
 
+uses
+  Graphics;
+
 type
   TTimePeriod = record
     Name, FinalSound: String;
     TimeMs: Cardinal;
+    Color: TColor;
   end;
 
   TPeriodsList = Array of TTimePeriod;
@@ -80,6 +86,7 @@ begin
   Periods[0].Name:= 'Prepare';
   Periods[0].FinalSound:= SoundStart;
   Periods[0].TimeMs:= APrepareTimeMs;
+  Periods[0].Color:= clLime;
 
   lastPeriod:= APeriods * 2 - 1;
 
@@ -90,11 +97,13 @@ begin
       Periods[i].Name:= 'Rest';
       Periods[i].TimeMs:= ARestTimeMs;
       Periods[i].FinalSound:= SoundStart;
+      Periods[i].Color:= clYellow;
     end
     else
     begin
       Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1);
       Periods[i].TimeMs:= ARoundTimeMs;
+      Periods[i].Color:= clRed;
       if (i = lastPeriod) then
         Periods[i].FinalSound:= SoundFinal
       else
@@ -195,6 +204,7 @@ begin
     FPeriod:= AValue;
     ShowTime(Periods[AValue].TimeMs);
     LabelPeriod.Caption:= Periods[AValue].Name;
+    ShapeSignal.Brush.Color:= Periods[AValue].Color;
   end
   else
     TimerEnable:= False;

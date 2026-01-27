@@ -63,19 +63,44 @@ object FrameTimer: TFrameTimer
         ParentFont = False
       end
     end
-    object LabelTime: TLabel
+    object PanelTime: TPanel
       Left = 5
       Height = 94
       Top = 77
       Width = 310
       Align = alClient
-      Alignment = taCenter
-      Caption = '00:00'
-      Font.Height = 64
-      Font.Style = [fsBold]
-      Layout = tlCenter
-      ParentFont = False
-      OnResize = LabelTimeResize
+      BevelOuter = bvNone
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsSameSize
+      ChildSizing.EnlargeVertical = crsSameSize
+      ChildSizing.ShrinkHorizontal = crsSameSize
+      ChildSizing.ShrinkVertical = crsSameSize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ClientHeight = 94
+      ClientWidth = 310
+      TabOrder = 1
+      object LabelTime: TLabel
+        Left = 0
+        Height = 45
+        Top = 0
+        Width = 310
+        Alignment = taCenter
+        Caption = '00:00'
+        Font.Height = 64
+        Font.Style = [fsBold]
+        Layout = tlCenter
+        ParentFont = False
+        OnResize = LabelTimeResize
+      end
+      object ShapeSignal: TShape
+        Left = 0
+        Height = 45
+        Top = 49
+        Width = 310
+        Pen.Color = clYellow
+        Pen.Width = 3
+        Shape = stCircle
+      end
     end
   end
   object PanelControl: TPanel
