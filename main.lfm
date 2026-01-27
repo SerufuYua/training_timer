@@ -17,6 +17,7 @@ object FormTTimer: TFormTTimer
     Width = 320
     ActivePage = TabSettings
     Align = alClient
+    ShowTabs = False
     TabIndex = 0
     TabOrder = 0
     object TabSettings: TTabSheet
@@ -25,7 +26,7 @@ object FormTTimer: TFormTTimer
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 4
       ChildSizing.VerticalSpacing = 4
-      ClientHeight = 390
+      ClientHeight = 410
       ClientWidth = 312
       object PanelSets: TPanel
         Left = 4
@@ -101,17 +102,17 @@ object FormTTimer: TFormTTimer
       end
       object PanelSettingsCompose: TPanel
         Left = 4
-        Height = 316
+        Height = 336
         Top = 41
         Width = 304
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 316
+        ClientHeight = 336
         ClientWidth = 304
         TabOrder = 2
         object PanelSettings: TPanel
           Left = 0
-          Height = 316
+          Height = 336
           Top = 0
           Width = 302
           Align = alLeft
@@ -123,7 +124,7 @@ object FormTTimer: TFormTTimer
           ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 316
+          ClientHeight = 336
           ClientWidth = 302
           TabOrder = 0
           object LabelName: TLabel
@@ -176,6 +177,27 @@ object FormTTimer: TFormTTimer
             ClientHeight = 23
             ClientWidth = 174
             TabOrder = 2
+            inherited PanelMin: TPanel
+              Width = 83
+              ClientWidth = 83
+              inherited EditMin: TSpinEdit
+                Width = 68
+              end
+              inherited LabelMin: TLabel
+                Left = 72
+              end
+            end
+            inherited PanelSec: TPanel
+              Left = 91
+              Width = 83
+              ClientWidth = 83
+              inherited EditSec: TSpinEdit
+                Width = 73
+              end
+              inherited LabelSec: TLabel
+                Left = 77
+              end
+            end
           end
           object LabelRestTime: TLabel
             Left = 5
@@ -193,6 +215,27 @@ object FormTTimer: TFormTTimer
             ClientHeight = 23
             ClientWidth = 174
             TabOrder = 3
+            inherited PanelMin: TPanel
+              Width = 83
+              ClientWidth = 83
+              inherited EditMin: TSpinEdit
+                Width = 68
+              end
+              inherited LabelMin: TLabel
+                Left = 72
+              end
+            end
+            inherited PanelSec: TPanel
+              Left = 91
+              Width = 83
+              ClientWidth = 83
+              inherited EditSec: TSpinEdit
+                Width = 73
+              end
+              inherited LabelSec: TLabel
+                Left = 77
+              end
+            end
           end
           object LabelPrepareTime: TLabel
             Left = 5
@@ -210,6 +253,27 @@ object FormTTimer: TFormTTimer
             ClientHeight = 23
             ClientWidth = 174
             TabOrder = 4
+            inherited PanelMin: TPanel
+              Width = 83
+              ClientWidth = 83
+              inherited EditMin: TSpinEdit
+                Width = 68
+              end
+              inherited LabelMin: TLabel
+                Left = 72
+              end
+            end
+            inherited PanelSec: TPanel
+              Left = 91
+              Width = 83
+              ClientWidth = 83
+              inherited EditSec: TSpinEdit
+                Width = 73
+              end
+              inherited LabelSec: TLabel
+                Left = 77
+              end
+            end
           end
           object LabelWarningTime: TLabel
             Left = 5
@@ -227,13 +291,34 @@ object FormTTimer: TFormTTimer
             ClientHeight = 23
             ClientWidth = 174
             TabOrder = 5
+            inherited PanelMin: TPanel
+              Width = 83
+              ClientWidth = 83
+              inherited EditMin: TSpinEdit
+                Width = 68
+              end
+              inherited LabelMin: TLabel
+                Left = 72
+              end
+            end
+            inherited PanelSec: TPanel
+              Left = 91
+              Width = 83
+              ClientWidth = 83
+              inherited EditSec: TSpinEdit
+                Width = 73
+              end
+              inherited LabelSec: TLabel
+                Left = 77
+              end
+            end
           end
         end
       end
       object ButtonStart: TButton
         Left = 4
         Height = 25
-        Top = 361
+        Top = 381
         Width = 304
         Align = alBottom
         Caption = 'Start'
@@ -243,13 +328,44 @@ object FormTTimer: TFormTTimer
     end
     object TabTraining: TTabSheet
       Caption = 'Training'
-      ClientHeight = 390
+      ClientHeight = 410
       ClientWidth = 312
       inline FrameTimerUse: TFrameTimer
-        Height = 390
+        Height = 410
         Width = 312
-        ClientHeight = 390
+        ClientHeight = 410
         ClientWidth = 312
+        inherited PanelCounter: TPanel
+          Height = 346
+          Width = 312
+          ClientHeight = 346
+          ClientWidth = 312
+          inherited PanelLabels: TPanel
+            Width = 302
+            ClientWidth = 302
+            inherited LabelSet: TLabel
+              Width = 302
+            end
+            inherited LabelPeriod: TLabel
+              Width = 302
+            end
+          end
+          inherited LabelTime: TLabel
+            Height = 264
+            Width = 302
+          end
+        end
+        inherited PanelControl: TPanel
+          Top = 346
+          Width = 312
+          ClientWidth = 312
+          inherited ButtonPause: TButton
+            Width = 302
+          end
+          inherited ButtonStop: TButton
+            Width = 302
+          end
+        end
       end
     end
   end
