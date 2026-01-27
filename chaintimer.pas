@@ -182,7 +182,7 @@ procedure TFrameTimer.ShowTime(ATimeMs: Cardinal);
 var
   min, sec: Cardinal;
 begin
-  sec:= ATimeMs div 1000;
+  sec:= (ATimeMs + 1) div 1000;
   min:= sec div 60;
   sec:= sec - (min * 60);
   LabelTime.Caption:= IntToStr(min) + ':' + IntToStr(sec);
