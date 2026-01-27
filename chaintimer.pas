@@ -32,7 +32,8 @@ type
     TimerEnable: Boolean;
     FStopEvent: TStopEvent;
     FPeriod: Integer;
-    FWarningTimeMs: Cardinal;
+    FPeriodTimeMs, FWarningTimeMs: Cardinal;
+    FFinalSound: String;
     procedure ResetTimer;
     procedure ShowTime(ATimeMs: Cardinal);
     procedure WritePeriod(AValue: Integer);
@@ -51,7 +52,7 @@ uses
 type
   TTimePeriod = record
     Name, FinalSound: String;
-    TimeMs: Cardinal;
+    TimeMs, WarningTimeMs: Cardinal;
     Color: TColor;
   end;
 
@@ -80,12 +81,12 @@ begin
   LabelSet.Caption:= ASetName;
 
   { prepare periods list }
-  FWarningTimeMs:= AWarningTimeMs;
   SetLength(Periods, APeriods * 2);
 
   Periods[0].Name:= 'Prepare';
   Periods[0].FinalSound:= SoundStart;
   Periods[0].TimeMs:= APrepareTimeMs;
+  Periods[0].WarningTimeMs:= AWarningTimeMs;
   Periods[0].Color:= clLime;
 
   lastPeriod:= APeriods * 2 - 1;
@@ -103,6 +104,7 @@ begin
     begin
       Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1);
       Periods[i].TimeMs:= ARoundTimeMs;
+      Periods[i].WarningTimeMs:= AWarningTimeMs;
       Periods[i].Color:= clRed;
       if (i = lastPeriod) then
         Periods[i].FinalSound:= SoundFinal
@@ -127,8 +129,8 @@ const
 
 function IsTime(thisTime: Cardinal): Boolean; inline;
 begin
-  Result:= ((Periods[Period].TimeMs >= thisTime) AND
-            ((Periods[Period].TimeMs - ATimeMsElapsed) < thisTime));
+  Result:= ((FPeriodTimeMs >= thisTime) AND
+            ((FPeriodTimeMs - ATimeMsElapsed) < thisTime));
 end;
 
 begin
@@ -146,15 +148,15 @@ begin
     PlaySound.Execute;
   end;
 
-  if (Periods[Period].TimeMs > ATimeMsElapsed) then
+  if (FPeriodTimeMs > ATimeMsElapsed) then
   begin
-    Periods[Period].TimeMs:= Periods[Period].TimeMs - ATimeMsElapsed;
-    ShowTime(Periods[Period].TimeMs);
+    FPeriodTimeMs:= FPeriodTimeMs - ATimeMsElapsed;
+    ShowTime(FPeriodTimeMs);
   end
   else
   begin
     ShowTime(0);
-    PlaySound.SoundFile:= Periods[Period].FinalSound;
+    PlaySound.SoundFile:= FFinalSound;
     PlaySound.Execute;
     Period:= Period + 1;
   end;
@@ -205,6 +207,9 @@ begin
     ShowTime(Periods[AValue].TimeMs);
     LabelPeriod.Caption:= Periods[AValue].Name;
     ShapeSignal.Brush.Color:= Periods[AValue].Color;
+    FWarningTimeMs:= Periods[AValue].WarningTimeMs;
+    FPeriodTimeMs:= Periods[AValue].TimeMs;
+    FFinalSound:= Periods[AValue].FinalSound;
   end
   else
     TimerEnable:= False;
