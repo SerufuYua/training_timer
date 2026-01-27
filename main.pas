@@ -13,6 +13,9 @@ type
   { TFormTTimer }
 
   TFormTTimer = class(TForm)
+    ButtonAddSet: TButton;
+    ButtonRemoveSet: TButton;
+    ButtonSeveSets: TButton;
     ButtonStart: TButton;
     BoxSettings: TComboBox;
     EditName: TEdit;
@@ -29,12 +32,15 @@ type
     LabelRestTime: TLabel;
     ControlPageTimer: TPageControl;
     EditRounds: TSpinEdit;
+    PanelSetsControl: TPanel;
+    PanelSets: TPanel;
     PanelSettings: TPanel;
     TabSettings: TTabSheet;
     TabTraining: TTabSheet;
     TimeCounter: TTimer;
     PropStorage: TXMLPropStorage;
     procedure BoxSettingsChange(Sender: TObject);
+    procedure ButtonSetControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
     procedure PropStorageRestoreProperties(Sender: TObject);
@@ -45,8 +51,10 @@ type
     procedure LoadSettings;
     procedure UpdateSettingsBox;
     procedure StopEvent;
+    procedure WriteSetIndex(AValue: Integer);
+    function ReadSetIndex: Integer;
   public
-
+    property SetIndex: Integer read ReadSetIndex write WriteSetIndex;
   end;
 
 var
@@ -61,10 +69,18 @@ type
     RoundTimeMs, RestTimeMs, PrepareTimeMs, WarningTimeMs: Cardinal;
   end;
 
-  TSettingsSimpleList = Array[0..9] of TSettingsSimple;
+  TSettingsSimpleList = Array of TSettingsSimple;
 
 var
   SettingsSimpleList: TSettingsSimpleList;
+
+const
+  DefaultName = 'New Set';
+  DefaultRounds = 2;
+  DefaultRoundTimeMs = 90000;
+  DefaultRestTimeMs = 60000;
+  DefaultPrepareTimeMs = 30000;
+  DefaultWarningTimeMs = 10000;
 
 {$R *.lfm}
 
@@ -98,7 +114,7 @@ var
   editStr: TEdit;
   editNum: TSpinEdit;
 begin
-  if ((NOT (Sender is TComponent)) OR (BoxSettings.ItemIndex < 0)) then Exit;
+  if ((NOT (Sender is TComponent)) OR (SetIndex < 0)) then Exit;
 
   component:= Sender as TComponent;
 
@@ -106,48 +122,89 @@ begin
     'EditName':
     begin
       editStr:= component as TEdit;
-      SettingsSimpleList[BoxSettings.ItemIndex].Name:= editStr.Caption;
-      BoxSettings.Items[BoxSettings.ItemIndex]:= editStr.Caption;
-      SettingsSimpleList[BoxSettings.ItemIndex].Name:= editStr.Caption;
+      SettingsSimpleList[SetIndex].Name:= editStr.Caption;
+      BoxSettings.Items[SetIndex]:= editStr.Caption;
+      SettingsSimpleList[SetIndex].Name:= editStr.Caption;
     end;
     'EditRounds':
     begin
       editNum:= component as TSpinEdit;
-      SettingsSimpleList[BoxSettings.ItemIndex].Rounds:= editNum.Value;
+      SettingsSimpleList[SetIndex].Rounds:= editNum.Value;
     end;
     'EditRoundTimeS':
     begin
       editNum:= component as TSpinEdit;
-      SettingsSimpleList[BoxSettings.ItemIndex].RoundTimeMs:= editNum.Value * 1000;
+      SettingsSimpleList[SetIndex].RoundTimeMs:= editNum.Value * 1000;
     end;
     'EditRestTimeS':
     begin
       editNum:= component as TSpinEdit;
-      SettingsSimpleList[BoxSettings.ItemIndex].RestTimeMs:= editNum.Value * 1000;
+      SettingsSimpleList[SetIndex].RestTimeMs:= editNum.Value * 1000;
     end;
     'EditPrepareTimeS':
     begin
       editNum:= component as TSpinEdit;
-      SettingsSimpleList[BoxSettings.ItemIndex].PrepareTimeMs:= editNum.Value * 1000;
+      SettingsSimpleList[SetIndex].PrepareTimeMs:= editNum.Value * 1000;
     end;
     'EditWarningTimeS':
     begin
       editNum:= component as TSpinEdit;
-      SettingsSimpleList[BoxSettings.ItemIndex].WarningTimeMs:= editNum.Value * 1000;
+      SettingsSimpleList[SetIndex].WarningTimeMs:= editNum.Value * 1000;
     end;
   end;
 end;
 
 procedure TFormTTimer.BoxSettingsChange(Sender: TObject);
 begin
-  if (BoxSettings.ItemIndex < 0) then Exit;
+  if (SetIndex < 0) then Exit;
 
-  EditName.Caption:= SettingsSimpleList[BoxSettings.ItemIndex].Name;
-  EditRounds.Value:= SettingsSimpleList[BoxSettings.ItemIndex].Rounds;
-  EditRoundTimeS.Value:= SettingsSimpleList[BoxSettings.ItemIndex].RoundTimeMs div 1000;
-  EditRestTimeS.Value:= SettingsSimpleList[BoxSettings.ItemIndex].RestTimeMs div 1000;
-  EditPrepareTimeS.Value:= SettingsSimpleList[BoxSettings.ItemIndex].PrepareTimeMs div 1000;
-  EditWarningTimeS.Value:= SettingsSimpleList[BoxSettings.ItemIndex].WarningTimeMs div 1000;
+  EditName.Caption:= SettingsSimpleList[SetIndex].Name;
+  EditRounds.Value:= SettingsSimpleList[SetIndex].Rounds;
+  EditRoundTimeS.Value:= SettingsSimpleList[SetIndex].RoundTimeMs div 1000;
+  EditRestTimeS.Value:= SettingsSimpleList[SetIndex].RestTimeMs div 1000;
+  EditPrepareTimeS.Value:= SettingsSimpleList[SetIndex].PrepareTimeMs div 1000;
+  EditWarningTimeS.Value:= SettingsSimpleList[SetIndex].WarningTimeMs div 1000;
+end;
+
+procedure TFormTTimer.ButtonSetControlClick(Sender: TObject);
+var
+  component: TComponent;
+  idx: Integer;
+begin
+  if (NOT (Sender is TComponent)) then Exit;
+
+  component:= Sender as TComponent;
+
+  case component.Name of
+    'ButtonAddSet':
+    begin
+      SetLength(SettingsSimpleList, (Length(SettingsSimpleList) + 1));
+      idx:= High(SettingsSimpleList);
+      SettingsSimpleList[idx].Name:= DefaultName;
+      SettingsSimpleList[idx].Rounds:= DefaultRounds;
+      SettingsSimpleList[idx].RoundTimeMs:= DefaultRoundTimeMs;
+      SettingsSimpleList[idx].RestTimeMs:= DefaultRestTimeMs;
+      SettingsSimpleList[idx].PrepareTimeMs:= DefaultPrepareTimeMs;
+      SettingsSimpleList[idx].WarningTimeMs:= DefaultWarningTimeMs;
+
+      UpdateSettingsBox;
+      SetIndex:= idx;
+    end;
+    'ButtonRemoveSet':
+    begin
+      if (Length(SettingsSimpleList) > 1) then
+      begin
+        idx:= SetIndex;
+        BoxSettings.Items.Delete(idx);
+        Delete(SettingsSimpleList, idx, 1);
+        SetIndex:= 0;
+      end;
+    end;
+    'ButtonSeveSets':
+    begin
+      SaveSettings;
+    end;
+  end;
 end;
 
 procedure TFormTTimer.TimeCounterTimer(Sender: TObject);
@@ -157,10 +214,13 @@ end;
 
 procedure TFormTTimer.SaveSettings;
 var
-  i: Integer;
+  i, num: Integer;
   path: String;
 begin
-  for i:= 0 to (Length(TSettingsSimpleList) - 1) do
+  num:= Length(SettingsSimpleList);
+  PropStorage.WriteInteger('Settings/SetCount', num);
+
+  for i:= 0 to (num - 1) do
   begin
     path:= 'Settings/Set' + IntToStr(i + 1) + '/';
     PropStorage.WriteString(path + 'Name', SettingsSimpleList[i].Name);
@@ -171,28 +231,47 @@ begin
     PropStorage.WriteInteger(path + 'WarningTimeMs', SettingsSimpleList[i].WarningTimeMs);
   end;
 
-  PropStorage.WriteInteger('Settings/SetNum', BoxSettings.ItemIndex);
+  PropStorage.WriteInteger('Settings/SetNum', SetIndex);
 end;
 
 procedure TFormTTimer.LoadSettings;
 var
-  i: Integer;
+  i, num: Integer;
   path: String;
 begin
-  for i:= 0 to (Length(TSettingsSimpleList) - 1) do
-  begin
-    path:= 'Settings/Set' + IntToStr(i + 1) + '/';
-    SettingsSimpleList[i].Name:= PropStorage.ReadString(path + 'Name', 'Set ' + IntToStr(i + 1));
-    SettingsSimpleList[i].Rounds:= PropStorage.ReadInteger(path + 'Rounds', 2);
-    SettingsSimpleList[i].RoundTimeMs:= PropStorage.ReadInteger(path + 'RoundTimeMs', 90000);
-    SettingsSimpleList[i].RestTimeMs:= PropStorage.ReadInteger(path + 'RestTimeMs', 60000);
-    SettingsSimpleList[i].PrepareTimeMs:= PropStorage.ReadInteger(path + 'PrepareTimeMs', 30000);
-    SettingsSimpleList[i].WarningTimeMs:= PropStorage.ReadInteger(path + 'WarningTimeMs', 10000);
-  end;
+  num:= PropStorage.ReadInteger('Settings/SetCount', 0);
 
-  UpdateSettingsBox;
-  BoxSettings.ItemIndex:= PropStorage.ReadInteger('Settings/SetNum', 0);
-  BoxSettingsChange(nil);
+  if (num = 0) then
+  begin
+    SetLength(SettingsSimpleList, 1);
+    SettingsSimpleList[0].Name:= DefaultName;
+    SettingsSimpleList[0].Rounds:= DefaultRounds;
+    SettingsSimpleList[0].RoundTimeMs:= DefaultRoundTimeMs;
+    SettingsSimpleList[0].RestTimeMs:= DefaultRestTimeMs;
+    SettingsSimpleList[0].PrepareTimeMs:= DefaultPrepareTimeMs;
+    SettingsSimpleList[0].WarningTimeMs:= DefaultWarningTimeMs;
+
+    UpdateSettingsBox;
+    SetIndex:= 0;
+  end
+  else
+  begin
+    SetLength(SettingsSimpleList, num);
+
+    for i:= 0 to (num - 1) do
+    begin
+      path:= 'Settings/Set' + IntToStr(i + 1) + '/';
+      SettingsSimpleList[i].Name:= PropStorage.ReadString(path + 'Name', 'Set ' + IntToStr(i + 1));
+      SettingsSimpleList[i].Rounds:= PropStorage.ReadInteger(path + 'Rounds', DefaultRounds);
+      SettingsSimpleList[i].RoundTimeMs:= PropStorage.ReadInteger(path + 'RoundTimeMs', DefaultRoundTimeMs);
+      SettingsSimpleList[i].RestTimeMs:= PropStorage.ReadInteger(path + 'RestTimeMs', DefaultRestTimeMs);
+      SettingsSimpleList[i].PrepareTimeMs:= PropStorage.ReadInteger(path + 'PrepareTimeMs', DefaultPrepareTimeMs);
+      SettingsSimpleList[i].WarningTimeMs:= PropStorage.ReadInteger(path + 'WarningTimeMs', DefaultWarningTimeMs);
+    end;
+
+    UpdateSettingsBox;
+    SetIndex:= PropStorage.ReadInteger('Settings/SetNum', 0);
+  end;
 end;
 
 procedure TFormTTimer.UpdateSettingsBox;
@@ -201,7 +280,7 @@ var
 begin
   BoxSettings.Clear;
 
-  for i:= 0 to (Length(TSettingsSimpleList) - 1) do
+  for i:= 0 to (Length(SettingsSimpleList) - 1) do
   begin
     BoxSettings.Items.Add(SettingsSimpleList[i].Name);
   end;
@@ -210,6 +289,17 @@ end;
 procedure TFormTTimer.StopEvent;
 begin
   ControlPageTimer.ActivePage:= TabSettings;
+end;
+
+procedure TFormTTimer.WriteSetIndex(AValue: Integer);
+begin
+  BoxSettings.ItemIndex:= AValue;
+  BoxSettingsChange(nil);
+end;
+
+function TFormTTimer.ReadSetIndex: Integer;
+begin
+  Result:= BoxSettings.ItemIndex;
 end;
 
 end.

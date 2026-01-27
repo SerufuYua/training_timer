@@ -33,11 +33,11 @@ type
     FWarningTimeMs: Cardinal;
     procedure ResetTimer;
     procedure ShowTime(ATimeMs: Cardinal);
-    procedure SetPeriod(AValue: Integer);
+    procedure WritePeriod(AValue: Integer);
   public
     procedure UpdateTime(ATimeMsElapsed: Cardinal);
     procedure Start(ASetName: String; APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
-    property Period: Integer read FPeriod write SetPeriod;
+    property Period: Integer read FPeriod write WritePeriod;
     property StopEvent: TStopEvent write FStopEvent;
   end;
 
@@ -188,7 +188,7 @@ begin
   LabelTime.Caption:= IntToStr(min) + ':' + IntToStr(sec);
 end;
 
-procedure TFrameTimer.SetPeriod(AValue: Integer);
+procedure TFrameTimer.WritePeriod(AValue: Integer);
 begin
   if (AValue < Length(Periods)) then
   begin
