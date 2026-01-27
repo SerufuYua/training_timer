@@ -40,7 +40,7 @@ object FrameEditTime: TFrameEditTime
       Top = 0
       Width = 11
       Align = alRight
-      Caption = 'M'
+      Caption = 'm'
       Layout = tlCenter
     end
   end
@@ -59,18 +59,18 @@ object FrameEditTime: TFrameEditTime
       Left = 0
       Height = 23
       Top = 0
-      Width = 146
+      Width = 147
       Align = alClient
       TabOrder = 0
       OnChange = EditTimeChange
     end
     object LabelSec: TLabel
-      Left = 150
+      Left = 151
       Height = 23
       Top = 0
-      Width = 6
+      Width = 5
       Align = alRight
-      Caption = 'S'
+      Caption = 's'
       Layout = tlCenter
     end
   end
