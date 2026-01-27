@@ -1,0 +1,77 @@
+object FrameEditTime: TFrameEditTime
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  AutoSize = True
+  ChildSizing.HorizontalSpacing = 8
+  ChildSizing.EnlargeHorizontal = crsSameSize
+  ChildSizing.Layout = cclLeftToRightThenTopToBottom
+  ChildSizing.ControlsPerLine = 2
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '4.4.0.0'
+  TabOrder = 0
+  DesignLeft = 457
+  DesignTop = 27
+  object PanelMin: TPanel
+    Left = 0
+    Height = 23
+    Top = 0
+    Width = 156
+    AutoSize = True
+    BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 4
+    ClientHeight = 23
+    ClientWidth = 156
+    TabOrder = 0
+    object EditMin: TSpinEdit
+      Left = 0
+      Height = 23
+      Top = 0
+      Width = 141
+      Align = alClient
+      TabOrder = 0
+      OnChange = EditTimeChange
+    end
+    object LabelMin: TLabel
+      Left = 145
+      Height = 23
+      Top = 0
+      Width = 11
+      Align = alRight
+      Caption = 'M'
+      Layout = tlCenter
+    end
+  end
+  object PanelSec: TPanel
+    Left = 164
+    Height = 23
+    Top = 0
+    Width = 156
+    AutoSize = True
+    BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 4
+    ClientHeight = 23
+    ClientWidth = 156
+    TabOrder = 1
+    object EditSec: TSpinEdit
+      Left = 0
+      Height = 23
+      Top = 0
+      Width = 146
+      Align = alClient
+      TabOrder = 0
+      OnChange = EditTimeChange
+    end
+    object LabelSec: TLabel
+      Left = 150
+      Height = 23
+      Top = 0
+      Width = 6
+      Align = alRight
+      Caption = 'S'
+      Layout = tlCenter
+    end
+  end
+end

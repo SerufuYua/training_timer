@@ -9,6 +9,7 @@ object FormTTimer: TFormTTimer
   ClientWidth = 320
   SessionProperties = 'Height;Width'
   LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
   object ControlPageTimer: TPageControl
     Left = 0
     Height = 418
@@ -119,16 +120,16 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 5
-          Width = 142
+          Width = 116
           Caption = 'Set Name'
           Layout = tlCenter
         end
         object EditName: TEdit
-          Left = 151
+          Left = 125
           Height = 23
           Top = 5
-          Width = 148
-          TabOrder = 5
+          Width = 174
+          TabOrder = 1
           Text = 'EditName'
           OnChange = EditSettingChange
         end
@@ -136,15 +137,15 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 32
-          Width = 142
+          Width = 116
           Caption = 'Rounds'
           Layout = tlCenter
         end
         object EditRounds: TSpinEdit
-          Left = 151
+          Left = 125
           Height = 23
           Top = 32
-          Width = 148
+          Width = 174
           TabOrder = 0
           Value = 3
           OnChange = EditSettingChange
@@ -153,69 +154,69 @@ object FormTTimer: TFormTTimer
           Left = 5
           Height = 23
           Top = 59
-          Width = 142
+          Width = 116
           Caption = 'Round Time'
           Layout = tlCenter
         end
-        object EditRoundTimeS: TSpinEdit
-          Left = 151
+        inline EditRoundTimeS: TFrameEditTime
+          Left = 125
           Height = 23
           Top = 59
-          Width = 148
-          TabOrder = 1
-          Value = 90
-          OnChange = EditSettingChange
+          Width = 174
+          ClientHeight = 23
+          ClientWidth = 174
+          TabOrder = 2
         end
         object LabelRestTime: TLabel
           Left = 5
           Height = 23
           Top = 86
-          Width = 142
+          Width = 116
           Caption = 'Rest Time'
           Layout = tlCenter
         end
-        object EditRestTimeS: TSpinEdit
-          Left = 151
+        inline EditRestTimeS: TFrameEditTime
+          Left = 125
           Height = 23
           Top = 86
-          Width = 148
-          TabOrder = 2
-          Value = 60
-          OnChange = EditSettingChange
+          Width = 174
+          ClientHeight = 23
+          ClientWidth = 174
+          TabOrder = 3
         end
         object LabelPrepareTime: TLabel
           Left = 5
           Height = 23
           Top = 113
-          Width = 142
+          Width = 116
           Caption = 'Prepare Time'
           Layout = tlCenter
         end
-        object EditPrepareTimeS: TSpinEdit
-          Left = 151
+        inline EditPrepareTimeS: TFrameEditTime
+          Left = 125
           Height = 23
           Top = 113
-          Width = 148
-          TabOrder = 3
-          Value = 30
-          OnChange = EditSettingChange
+          Width = 174
+          ClientHeight = 23
+          ClientWidth = 174
+          TabOrder = 4
         end
         object LabelWarningTime: TLabel
           Left = 5
           Height = 23
           Top = 140
-          Width = 142
+          Width = 116
           Caption = 'Warning Time'
           Layout = tlCenter
         end
-        object EditWarningTimeS: TSpinEdit
-          Left = 151
+        inline EditWarningTimeS: TFrameEditTime
+          Left = 125
           Height = 23
           Top = 140
-          Width = 148
-          TabOrder = 4
-          Value = 10
-          OnChange = EditSettingChange
+          Width = 174
+          ClientHeight = 23
+          ClientWidth = 174
+          TabOrder = 5
         end
       end
       object ButtonStart: TButton
@@ -238,37 +239,6 @@ object FormTTimer: TFormTTimer
         Width = 312
         ClientHeight = 390
         ClientWidth = 312
-        inherited PanelCounter: TPanel
-          Height = 326
-          Width = 312
-          ClientHeight = 326
-          ClientWidth = 312
-          inherited PanelLabels: TPanel
-            Width = 302
-            ClientWidth = 302
-            inherited LabelSet: TLabel
-              Width = 302
-            end
-            inherited LabelPeriod: TLabel
-              Width = 302
-            end
-          end
-          inherited LabelTime: TLabel
-            Height = 244
-            Width = 302
-          end
-        end
-        inherited PanelControl: TPanel
-          Top = 326
-          Width = 312
-          ClientWidth = 312
-          inherited ButtonPause: TButton
-            Width = 302
-          end
-          inherited ButtonStop: TButton
-            Width = 302
-          end
-        end
       end
     end
   end

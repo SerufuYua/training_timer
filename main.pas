@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  StdCtrls, Spin, ExtCtrls, XMLPropStorage, ChainTimer;
+  StdCtrls, Spin, ExtCtrls, XMLPropStorage, ChainTimer, EditTime;
 
 type
 
@@ -19,10 +19,10 @@ type
     ButtonStart: TButton;
     BoxSettings: TComboBox;
     EditName: TEdit;
-    EditPrepareTimeS: TSpinEdit;
-    EditWarningTimeS: TSpinEdit;
-    EditRoundTimeS: TSpinEdit;
-    EditRestTimeS: TSpinEdit;
+    EditRoundTimeS: TFrameEditTime;
+    EditRestTimeS: TFrameEditTime;
+    EditPrepareTimeS: TFrameEditTime;
+    EditWarningTimeS: TFrameEditTime;
     FrameTimerUse: TFrameTimer;
     LabelPrepareTime: TLabel;
     LabelName: TLabel;
@@ -43,6 +43,7 @@ type
     procedure ButtonSetControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure PropStorageRestoreProperties(Sender: TObject);
     procedure PropStorageSaveProperties(Sender: TObject);
     procedure TimeCounterTimer(Sender: TObject);
@@ -86,6 +87,14 @@ const
 
 { TFormTTimer }
 
+procedure TFormTTimer.FormCreate(Sender: TObject);
+begin
+  EditRoundTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditRestTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditPrepareTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditWarningTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+end;
+
 procedure TFormTTimer.PropStorageRestoreProperties(Sender: TObject);
 begin
   LoadSettings;
@@ -113,6 +122,7 @@ var
   component: TComponent;
   editStr: TEdit;
   editNum: TSpinEdit;
+  editTime: TFrameEditTime;
 begin
   if ((NOT (Sender is TComponent)) OR (SetIndex < 0)) then Exit;
 
@@ -133,23 +143,23 @@ begin
     end;
     'EditRoundTimeS':
     begin
-      editNum:= component as TSpinEdit;
-      SettingsSimpleList[SetIndex].RoundTimeMs:= editNum.Value * 1000;
+      editTime:= component as TFrameEditTime;
+      SettingsSimpleList[SetIndex].RoundTimeMs:= editTime.Value * 1000;
     end;
     'EditRestTimeS':
     begin
-      editNum:= component as TSpinEdit;
-      SettingsSimpleList[SetIndex].RestTimeMs:= editNum.Value * 1000;
+      editTime:= component as TFrameEditTime;
+      SettingsSimpleList[SetIndex].RestTimeMs:= editTime.Value * 1000;
     end;
     'EditPrepareTimeS':
     begin
-      editNum:= component as TSpinEdit;
-      SettingsSimpleList[SetIndex].PrepareTimeMs:= editNum.Value * 1000;
+      editTime:= component as TFrameEditTime;
+      SettingsSimpleList[SetIndex].PrepareTimeMs:= editTime.Value * 1000;
     end;
     'EditWarningTimeS':
     begin
-      editNum:= component as TSpinEdit;
-      SettingsSimpleList[SetIndex].WarningTimeMs:= editNum.Value * 1000;
+      editTime:= component as TFrameEditTime;
+      SettingsSimpleList[SetIndex].WarningTimeMs:= editTime.Value * 1000;
     end;
   end;
 end;

@@ -84,6 +84,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ChainTimer"/>
       </Unit>
+      <Unit>
+        <Filename Value="edittime.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrameEditTime"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="EditTime"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
