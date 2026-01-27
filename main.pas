@@ -217,6 +217,8 @@ var
   i, num: Integer;
   path: String;
 begin
+  PropStorage.DoEraseSections(PropStorage.RootNodePath + '/Settings');
+
   num:= Length(SettingsSimpleList);
   PropStorage.WriteInteger('Settings/SetCount', num);
 
