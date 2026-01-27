@@ -212,7 +212,7 @@ begin
     end;
     'ButtonSeveSets':
     begin
-      SaveSettings;
+      PropStorage.Save;
     end;
   end;
 end;
