@@ -114,8 +114,9 @@ object FormTTimer: TFormTTimer
           Left = 0
           Height = 336
           Top = 0
-          Width = 302
+          Width = 221
           Align = alLeft
+          AutoSize = True
           BevelOuter = bvSpace
           ChildSizing.LeftRightSpacing = 4
           ChildSizing.TopBottomSpacing = 4
@@ -125,21 +126,21 @@ object FormTTimer: TFormTTimer
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
           ClientHeight = 336
-          ClientWidth = 302
+          ClientWidth = 221
           TabOrder = 0
           object LabelName: TLabel
             Left = 5
             Height = 23
             Top = 5
-            Width = 114
+            Width = 74
             Caption = 'Set Name'
             Layout = tlCenter
           end
           object EditName: TEdit
-            Left = 123
+            Left = 83
             Height = 23
             Top = 5
-            Width = 174
+            Width = 133
             TabOrder = 1
             Text = 'EditName'
             OnChange = EditSettingChange
@@ -148,15 +149,15 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 32
-            Width = 114
+            Width = 74
             Caption = 'Rounds'
             Layout = tlCenter
           end
           object EditRounds: TSpinEdit
-            Left = 123
+            Left = 83
             Height = 23
             Top = 32
-            Width = 174
+            Width = 133
             TabOrder = 0
             Value = 3
             OnChange = EditSettingChange
@@ -165,37 +166,37 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 59
-            Width = 114
+            Width = 74
             Caption = 'Round Time'
             Layout = tlCenter
           end
           inline EditRoundTimeS: TFrameEditTime
-            Left = 123
+            Left = 83
             Height = 23
             Top = 59
-            Width = 174
+            Width = 133
             ClientHeight = 23
-            ClientWidth = 174
+            ClientWidth = 133
             TabOrder = 2
             inherited PanelMin: TPanel
-              Width = 83
-              ClientWidth = 83
+              Width = 65
+              ClientWidth = 65
               inherited EditMin: TSpinEdit
-                Width = 68
+                Width = 50
               end
               inherited LabelMin: TLabel
-                Left = 72
+                Left = 54
               end
             end
             inherited PanelSec: TPanel
-              Left = 91
-              Width = 83
-              ClientWidth = 83
+              Left = 70
+              Width = 63
+              ClientWidth = 63
               inherited EditSec: TSpinEdit
-                Width = 73
+                Width = 53
               end
               inherited LabelSec: TLabel
-                Left = 77
+                Left = 57
               end
             end
           end
@@ -203,37 +204,37 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 86
-            Width = 114
+            Width = 74
             Caption = 'Rest Time'
             Layout = tlCenter
           end
           inline EditRestTimeS: TFrameEditTime
-            Left = 123
+            Left = 83
             Height = 23
             Top = 86
-            Width = 174
+            Width = 133
             ClientHeight = 23
-            ClientWidth = 174
+            ClientWidth = 133
             TabOrder = 3
             inherited PanelMin: TPanel
-              Width = 83
-              ClientWidth = 83
+              Width = 65
+              ClientWidth = 65
               inherited EditMin: TSpinEdit
-                Width = 68
+                Width = 50
               end
               inherited LabelMin: TLabel
-                Left = 72
+                Left = 54
               end
             end
             inherited PanelSec: TPanel
-              Left = 91
-              Width = 83
-              ClientWidth = 83
+              Left = 70
+              Width = 63
+              ClientWidth = 63
               inherited EditSec: TSpinEdit
-                Width = 73
+                Width = 53
               end
               inherited LabelSec: TLabel
-                Left = 77
+                Left = 57
               end
             end
           end
@@ -241,37 +242,37 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 113
-            Width = 114
+            Width = 74
             Caption = 'Prepare Time'
             Layout = tlCenter
           end
           inline EditPrepareTimeS: TFrameEditTime
-            Left = 123
+            Left = 83
             Height = 23
             Top = 113
-            Width = 174
+            Width = 133
             ClientHeight = 23
-            ClientWidth = 174
+            ClientWidth = 133
             TabOrder = 4
             inherited PanelMin: TPanel
-              Width = 83
-              ClientWidth = 83
+              Width = 65
+              ClientWidth = 65
               inherited EditMin: TSpinEdit
-                Width = 68
+                Width = 50
               end
               inherited LabelMin: TLabel
-                Left = 72
+                Left = 54
               end
             end
             inherited PanelSec: TPanel
-              Left = 91
-              Width = 83
-              ClientWidth = 83
+              Left = 70
+              Width = 63
+              ClientWidth = 63
               inherited EditSec: TSpinEdit
-                Width = 73
+                Width = 53
               end
               inherited LabelSec: TLabel
-                Left = 77
+                Left = 57
               end
             end
           end
@@ -279,37 +280,37 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 140
-            Width = 114
+            Width = 74
             Caption = 'Warning Time'
             Layout = tlCenter
           end
           inline EditWarningTimeS: TFrameEditTime
-            Left = 123
+            Left = 83
             Height = 23
             Top = 140
-            Width = 174
+            Width = 133
             ClientHeight = 23
-            ClientWidth = 174
+            ClientWidth = 133
             TabOrder = 5
             inherited PanelMin: TPanel
-              Width = 83
-              ClientWidth = 83
+              Width = 65
+              ClientWidth = 65
               inherited EditMin: TSpinEdit
-                Width = 68
+                Width = 50
               end
               inherited LabelMin: TLabel
-                Left = 72
+                Left = 54
               end
             end
             inherited PanelSec: TPanel
-              Left = 91
-              Width = 83
-              ClientWidth = 83
+              Left = 70
+              Width = 63
+              ClientWidth = 63
               inherited EditSec: TSpinEdit
-                Width = 73
+                Width = 53
               end
               inherited LabelSec: TLabel
-                Left = 77
+                Left = 57
               end
             end
           end
