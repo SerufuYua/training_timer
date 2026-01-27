@@ -17,7 +17,9 @@ type
     ButtonStop: TButton;
     ButtonPause: TButton;
     LabelTime: TLabel;
-    LabelTitle: TLabel;
+    LabelPeriod: TLabel;
+    LabelSet: TLabel;
+    PanelLabels: TPanel;
     PanelCounter: TPanel;
     PanelControl: TPanel;
     PlaySound: Tplaysound;
@@ -33,8 +35,8 @@ type
     procedure ShowTime(ATimeMs: Cardinal);
     procedure SetPeriod(AValue: Integer);
   public
-    procedure TimeUpdate(ATimeMsElapsed: Cardinal);
-    procedure Start(APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
+    procedure UpdateTime(ATimeMsElapsed: Cardinal);
+    procedure Start(ASetName: String; APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
     property Period: Integer read FPeriod write SetPeriod;
     property StopEvent: TStopEvent write FStopEvent;
   end;
@@ -63,11 +65,13 @@ const
 
 { TFrameTimer }
 
-procedure TFrameTimer.Start(APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
+procedure TFrameTimer.Start(ASetName: String; APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
 var
  i, lastPeriod: Integer;
 begin
   TimerEnable:= False;
+
+  LabelSet.Caption:= ASetName;
 
   { prepare periods list }
   FWarningTimeMs:= AWarningTimeMs;
@@ -108,7 +112,7 @@ begin
   Period:= 0;
 end;
 
-procedure TFrameTimer.TimeUpdate(ATimeMsElapsed: Cardinal);
+procedure TFrameTimer.UpdateTime(ATimeMsElapsed: Cardinal);
 const
   initTime = 1000;
 
@@ -190,7 +194,7 @@ begin
   begin
     FPeriod:= AValue;
     ShowTime(Periods[AValue].TimeMs);
-    LabelTitle.Caption:= Periods[AValue].Name;
+    LabelPeriod.Caption:= Periods[AValue].Name;
   end
   else
     TimerEnable:= False;

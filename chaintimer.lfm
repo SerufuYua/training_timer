@@ -26,22 +26,47 @@ object FrameTimer: TFrameTimer
     ClientHeight = 176
     ClientWidth = 320
     TabOrder = 0
-    object LabelTitle: TLabel
+    object PanelLabels: TPanel
       Left = 5
-      Height = 32
+      Height = 68
       Top = 5
       Width = 310
       Align = alTop
-      Alignment = taCenter
-      Caption = 'Period Name'
-      Font.Height = -24
-      Layout = tlCenter
-      ParentFont = False
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsSameSize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ClientHeight = 68
+      ClientWidth = 310
+      TabOrder = 0
+      object LabelSet: TLabel
+        Left = 0
+        Height = 32
+        Top = 0
+        Width = 310
+        Alignment = taCenter
+        Caption = 'Set Name'
+        Font.Height = -24
+        Layout = tlCenter
+        ParentFont = False
+      end
+      object LabelPeriod: TLabel
+        Left = 0
+        Height = 32
+        Top = 36
+        Width = 310
+        Alignment = taCenter
+        Caption = 'Period Name'
+        Font.Height = -24
+        Layout = tlCenter
+        ParentFont = False
+      end
     end
     object LabelTime: TLabel
       Left = 5
-      Height = 130
-      Top = 41
+      Height = 94
+      Top = 77
       Width = 310
       Align = alClient
       Alignment = taCenter
