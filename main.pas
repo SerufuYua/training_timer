@@ -32,6 +32,7 @@ type
     LabelRestTime: TLabel;
     ControlPageTimer: TPageControl;
     EditRounds: TSpinEdit;
+    PanelSettingsCompose: TPanel;
     PanelSetsControl: TPanel;
     PanelSets: TPanel;
     PanelSettings: TPanel;

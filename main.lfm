@@ -41,7 +41,7 @@ object FormTTimer: TFormTTimer
         ChildSizing.VerticalSpacing = 4
         ClientHeight = 33
         ClientWidth = 304
-        TabOrder = 2
+        TabOrder = 1
         object BoxSettings: TComboBox
           Left = 4
           Height = 23
@@ -99,124 +99,135 @@ object FormTTimer: TFormTTimer
           end
         end
       end
-      object PanelSettings: TPanel
+      object PanelSettingsCompose: TPanel
         Left = 4
         Height = 316
         Top = 41
         Width = 304
         Align = alClient
-        BevelOuter = bvSpace
-        ChildSizing.LeftRightSpacing = 4
-        ChildSizing.TopBottomSpacing = 4
-        ChildSizing.HorizontalSpacing = 4
-        ChildSizing.VerticalSpacing = 4
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 2
+        BevelOuter = bvNone
         ClientHeight = 316
         ClientWidth = 304
-        TabOrder = 0
-        object LabelName: TLabel
-          Left = 5
-          Height = 23
-          Top = 5
-          Width = 116
-          Caption = 'Set Name'
-          Layout = tlCenter
-        end
-        object EditName: TEdit
-          Left = 125
-          Height = 23
-          Top = 5
-          Width = 174
-          TabOrder = 1
-          Text = 'EditName'
-          OnChange = EditSettingChange
-        end
-        object LabelRounds: TLabel
-          Left = 5
-          Height = 23
-          Top = 32
-          Width = 116
-          Caption = 'Rounds'
-          Layout = tlCenter
-        end
-        object EditRounds: TSpinEdit
-          Left = 125
-          Height = 23
-          Top = 32
-          Width = 174
+        TabOrder = 2
+        object PanelSettings: TPanel
+          Left = 0
+          Height = 316
+          Top = 0
+          Width = 302
+          Align = alLeft
+          BevelOuter = bvSpace
+          ChildSizing.LeftRightSpacing = 4
+          ChildSizing.TopBottomSpacing = 4
+          ChildSizing.HorizontalSpacing = 4
+          ChildSizing.VerticalSpacing = 4
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 316
+          ClientWidth = 302
           TabOrder = 0
-          Value = 3
-          OnChange = EditSettingChange
-        end
-        object LabelRoundTime: TLabel
-          Left = 5
-          Height = 23
-          Top = 59
-          Width = 116
-          Caption = 'Round Time'
-          Layout = tlCenter
-        end
-        inline EditRoundTimeS: TFrameEditTime
-          Left = 125
-          Height = 23
-          Top = 59
-          Width = 174
-          ClientHeight = 23
-          ClientWidth = 174
-          TabOrder = 2
-        end
-        object LabelRestTime: TLabel
-          Left = 5
-          Height = 23
-          Top = 86
-          Width = 116
-          Caption = 'Rest Time'
-          Layout = tlCenter
-        end
-        inline EditRestTimeS: TFrameEditTime
-          Left = 125
-          Height = 23
-          Top = 86
-          Width = 174
-          ClientHeight = 23
-          ClientWidth = 174
-          TabOrder = 3
-        end
-        object LabelPrepareTime: TLabel
-          Left = 5
-          Height = 23
-          Top = 113
-          Width = 116
-          Caption = 'Prepare Time'
-          Layout = tlCenter
-        end
-        inline EditPrepareTimeS: TFrameEditTime
-          Left = 125
-          Height = 23
-          Top = 113
-          Width = 174
-          ClientHeight = 23
-          ClientWidth = 174
-          TabOrder = 4
-        end
-        object LabelWarningTime: TLabel
-          Left = 5
-          Height = 23
-          Top = 140
-          Width = 116
-          Caption = 'Warning Time'
-          Layout = tlCenter
-        end
-        inline EditWarningTimeS: TFrameEditTime
-          Left = 125
-          Height = 23
-          Top = 140
-          Width = 174
-          ClientHeight = 23
-          ClientWidth = 174
-          TabOrder = 5
+          object LabelName: TLabel
+            Left = 5
+            Height = 23
+            Top = 5
+            Width = 114
+            Caption = 'Set Name'
+            Layout = tlCenter
+          end
+          object EditName: TEdit
+            Left = 123
+            Height = 23
+            Top = 5
+            Width = 174
+            TabOrder = 1
+            Text = 'EditName'
+            OnChange = EditSettingChange
+          end
+          object LabelRounds: TLabel
+            Left = 5
+            Height = 23
+            Top = 32
+            Width = 114
+            Caption = 'Rounds'
+            Layout = tlCenter
+          end
+          object EditRounds: TSpinEdit
+            Left = 123
+            Height = 23
+            Top = 32
+            Width = 174
+            TabOrder = 0
+            Value = 3
+            OnChange = EditSettingChange
+          end
+          object LabelRoundTime: TLabel
+            Left = 5
+            Height = 23
+            Top = 59
+            Width = 114
+            Caption = 'Round Time'
+            Layout = tlCenter
+          end
+          inline EditRoundTimeS: TFrameEditTime
+            Left = 123
+            Height = 23
+            Top = 59
+            Width = 174
+            ClientHeight = 23
+            ClientWidth = 174
+            TabOrder = 2
+          end
+          object LabelRestTime: TLabel
+            Left = 5
+            Height = 23
+            Top = 86
+            Width = 114
+            Caption = 'Rest Time'
+            Layout = tlCenter
+          end
+          inline EditRestTimeS: TFrameEditTime
+            Left = 123
+            Height = 23
+            Top = 86
+            Width = 174
+            ClientHeight = 23
+            ClientWidth = 174
+            TabOrder = 3
+          end
+          object LabelPrepareTime: TLabel
+            Left = 5
+            Height = 23
+            Top = 113
+            Width = 114
+            Caption = 'Prepare Time'
+            Layout = tlCenter
+          end
+          inline EditPrepareTimeS: TFrameEditTime
+            Left = 123
+            Height = 23
+            Top = 113
+            Width = 174
+            ClientHeight = 23
+            ClientWidth = 174
+            TabOrder = 4
+          end
+          object LabelWarningTime: TLabel
+            Left = 5
+            Height = 23
+            Top = 140
+            Width = 114
+            Caption = 'Warning Time'
+            Layout = tlCenter
+          end
+          inline EditWarningTimeS: TFrameEditTime
+            Left = 123
+            Height = 23
+            Top = 140
+            Width = 174
+            ClientHeight = 23
+            ClientWidth = 174
+            TabOrder = 5
+          end
         end
       end
       object ButtonStart: TButton
@@ -226,7 +237,7 @@ object FormTTimer: TFormTTimer
         Width = 304
         Align = alBottom
         Caption = 'Start'
-        TabOrder = 1
+        TabOrder = 0
         OnClick = ButtonStartClick
       end
     end
