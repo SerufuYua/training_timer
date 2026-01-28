@@ -114,7 +114,7 @@ object FormTTimer: TFormTTimer
           Left = 0
           Height = 336
           Top = 0
-          Width = 221
+          Width = 220
           Align = alLeft
           AutoSize = True
           BevelOuter = bvSpace
@@ -126,7 +126,7 @@ object FormTTimer: TFormTTimer
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
           ClientHeight = 336
-          ClientWidth = 221
+          ClientWidth = 220
           TabOrder = 0
           object LabelName: TLabel
             Left = 5
@@ -140,7 +140,7 @@ object FormTTimer: TFormTTimer
             Left = 83
             Height = 23
             Top = 5
-            Width = 133
+            Width = 132
             TabOrder = 1
             Text = 'EditName'
             OnChange = EditSettingChange
@@ -157,7 +157,7 @@ object FormTTimer: TFormTTimer
             Left = 83
             Height = 23
             Top = 32
-            Width = 133
+            Width = 132
             TabOrder = 0
             Value = 3
             OnChange = EditSettingChange
@@ -174,9 +174,9 @@ object FormTTimer: TFormTTimer
             Left = 83
             Height = 23
             Top = 59
-            Width = 133
+            Width = 132
             ClientHeight = 23
-            ClientWidth = 133
+            ClientWidth = 132
             TabOrder = 2
             inherited PanelMin: TPanel
               Width = 65
@@ -190,8 +190,8 @@ object FormTTimer: TFormTTimer
             end
             inherited PanelSec: TPanel
               Left = 70
-              Width = 63
-              ClientWidth = 63
+              Width = 62
+              ClientWidth = 62
               inherited EditSec: TSpinEdit
                 Width = 53
               end
@@ -212,9 +212,9 @@ object FormTTimer: TFormTTimer
             Left = 83
             Height = 23
             Top = 86
-            Width = 133
+            Width = 132
             ClientHeight = 23
-            ClientWidth = 133
+            ClientWidth = 132
             TabOrder = 3
             inherited PanelMin: TPanel
               Width = 65
@@ -228,8 +228,8 @@ object FormTTimer: TFormTTimer
             end
             inherited PanelSec: TPanel
               Left = 70
-              Width = 63
-              ClientWidth = 63
+              Width = 62
+              ClientWidth = 62
               inherited EditSec: TSpinEdit
                 Width = 53
               end
@@ -250,9 +250,9 @@ object FormTTimer: TFormTTimer
             Left = 83
             Height = 23
             Top = 113
-            Width = 133
+            Width = 132
             ClientHeight = 23
-            ClientWidth = 133
+            ClientWidth = 132
             TabOrder = 4
             inherited PanelMin: TPanel
               Width = 65
@@ -266,8 +266,8 @@ object FormTTimer: TFormTTimer
             end
             inherited PanelSec: TPanel
               Left = 70
-              Width = 63
-              ClientWidth = 63
+              Width = 62
+              ClientWidth = 62
               inherited EditSec: TSpinEdit
                 Width = 53
               end
@@ -288,9 +288,9 @@ object FormTTimer: TFormTTimer
             Left = 83
             Height = 23
             Top = 140
-            Width = 133
+            Width = 132
             ClientHeight = 23
-            ClientWidth = 133
+            ClientWidth = 132
             TabOrder = 5
             inherited PanelMin: TPanel
               Width = 65
@@ -304,8 +304,8 @@ object FormTTimer: TFormTTimer
             end
             inherited PanelSec: TPanel
               Left = 70
-              Width = 63
-              ClientWidth = 63
+              Width = 62
+              ClientWidth = 62
               inherited EditSec: TSpinEdit
                 Width = 53
               end
@@ -337,9 +337,9 @@ object FormTTimer: TFormTTimer
         ClientHeight = 410
         ClientWidth = 312
         inherited PanelCounter: TPanel
-          Height = 346
+          Height = 317
           Width = 312
-          ClientHeight = 346
+          ClientHeight = 317
           ClientWidth = 312
           inherited PanelLabels: TPanel
             Width = 302
@@ -352,26 +352,29 @@ object FormTTimer: TFormTTimer
             end
           end
           inherited PanelTime: TPanel
-            Height = 264
+            Height = 235
             Width = 302
-            ClientHeight = 264
+            ClientHeight = 235
             ClientWidth = 302
             inherited LabelTime: TLabel
-              Height = 130
+              Height = 116
               Width = 302
             end
             inherited ShapeSignal: TShape
-              Height = 130
-              Top = 134
+              Height = 115
+              Top = 120
               Width = 302
             end
           end
         end
         inherited PanelControl: TPanel
-          Top = 346
+          Top = 317
           Width = 312
           ClientWidth = 312
           inherited ButtonPause: TButton
+            Width = 302
+          end
+          inherited ButtonRestart: TButton
             Width = 302
           end
           inherited ButtonStop: TButton

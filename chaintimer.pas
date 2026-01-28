@@ -13,6 +13,14 @@ type
 
   { TFrameTimer }
 
+  TTimePeriod = record
+    Name, FinalSound: String;
+    TimeMs, WarningTimeMs: Cardinal;
+    Color: TColor;
+  end;
+
+  TPeriodsList = Array of TTimePeriod;
+
   TFrameTimer = class(TFrame)
     ButtonRestart: TButton;
     ButtonStop: TButton;
@@ -31,6 +39,7 @@ type
     procedure ButtonStopClick(Sender: TObject);
     procedure LabelTimeResize(Sender: TObject);
   protected
+    Periods: TPeriodsList;
     TimerEnable: Boolean;
     FStopEvent: TStopEvent;
     FPeriod: Integer;
@@ -42,24 +51,10 @@ type
     procedure WritePeriod(AValue: Integer);
   public
     procedure UpdateTime(ATimeMsElapsed: Cardinal);
-    procedure Start(ASetName: String; APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
+    procedure Start(ASetName: String; APeriods: TPeriodsList);
     property Period: Integer read FPeriod write WritePeriod;
     property StopEvent: TStopEvent write FStopEvent;
   end;
-
-implementation
-
-type
-  TTimePeriod = record
-    Name, FinalSound: String;
-    TimeMs, WarningTimeMs: Cardinal;
-    Color: TColor;
-  end;
-
-  TPeriodsList = Array of TTimePeriod;
-
-var
- Periods: TPeriodsList;
 
 const
   SoundStart = 'data\sound\start.wav';
@@ -68,50 +63,17 @@ const
   SoundWarn = 'data\sound\warn.wav';
   SoundInit = 'data\sound\init.wav';
 
+implementation
+
 {$R *.lfm}
 
 { TFrameTimer }
 
-procedure TFrameTimer.Start(ASetName: String; APeriods: Integer; ARoundTimeMs, ARestTimeMs, APrepareTimeMs, AWarningTimeMs: Cardinal);
-var
- i, lastPeriod: Integer;
+procedure TFrameTimer.Start(ASetName: String; APeriods: TPeriodsList);
 begin
   TimerEnable:= False;
-
   LabelSet.Caption:= ASetName;
-
-  { prepare periods list }
-  SetLength(Periods, APeriods * 2);
-
-  Periods[0].Name:= 'Prepare';
-  Periods[0].FinalSound:= SoundStart;
-  Periods[0].TimeMs:= APrepareTimeMs;
-  Periods[0].WarningTimeMs:= AWarningTimeMs;
-  Periods[0].Color:= clLime;
-
-  lastPeriod:= APeriods * 2 - 1;
-
-  for i:= 1 to lastPeriod do
-  begin
-    if ((i mod 2) = 0) then
-    begin
-      Periods[i].Name:= 'Rest';
-      Periods[i].TimeMs:= ARestTimeMs;
-      Periods[i].FinalSound:= SoundStart;
-      Periods[i].Color:= clYellow;
-    end
-    else
-    begin
-      Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1);
-      Periods[i].TimeMs:= ARoundTimeMs;
-      Periods[i].WarningTimeMs:= AWarningTimeMs;
-      Periods[i].Color:= clRed;
-      if (i = lastPeriod) then
-        Periods[i].FinalSound:= SoundFinal
-      else
-        Periods[i].FinalSound:= SoundEnd;
-    end;
-  end;
+  Periods:= APeriods;
 
   { enable timer }
   ResetTimer;

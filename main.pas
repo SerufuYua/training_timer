@@ -107,14 +107,48 @@ begin
 end;
 
 procedure TFormTTimer.ButtonStartClick(Sender: TObject);
+var
+ i, lastPeriod: Integer;
+ periods: TPeriodsList;
 begin
-  FrameTimerUse.Start(EditName.Caption,
-                      EditRounds.Value,
-                      EditRoundTimeS.Value * 1000,
-                      EditRestTimeS.Value * 1000,
-                      EditPrepareTimeS.Value * 1000,
-                      EditWarningTimeS.Value * 1000);
+  periods:= [];
   FrameTimerUse.StopEvent:= {$ifdef FPC}@{$endif}StopEvent;
+
+  { prepare periods list }
+  SetLength(periods, EditRounds.Value * 2);
+
+  periods[0].Name:= 'Prepare';
+  periods[0].FinalSound:= SoundStart;
+  periods[0].TimeMs:= EditPrepareTimeS.Value * 1000;
+  periods[0].WarningTimeMs:= EditWarningTimeS.Value * 1000;
+  periods[0].Color:= clLime;
+
+  lastPeriod:= EditRounds.Value * 2 - 1;
+
+  for i:= 1 to lastPeriod do
+  begin
+    if ((i mod 2) = 0) then
+    begin
+      periods[i].Name:= 'Rest';
+      periods[i].TimeMs:= EditRestTimeS.Value * 1000;
+      periods[i].FinalSound:= SoundStart;
+      periods[i].Color:= clYellow;
+    end
+    else
+    begin
+      periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1);
+      periods[i].TimeMs:= EditRoundTimeS.Value * 1000;
+      periods[i].WarningTimeMs:= EditWarningTimeS.Value * 1000;
+      periods[i].Color:= clRed;
+      if (i = lastPeriod) then
+        periods[i].FinalSound:= SoundFinal
+      else
+        periods[i].FinalSound:= SoundEnd;
+    end;
+  end;
+
+  { start timer }
+  FrameTimerUse.Start(EditName.Caption, periods);
   ControlPageTimer.ActivePage:= TabTraining;
 end;
 
