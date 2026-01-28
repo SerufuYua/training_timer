@@ -114,7 +114,7 @@ object FormTTimer: TFormTTimer
           Left = 0
           Height = 336
           Top = 0
-          Width = 220
+          Width = 218
           Align = alLeft
           AutoSize = True
           BevelOuter = bvSpace
@@ -126,18 +126,18 @@ object FormTTimer: TFormTTimer
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
           ClientHeight = 336
-          ClientWidth = 220
+          ClientWidth = 218
           TabOrder = 0
           object LabelName: TLabel
             Left = 5
             Height = 23
             Top = 5
-            Width = 74
-            Caption = 'Set Name'
+            Width = 72
+            Caption = 'Set name'
             Layout = tlCenter
           end
           object EditName: TEdit
-            Left = 83
+            Left = 81
             Height = 23
             Top = 5
             Width = 132
@@ -149,15 +149,17 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 32
-            Width = 74
+            Width = 72
             Caption = 'Rounds'
             Layout = tlCenter
           end
           object EditRounds: TSpinEdit
-            Left = 83
+            Left = 81
             Height = 23
             Top = 32
             Width = 132
+            MaxValue = 999999
+            MinValue = 1
             TabOrder = 0
             Value = 3
             OnChange = EditSettingChange
@@ -166,12 +168,12 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 59
-            Width = 74
-            Caption = 'Round Time'
+            Width = 72
+            Caption = 'Round time'
             Layout = tlCenter
           end
           inline EditRoundTimeS: TFrameEditTime
-            Left = 83
+            Left = 81
             Height = 23
             Top = 59
             Width = 132
@@ -204,12 +206,12 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 86
-            Width = 74
-            Caption = 'Rest Time'
+            Width = 72
+            Caption = 'Rest time'
             Layout = tlCenter
           end
           inline EditRestTimeS: TFrameEditTime
-            Left = 83
+            Left = 81
             Height = 23
             Top = 86
             Width = 132
@@ -242,12 +244,12 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 113
-            Width = 74
-            Caption = 'Prepare Time'
+            Width = 72
+            Caption = 'Prepare time'
             Layout = tlCenter
           end
           inline EditPrepareTimeS: TFrameEditTime
-            Left = 83
+            Left = 81
             Height = 23
             Top = 113
             Width = 132
@@ -280,12 +282,12 @@ object FormTTimer: TFormTTimer
             Left = 5
             Height = 23
             Top = 140
-            Width = 74
-            Caption = 'Warning Time'
+            Width = 72
+            Caption = 'Warning time'
             Layout = tlCenter
           end
           inline EditWarningTimeS: TFrameEditTime
-            Left = 83
+            Left = 81
             Height = 23
             Top = 140
             Width = 132
@@ -313,6 +315,22 @@ object FormTTimer: TFormTTimer
                 Left = 57
               end
             end
+          end
+          object LabelStatistic: TLabel
+            Left = 5
+            Height = 15
+            Top = 167
+            Width = 72
+            Caption = 'Overall time'
+            Layout = tlCenter
+          end
+          object LabelStatisticTime: TLabel
+            Left = 81
+            Height = 15
+            Top = 167
+            Width = 132
+            Caption = '0 m  0 s'
+            Layout = tlCenter
           end
         end
       end
@@ -388,7 +406,7 @@ object FormTTimer: TFormTTimer
     Interval = 100
     OnTimer = TimeCounterTimer
     Left = 40
-    Top = 208
+    Top = 272
   end
   object PropStorage: TXMLPropStorage
     StoredValues = <>
@@ -397,6 +415,6 @@ object FormTTimer: TFormTTimer
     OnSaveProperties = PropStorageSaveProperties
     OnRestoreProperties = PropStorageRestoreProperties
     Left = 40
-    Top = 272
+    Top = 328
   end
 end

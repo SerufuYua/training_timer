@@ -32,6 +32,8 @@ type
     LabelRestTime: TLabel;
     ControlPageTimer: TPageControl;
     EditRounds: TSpinEdit;
+    LabelStatistic: TLabel;
+    LabelStatisticTime: TLabel;
     PanelSettingsCompose: TPanel;
     PanelSetsControl: TPanel;
     PanelSets: TPanel;
@@ -52,6 +54,7 @@ type
     procedure SaveSettings;
     procedure LoadSettings;
     procedure UpdateSettingsBox;
+    procedure ShowStatistic;
     procedure StopEvent;
     procedure WriteSetIndex(AValue: Integer);
     function ReadSetIndex: Integer;
@@ -197,6 +200,8 @@ begin
       SettingsSimpleList[SetIndex].WarningTimeMs:= editTime.Value * 1000;
     end;
   end;
+
+  ShowStatistic;
 end;
 
 procedure TFormTTimer.BoxSettingsChange(Sender: TObject);
@@ -209,6 +214,8 @@ begin
   EditRestTimeS.Value:= SettingsSimpleList[SetIndex].RestTimeMs div 1000;
   EditPrepareTimeS.Value:= SettingsSimpleList[SetIndex].PrepareTimeMs div 1000;
   EditWarningTimeS.Value:= SettingsSimpleList[SetIndex].WarningTimeMs div 1000;
+
+  ShowStatistic;
 end;
 
 procedure TFormTTimer.ButtonSetControlClick(Sender: TObject);
@@ -331,6 +338,19 @@ begin
   begin
     BoxSettings.Items.Add(SettingsSimpleList[i].Name);
   end;
+end;
+
+procedure TFormTTimer.ShowStatistic;
+var
+  min, sec: Cardinal;
+begin
+  sec:= EditPrepareTimeS.Value +
+        EditRestTimeS.Value * (EditRounds.Value - 1) +
+        EditRoundTimeS.Value * EditRounds.Value;
+  min:= sec div 60;
+  sec:= sec - (min * 60);
+
+  LabelStatisticTime.Caption:= IntToStr(min) + ' m  ' + IntToStr(sec) + ' s';
 end;
 
 procedure TFormTTimer.StopEvent;
