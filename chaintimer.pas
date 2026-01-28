@@ -121,6 +121,8 @@ end;
 procedure TFrameTimer.ResetTimer;
 begin
   Period:= 0;
+  PlaySound.SoundFile:= SoundInit;
+  PlaySound.Execute;
 end;
 
 procedure TFrameTimer.UpdateTime(ATimeMsElapsed: Cardinal);
