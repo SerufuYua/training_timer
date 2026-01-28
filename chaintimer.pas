@@ -211,7 +211,10 @@ begin
     FFinalSound:= Periods[AValue].FinalSound;
   end
   else
+  begin
     TimerEnable:= False;
+    ShapeSignal.Brush.Color:= clBlack;
+  end;
 end;
 
 end.
