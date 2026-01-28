@@ -11,6 +11,7 @@
       <UseXPManifest Value="True"/>
       <XPManifest>
         <DpiAware Value="True"/>
+        <TextDesc Value="Timer for Boxing, MMA and other sports activity."/>
       </XPManifest>
       <Icon Value="0"/>
     </General>
