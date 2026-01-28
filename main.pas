@@ -16,6 +16,7 @@ type
     ButtonAddSet: TButton;
     ButtonRemoveSet: TButton;
     ButtonSeveSets: TButton;
+    ButtonCopySet: TButton;
     ButtonStart: TButton;
     BoxSettings: TComboBox;
     EditName: TEdit;
@@ -250,6 +251,19 @@ begin
         BoxSettings.Items.Delete(idx);
         Delete(SettingsSimpleList, idx, 1);
         SetIndex:= 0;
+      end;
+    end;
+    'ButtonCopySet':
+    begin
+      if ((Length(SettingsSimpleList) > 0) AND (SetIndex > -1)) then
+      begin
+        SetLength(SettingsSimpleList, (Length(SettingsSimpleList) + 1));
+        idx:= High(SettingsSimpleList);
+        SettingsSimpleList[idx]:= SettingsSimpleList[SetIndex];
+        SettingsSimpleList[idx].Name:= SettingsSimpleList[idx].Name + ' Copy';
+
+        UpdateSettingsBox;
+        SetIndex:= idx;
       end;
     end;
     'ButtonSeveSets':
