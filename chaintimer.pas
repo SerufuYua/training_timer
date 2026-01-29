@@ -39,8 +39,8 @@ type
     procedure ButtonStopClick(Sender: TObject);
     procedure LabelTimeResize(Sender: TObject);
   protected
-    Periods: TPeriodsList;
-    TimerEnable: Boolean;
+    FPeriods: TPeriodsList;
+    FTimerEnable: Boolean;
     FStopEvent: TStopEvent;
     FPeriod: Integer;
     FPeriodTimeMs, FWarningTimeMs: Cardinal;
@@ -71,13 +71,13 @@ implementation
 
 procedure TFrameTimer.Start(ASetName: String; APeriods: TPeriodsList);
 begin
-  TimerEnable:= False;
+  FTimerEnable:= False;
   LabelSet.Caption:= ASetName;
-  Periods:= APeriods;
+  FPeriods:= APeriods;
 
   { enable timer }
   ResetTimer;
-  TimerEnable:= True;
+  FTimerEnable:= True;
 end;
 
 procedure TFrameTimer.ResetTimer;
@@ -98,7 +98,7 @@ begin
 end;
 
 begin
-  if (NOT TimerEnable) then Exit;
+  if (NOT FTimerEnable) then Exit;
 
   { warning and initial signals }
   if IsTime(FWarningTimeMs) then
@@ -157,14 +157,14 @@ end;
 
 procedure TFrameTimer.ButtonPauseClick(Sender: TObject);
 begin
-  if TimerEnable then
+  if FTimerEnable then
   begin
-    TimerEnable:= False;
+    FTimerEnable:= False;
     ButtonPause.Caption:= 'Continue';
   end
   else
   begin
-    TimerEnable:= True;
+    FTimerEnable:= True;
     ButtonPause.Caption:= 'Pause';
   end;
 
@@ -177,7 +177,7 @@ end;
 
 procedure TFrameTimer.ButtonStopClick(Sender: TObject);
 begin
-  TimerEnable:= False;
+  FTimerEnable:= False;
   if Assigned(FStopEvent) then
     FStopEvent();
 end;
@@ -199,20 +199,20 @@ end;
 
 procedure TFrameTimer.WritePeriod(AValue: Integer);
 begin
-  if (AValue < Length(Periods)) then
+  if (AValue < Length(FPeriods)) then
   begin
     FPeriod:= AValue;
-    ShowTime(Periods[AValue].TimeMs);
-    LabelPeriod.Caption:= Periods[AValue].Name;
-    FSignalColor:= Periods[AValue].Color;
+    ShowTime(FPeriods[AValue].TimeMs);
+    LabelPeriod.Caption:= FPeriods[AValue].Name;
+    FSignalColor:= FPeriods[AValue].Color;
     ShapeSignal.Brush.Color:= FSignalColor;
-    FWarningTimeMs:= Periods[AValue].WarningTimeMs;
-    FPeriodTimeMs:= Periods[AValue].TimeMs;
-    FFinalSound:= Periods[AValue].FinalSound;
+    FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
+    FPeriodTimeMs:= FPeriods[AValue].TimeMs;
+    FFinalSound:= FPeriods[AValue].FinalSound;
   end
   else
   begin
-    TimerEnable:= False;
+    FTimerEnable:= False;
     ShapeSignal.Brush.Color:= clBlack;
   end;
 end;
