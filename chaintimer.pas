@@ -47,6 +47,8 @@ type
     FFinalSound: String;
     FSignalColor: TColor;
     procedure ResetTimer;
+    procedure Pause;
+    procedure Continue;
     procedure ShowTime(ATimeMs: Cardinal);
     procedure WritePeriod(AValue: Integer);
   public
@@ -77,14 +79,27 @@ begin
 
   { enable timer }
   ResetTimer;
-  FTimerEnable:= True;
 end;
 
 procedure TFrameTimer.ResetTimer;
 begin
   Period:= 0;
+  Continue;
+  ButtonPause.Enabled:= True;
   PlaySound.SoundFile:= SoundInit;
   PlaySound.Execute;
+end;
+
+procedure TFrameTimer.Pause;
+begin
+  FTimerEnable:= False;
+  ButtonPause.Caption:= 'Continue...';
+end;
+
+procedure TFrameTimer.Continue;
+begin
+  FTimerEnable:= True;
+  ButtonPause.Caption:= 'Pause';
 end;
 
 procedure TFrameTimer.UpdateTime(ATimeMsElapsed: Cardinal);
@@ -158,15 +173,9 @@ end;
 procedure TFrameTimer.ButtonPauseClick(Sender: TObject);
 begin
   if FTimerEnable then
-  begin
-    FTimerEnable:= False;
-    ButtonPause.Caption:= 'Continue';
-  end
+    Pause
   else
-  begin
-    FTimerEnable:= True;
-    ButtonPause.Caption:= 'Pause';
-  end;
+    Continue;
 
 end;
 
@@ -214,6 +223,7 @@ begin
   begin
     FTimerEnable:= False;
     ShapeSignal.Brush.Color:= clBlack;
+    ButtonPause.Enabled:= False;
   end;
 end;
 
