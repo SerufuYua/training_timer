@@ -98,6 +98,10 @@ begin
   EditRestTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
   EditPrepareTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
   EditWarningTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+
+  {$ifdef RELEASE}
+  ControlPageTimer.ShowTabs:= False;
+  {$endif}
 end;
 
 procedure TFormTTimer.PropStorageRestoreProperties(Sender: TObject);
