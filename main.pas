@@ -6,13 +6,14 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  StdCtrls, Spin, ExtCtrls, XMLPropStorage, ChainTimer, EditTime;
+  StdCtrls, Spin, ExtCtrls, XMLPropStorage, Buttons, ChainTimer, EditTime;
 
 type
 
   { TFormTTimer }
 
   TFormTTimer = class(TForm)
+    ButtonConfig: TBitBtn;
     ButtonAddSet: TButton;
     ButtonRemoveSet: TButton;
     ButtonSeveSets: TButton;
@@ -35,6 +36,7 @@ type
     EditRounds: TSpinEdit;
     LabelStatistic: TLabel;
     LabelStatisticTime: TLabel;
+    PanelButtons: TPanel;
     PanelSettingsCompose: TPanel;
     PanelSetsControl: TPanel;
     PanelSets: TPanel;
