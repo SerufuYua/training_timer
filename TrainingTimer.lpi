@@ -102,6 +102,13 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="EditTime"/>
       </Unit>
+      <Unit>
+        <Filename Value="Settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrameSettings"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

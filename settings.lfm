@@ -1,0 +1,399 @@
+object FrameSettings: TFrameSettings
+  Left = 0
+  Height = 469
+  Top = 0
+  Width = 320
+  ClientHeight = 469
+  ClientWidth = 320
+  LCLVersion = '4.4.0.0'
+  TabOrder = 0
+  DesignLeft = 457
+  DesignTop = 27
+  object PanelSets: TPanel
+    Left = 0
+    Height = 33
+    Top = 0
+    Width = 320
+    Align = alTop
+    AutoSize = True
+    BevelOuter = bvNone
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ClientHeight = 33
+    ClientWidth = 320
+    TabOrder = 1
+    object BoxSettings: TComboBox
+      Left = 4
+      Height = 23
+      Top = 4
+      Width = 209
+      Align = alClient
+      ItemHeight = 15
+      ReadOnly = True
+      TabOrder = 0
+      Text = 'BoxSettings'
+      OnChange = BoxSettingsChange
+    end
+    object PanelSetsControl: TPanel
+      Left = 217
+      Height = 25
+      Top = 4
+      Width = 99
+      Align = alRight
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 4
+      ClientHeight = 25
+      ClientWidth = 99
+      TabOrder = 1
+      object ButtonAddSet: TButton
+        Left = 0
+        Height = 25
+        Hint = 'Add new Set'
+        Top = 0
+        Width = 34
+        AutoSize = True
+        Caption = '+'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        OnClick = ButtonSetControlClick
+      end
+      object ButtonRemoveSet: TButton
+        Left = 34
+        Height = 25
+        Hint = 'Remove current Set'
+        Top = 0
+        Width = 31
+        AutoSize = True
+        Caption = '-'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        OnClick = ButtonSetControlClick
+      end
+      object ButtonCopySet: TButton
+        Left = 65
+        Height = 25
+        Hint = 'Copy current Set'
+        Top = 0
+        Width = 34
+        AutoSize = True
+        Caption = 'C'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+        OnClick = ButtonSetControlClick
+      end
+    end
+  end
+  object PanelSettingsCompose: TPanel
+    Left = 0
+    Height = 402
+    Top = 33
+    Width = 320
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 402
+    ClientWidth = 320
+    TabOrder = 2
+    object PanelSettings: TPanel
+      Left = 0
+      Height = 402
+      Top = 0
+      Width = 218
+      Align = alLeft
+      AutoSize = True
+      BevelOuter = bvSpace
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 8
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 402
+      ClientWidth = 218
+      TabOrder = 0
+      object LabelName: TLabel
+        Left = 5
+        Height = 23
+        Top = 5
+        Width = 72
+        Caption = 'Set name'
+        Layout = tlCenter
+      end
+      object EditName: TEdit
+        Left = 81
+        Height = 23
+        Top = 5
+        Width = 132
+        TabOrder = 1
+        Text = 'EditName'
+      end
+      object LabelRounds: TLabel
+        Left = 5
+        Height = 23
+        Top = 36
+        Width = 72
+        Caption = 'Rounds'
+        Layout = tlCenter
+      end
+      object EditRounds: TSpinEdit
+        Left = 81
+        Height = 23
+        Top = 36
+        Width = 132
+        MaxValue = 999999
+        MinValue = 1
+        TabOrder = 0
+        Value = 3
+      end
+      object LabelRoundTime: TLabel
+        Left = 5
+        Height = 23
+        Top = 67
+        Width = 72
+        Caption = 'Round time'
+        Layout = tlCenter
+      end
+      inline EditRoundTimeS: TFrameEditTime
+        Left = 81
+        Height = 23
+        Top = 67
+        Width = 132
+        ClientHeight = 23
+        ClientWidth = 132
+        TabOrder = 2
+        inherited PanelMin: TPanel
+          Width = 65
+          ClientWidth = 65
+          inherited EditMin: TSpinEdit
+            Width = 50
+          end
+          inherited LabelMin: TLabel
+            Left = 54
+          end
+        end
+        inherited PanelSec: TPanel
+          Left = 70
+          Width = 62
+          ClientWidth = 62
+          inherited EditSec: TSpinEdit
+            Width = 53
+          end
+          inherited LabelSec: TLabel
+            Left = 57
+          end
+        end
+      end
+      object LabelRestTime: TLabel
+        Left = 5
+        Height = 23
+        Top = 98
+        Width = 72
+        Caption = 'Rest time'
+        Layout = tlCenter
+      end
+      inline EditRestTimeS: TFrameEditTime
+        Left = 81
+        Height = 23
+        Top = 98
+        Width = 132
+        ClientHeight = 23
+        ClientWidth = 132
+        TabOrder = 3
+        inherited PanelMin: TPanel
+          Width = 65
+          ClientWidth = 65
+          inherited EditMin: TSpinEdit
+            Width = 50
+          end
+          inherited LabelMin: TLabel
+            Left = 54
+          end
+        end
+        inherited PanelSec: TPanel
+          Left = 70
+          Width = 62
+          ClientWidth = 62
+          inherited EditSec: TSpinEdit
+            Width = 53
+          end
+          inherited LabelSec: TLabel
+            Left = 57
+          end
+        end
+      end
+      object LabelPrepareTime: TLabel
+        Left = 5
+        Height = 23
+        Top = 129
+        Width = 72
+        Caption = 'Prepare time'
+        Layout = tlCenter
+      end
+      inline EditPrepareTimeS: TFrameEditTime
+        Left = 81
+        Height = 23
+        Top = 129
+        Width = 132
+        ClientHeight = 23
+        ClientWidth = 132
+        TabOrder = 4
+        inherited PanelMin: TPanel
+          Width = 65
+          ClientWidth = 65
+          inherited EditMin: TSpinEdit
+            Width = 50
+          end
+          inherited LabelMin: TLabel
+            Left = 54
+          end
+        end
+        inherited PanelSec: TPanel
+          Left = 70
+          Width = 62
+          ClientWidth = 62
+          inherited EditSec: TSpinEdit
+            Width = 53
+          end
+          inherited LabelSec: TLabel
+            Left = 57
+          end
+        end
+      end
+      object LabelWarningTime: TLabel
+        Left = 5
+        Height = 23
+        Top = 160
+        Width = 72
+        Caption = 'Warning time'
+        Layout = tlCenter
+      end
+      inline EditWarningTimeS: TFrameEditTime
+        Left = 81
+        Height = 23
+        Top = 160
+        Width = 132
+        ClientHeight = 23
+        ClientWidth = 132
+        TabOrder = 5
+        inherited PanelMin: TPanel
+          Width = 65
+          ClientWidth = 65
+          inherited EditMin: TSpinEdit
+            Width = 50
+          end
+          inherited LabelMin: TLabel
+            Left = 54
+          end
+        end
+        inherited PanelSec: TPanel
+          Left = 70
+          Width = 62
+          ClientWidth = 62
+          inherited EditSec: TSpinEdit
+            Width = 53
+          end
+          inherited LabelSec: TLabel
+            Left = 57
+          end
+        end
+      end
+      object LabelStatistic: TLabel
+        Left = 5
+        Height = 15
+        Top = 191
+        Width = 72
+        Caption = 'Overall time'
+        Layout = tlCenter
+      end
+      object LabelStatisticTime: TLabel
+        Left = 81
+        Height = 15
+        Top = 191
+        Width = 132
+        Caption = '0 m  0 s'
+        Layout = tlCenter
+      end
+    end
+  end
+  object PanelButtons: TPanel
+    Left = 0
+    Height = 34
+    Top = 435
+    Width = 320
+    Align = alBottom
+    AutoSize = True
+    BevelOuter = bvNone
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsSameSize
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 34
+    ClientWidth = 320
+    TabOrder = 0
+    object ButtonConfig: TBitBtn
+      Left = 4
+      Height = 26
+      Top = 4
+      Width = 154
+      AutoSize = True
+      Caption = 'Config'
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000101
+        01000101010101010102000000000000000559595997585858FA5D5D5DF95D5D
+        5D90000000040000000000000001000000010000000000000000000000000606
+        060C5E5E5E5B6D6D6D6A2E2E2E260404040F5B5B5BC5BBBBBBF8BABABAF85C5C
+        5CC40101010F2B2B2B2468686868585858590505050B00000000000000015C5C
+        5C58585858F2666666F8595959D84242427D575757E6FFFFFFF9FFFFFFF95757
+        57E64141417C575757D75B5B5BF9555555F35F5F5F5300000001000000016A6A
+        6A68636363F8FFFFFFFDC2C2C2F5898989EDC2C2C2F0FFFFFFFFFFFFFFFDB9B9
+        B9F2828282EDBEBEBEF5FFFFFFFD616161F86E6E6E6D00000002000000002F2F
+        2F26595959D9C5C5C5F5FFFFFFFFFFFFFFFDEBEBEBF9BEBEBEF2A4A5A5F6E7E7
+        E7F9FFFFFFFFFFFFFFFFC9C9C9F6545454DD2B2B2B2B00000000000000050808
+        080E4040407A878787EBFFFFFFFDC9C9C9F35E5E5EE65A5A5AA7585858A86161
+        61E4C9C9C9F2FFFFFFFD8A8A8AED424242800909090E000000055D5D5D985E5E
+        5EC5575757E6B9B9B9F2EBEBEBF95A5A5AE73F3F3F4800000007000000074040
+        40435F5F5FE4F2F2F2F8C0C0C0F1585858E6636363C159595994575757FABEBE
+        BEF8FFFFFFF9FFFFFFFFC4C4C4F25A5A5AA80000000700000000000000000000
+        00065A5A5AA6BBBBBBF3FFFFFFFDFFFFFFF9B8B8B8F9545454FA595959FABDBD
+        BDF8FFFFFFFAFFFFFFFDBCBCBCF3595959A80101010700000000000000000000
+        0007595959A8ABABABF5FFFFFFFFFFFFFFF9B8B8B8F9545454FB5F5F5F8D5D5D
+        5DC5585858E8C3C3C3F2EBEBEBF95A5A5AE63C3C3C4100000007000000073939
+        39425B5B5BE5ECECECF9C5C5C5F1575757E7616161C262626293000000040808
+        080F4545457D838383EFFFFFFFFDC4C4C4F15C5C5CE4595959AA5C5C5CA66161
+        61E3C1C1C1F0FFFFFFFD787878F14242427F0909090E00000005000000002A2A
+        2A26565656D7C3C3C3F5FFFFFFFFFFFFFFFDF3F3F3F8B7B7B7F4AAAAAAF6F0F0
+        F0F9FFFFFFFDFFFFFFFFC4C4C4F65D5D5DD83030302500000000000000026A6A
+        6A6D626262F8FFFFFFFDCDCDCDF5838383EDBBBBBBF2FFFFFFFFFFFFFFFDC2C2
+        C2F2848484ECCBCBCBF5FFFFFFFD646464F86666666600000002000000016666
+        6652585858F2636363F8575757DB3E3E3E84515151EAFFFFFFF9FFFFFFF95353
+        53EA3B3B3B855A5A5ADB666666F75B5B5BF05959594A00000001000000000F0F
+        0F0B5F5F5F4E6565656C2B2B2B290000000E5D5D5DC1BCBCBCF8B8B8B8F96060
+        60C40808080E32323228707070635E5E5E4D0606060A00000000000000000000
+        0000000000010000000200000000000000046565658E5F5F5FF95A5A5AF96060
+        6090010101040000000001010101000000010000000000000000
+      }
+      TabOrder = 1
+    end
+    object ButtonStart: TButton
+      Left = 162
+      Height = 26
+      Top = 4
+      Width = 154
+      AutoSize = True
+      Caption = 'Start'
+      TabOrder = 0
+      OnClick = ButtonStartClick
+    end
+  end
+end
