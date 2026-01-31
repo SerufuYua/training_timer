@@ -1,0 +1,192 @@
+object FrameConfig: TFrameConfig
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '4.4.0.0'
+  TabOrder = 0
+  DesignLeft = 457
+  DesignTop = 27
+  object PanelParameters: TPanel
+    Left = 0
+    Height = 207
+    Top = 0
+    Width = 320
+    Align = alClient
+    BevelOuter = bvNone
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 207
+    ClientWidth = 320
+    TabOrder = 0
+    object LabelTimerPeriod: TLabel
+      Left = 4
+      Height = 23
+      Top = 4
+      Width = 94
+      Caption = 'Timer Period (ms)'
+      Layout = tlCenter
+    end
+    object EditTimerPeriod: TSpinEdit
+      Left = 102
+      Height = 23
+      Top = 4
+      Width = 103
+      TabOrder = 0
+    end
+    object LabelSoundStart: TLabel
+      Left = 4
+      Height = 23
+      Top = 31
+      Width = 94
+      Caption = 'Sound Start'
+      Layout = tlCenter
+    end
+    object EditSoundStart: TFileNameEdit
+      Left = 102
+      Height = 23
+      Top = 31
+      Width = 103
+      FileName = 'EditSoundStart'
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 1
+      Text = 'EditSoundStart'
+    end
+    object LabelSoundEnd: TLabel
+      Left = 4
+      Height = 23
+      Top = 58
+      Width = 94
+      Caption = 'Sound End'
+      Layout = tlCenter
+    end
+    object FileNameEnd: TFileNameEdit
+      Left = 102
+      Height = 23
+      Top = 58
+      Width = 103
+      FileName = 'EditSoundEnd'
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 2
+      Text = 'EditSoundEnd'
+    end
+    object LabelSoundFinal: TLabel
+      Left = 4
+      Height = 23
+      Top = 85
+      Width = 94
+      Caption = 'Sound Final'
+      Layout = tlCenter
+    end
+    object FileNameFinal: TFileNameEdit
+      Left = 102
+      Height = 23
+      Top = 85
+      Width = 103
+      FileName = 'FileNameFinal'
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 3
+      Text = 'FileNameFinal'
+    end
+    object LabelSoundWarn: TLabel
+      Left = 4
+      Height = 23
+      Top = 112
+      Width = 94
+      Caption = 'Sound Warn'
+      Layout = tlCenter
+    end
+    object FileNameWarn: TFileNameEdit
+      Left = 102
+      Height = 23
+      Top = 112
+      Width = 103
+      FileName = 'FileNameWarn'
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 4
+      Text = 'FileNameWarn'
+    end
+    object LabelSoundInit: TLabel
+      Left = 4
+      Height = 23
+      Top = 139
+      Width = 94
+      Caption = 'Sound Init'
+      Layout = tlCenter
+    end
+    object FileNameInit: TFileNameEdit
+      Left = 102
+      Height = 23
+      Top = 139
+      Width = 103
+      FileName = 'FileNameInit'
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 5
+      Text = 'FileNameInit'
+    end
+  end
+  object PanelButtons: TPanel
+    Left = 0
+    Height = 33
+    Top = 207
+    Width = 320
+    Align = alBottom
+    AutoSize = True
+    BevelOuter = bvNone
+    ChildSizing.LeftRightSpacing = 4
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsSameSize
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ClientHeight = 33
+    ClientWidth = 320
+    TabOrder = 1
+    object ButtonCancel: TButton
+      Left = 4
+      Height = 25
+      Top = 4
+      Width = 154
+      AutoSize = True
+      Caption = 'Cancel'
+      ModalResult = 2
+      TabOrder = 0
+    end
+    object ButtonOk: TButton
+      Left = 162
+      Height = 25
+      Top = 4
+      Width = 154
+      AutoSize = True
+      Caption = 'Ok'
+      ModalResult = 1
+      TabOrder = 1
+    end
+  end
+end

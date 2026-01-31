@@ -6,17 +6,20 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  Spin, ExtCtrls, XMLPropStorage, Buttons, ChainTimer, EditTime, Settings;
+  Spin, ExtCtrls, XMLPropStorage, Buttons, ChainTimer, EditTime, Settings,
+  Config;
 
 type
 
   { TFormTTimer }
 
   TFormTTimer = class(TForm)
+    FrameConfigUse: TFrameConfig;
     FrameSettingsUse: TFrameSettings;
     FrameTimerUse: TFrameTimer;
     ControlPageTimer: TPageControl;
     TabSettings: TTabSheet;
+    TabConfig: TTabSheet;
     TabTraining: TTabSheet;
     TimeCounter: TTimer;
     PropStorage: TXMLPropStorage;
