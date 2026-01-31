@@ -9,8 +9,6 @@ uses
 
 type
 
-  TStopEvent = procedure of object;
-
   { TFrameTimer }
 
   TTimePeriod = record
@@ -41,7 +39,7 @@ type
   protected
     FPeriods: TPeriodsList;
     FTimerEnable: Boolean;
-    FStopEvent: TStopEvent;
+    FStopEvent: TNotifyEvent;
     FPeriod: Integer;
     FPeriodTimeMs, FWarningTimeMs: Cardinal;
     FFinalSound: String;
@@ -55,7 +53,7 @@ type
     procedure UpdateTime(ATimeMsElapsed: Cardinal);
     procedure Start(ASetName: String; APeriods: TPeriodsList);
     property Period: Integer read FPeriod write WritePeriod;
-    property StopEvent: TStopEvent write FStopEvent;
+    property StopEvent: TNotifyEvent write FStopEvent;
   end;
 
 const
@@ -188,7 +186,7 @@ procedure TFrameTimer.ButtonStopClick(Sender: TObject);
 begin
   FTimerEnable:= False;
   if Assigned(FStopEvent) then
-    FStopEvent();
+    FStopEvent(nil);
 end;
 
 procedure TFrameTimer.LabelTimeResize(Sender: TObject);

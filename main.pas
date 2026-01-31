@@ -31,7 +31,7 @@ type
     procedure SaveSettings;
     procedure LoadSettings;
     procedure StartEvent(ASetName: String; APeriods: TPeriodsList);
-    procedure StopEvent;
+    procedure ReturnEvent(Sender: TObject);
   public
 
   end;
@@ -47,7 +47,8 @@ implementation
 
 procedure TFormTTimer.FormCreate(Sender: TObject);
 begin
-  FrameTimerUse.StopEvent:= {$ifdef FPC}@{$endif}StopEvent;
+  FrameTimerUse.StopEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
+  FrameConfigUse.CancelEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
   FrameSettingsUse.StartEvent:= {$ifdef FPC}@{$endif}StartEvent;
 
   {$ifdef RELEASE}
@@ -86,7 +87,7 @@ begin
   ControlPageTimer.ActivePage:= TabTraining;
 end;
 
-procedure TFormTTimer.StopEvent;
+procedure TFormTTimer.ReturnEvent(Sender: TObject);
 begin
   ControlPageTimer.ActivePage:= TabSettings;
 end;
