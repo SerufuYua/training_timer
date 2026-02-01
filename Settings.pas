@@ -65,11 +65,13 @@ type
     PanelSettings: TPanel;
     PanelSettingsCompose: TPanel;
     procedure BoxSettingsChange(Sender: TObject);
+    procedure ButtonConfigClick(Sender: TObject);
     procedure ButtonSetControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
   protected
     FStartEvent: TStartEvent;
+    FConfigEvent: TNotifyEvent;
     procedure UpdateSettingsBox;
     procedure ShowStatistic;
     procedure WriteSetIndex(AValue: Integer);
@@ -80,6 +82,7 @@ type
     procedure SaveSettings(APropStorage: TXMLPropStorage);
     property SetIndex: Integer read ReadSetIndex write WriteSetIndex;
     property StartEvent: TStartEvent write FStartEvent;
+    property ConfigEvent: TNotifyEvent write FConfigEvent;
   end;
 
 implementation
@@ -244,6 +247,12 @@ begin
   EditWarningTimeS.Value:= SettingsSimpleList[SetIndex].WarningTimeMs div 1000;
 
   ShowStatistic;
+end;
+
+procedure TFrameSettings.ButtonConfigClick(Sender: TObject);
+begin
+  if Assigned(FConfigEvent) then
+    FConfigEvent(self);
 end;
 
 procedure TFrameSettings.ButtonSetControlClick(Sender: TObject);

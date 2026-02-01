@@ -31,6 +31,7 @@ type
     procedure LoadSettings;
     procedure StartEvent(ASetName: String; APeriods: TPeriodsList);
     procedure ReturnEvent(Sender: TObject);
+    procedure ConfigEvent(Sender: TObject);
   public
 
   end;
@@ -49,6 +50,7 @@ begin
   FrameTimerUse.StopEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
   FrameConfigUse.ReturnEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
   FrameSettingsUse.StartEvent:= {$ifdef FPC}@{$endif}StartEvent;
+  FrameSettingsUse.ConfigEvent:= {$ifdef FPC}@{$endif}ConfigEvent;
 
   {$ifdef RELEASE}
   ControlPageTimer.ShowTabs:= False;
@@ -95,6 +97,11 @@ begin
 
   { apply config }
   TimeCounter.Interval:= FrameConfigUse.TimerInterval;
+end;
+
+procedure TFormTTimer.ConfigEvent(Sender: TObject);
+begin
+  ControlPageTimer.ActivePage:= TabConfig;
 end;
 
 end.

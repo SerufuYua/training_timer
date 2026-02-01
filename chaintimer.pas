@@ -186,7 +186,7 @@ procedure TFrameTimer.ButtonStopClick(Sender: TObject);
 begin
   FTimerEnable:= False;
   if Assigned(FStopEvent) then
-    FStopEvent(nil);
+    FStopEvent(self);
 end;
 
 procedure TFrameTimer.LabelTimeResize(Sender: TObject);

@@ -114,7 +114,7 @@ begin
   FileNameInit.Caption:= FSoundInit;
 
   if Assigned(FReturnEvent) then
-    FReturnEvent(nil);
+    FReturnEvent(self);
 end;
 
 procedure TFrameConfig.ButtonOkClick(Sender: TObject);
@@ -127,7 +127,7 @@ begin
   FSoundInit:= FileNameInit.Caption;
 
   if Assigned(FReturnEvent) then
-    FReturnEvent(nil);
+    FReturnEvent(self);
 end;
 
 procedure TFrameConfig.ButtonPlaySound(Sender: TObject);
