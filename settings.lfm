@@ -168,27 +168,6 @@ object FrameSettings: TFrameSettings
         ClientHeight = 23
         ClientWidth = 132
         TabOrder = 2
-        inherited PanelMin: TPanel
-          Width = 65
-          ClientWidth = 65
-          inherited EditMin: TSpinEdit
-            Width = 50
-          end
-          inherited LabelMin: TLabel
-            Left = 54
-          end
-        end
-        inherited PanelSec: TPanel
-          Left = 70
-          Width = 62
-          ClientWidth = 62
-          inherited EditSec: TSpinEdit
-            Width = 53
-          end
-          inherited LabelSec: TLabel
-            Left = 57
-          end
-        end
       end
       object LabelRestTime: TLabel
         Left = 5
@@ -206,27 +185,6 @@ object FrameSettings: TFrameSettings
         ClientHeight = 23
         ClientWidth = 132
         TabOrder = 3
-        inherited PanelMin: TPanel
-          Width = 65
-          ClientWidth = 65
-          inherited EditMin: TSpinEdit
-            Width = 50
-          end
-          inherited LabelMin: TLabel
-            Left = 54
-          end
-        end
-        inherited PanelSec: TPanel
-          Left = 70
-          Width = 62
-          ClientWidth = 62
-          inherited EditSec: TSpinEdit
-            Width = 53
-          end
-          inherited LabelSec: TLabel
-            Left = 57
-          end
-        end
       end
       object LabelPrepareTime: TLabel
         Left = 5
@@ -244,27 +202,6 @@ object FrameSettings: TFrameSettings
         ClientHeight = 23
         ClientWidth = 132
         TabOrder = 4
-        inherited PanelMin: TPanel
-          Width = 65
-          ClientWidth = 65
-          inherited EditMin: TSpinEdit
-            Width = 50
-          end
-          inherited LabelMin: TLabel
-            Left = 54
-          end
-        end
-        inherited PanelSec: TPanel
-          Left = 70
-          Width = 62
-          ClientWidth = 62
-          inherited EditSec: TSpinEdit
-            Width = 53
-          end
-          inherited LabelSec: TLabel
-            Left = 57
-          end
-        end
       end
       object LabelWarningTime: TLabel
         Left = 5
@@ -282,27 +219,6 @@ object FrameSettings: TFrameSettings
         ClientHeight = 23
         ClientWidth = 132
         TabOrder = 5
-        inherited PanelMin: TPanel
-          Width = 65
-          ClientWidth = 65
-          inherited EditMin: TSpinEdit
-            Width = 50
-          end
-          inherited LabelMin: TLabel
-            Left = 54
-          end
-        end
-        inherited PanelSec: TPanel
-          Left = 70
-          Width = 62
-          ClientWidth = 62
-          inherited EditSec: TSpinEdit
-            Width = 53
-          end
-          inherited LabelSec: TLabel
-            Left = 57
-          end
-        end
       end
       object LabelStatistic: TLabel
         Left = 5
