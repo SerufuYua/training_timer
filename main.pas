@@ -5,9 +5,8 @@ unit main;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  Spin, ExtCtrls, XMLPropStorage, Buttons, ChainTimer, EditTime, Settings,
-  Config;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  ExtCtrls, XMLPropStorage, Buttons, ChainTimer, Settings, Config;
 
 type
 
@@ -48,7 +47,7 @@ implementation
 procedure TFormTTimer.FormCreate(Sender: TObject);
 begin
   FrameTimerUse.StopEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
-  FrameConfigUse.CancelEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
+  FrameConfigUse.ReturnEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
   FrameSettingsUse.StartEvent:= {$ifdef FPC}@{$endif}StartEvent;
 
   {$ifdef RELEASE}
@@ -74,11 +73,14 @@ end;
 procedure TFormTTimer.SaveSettings;
 begin
   FrameSettingsUse.SaveSettings(PropStorage);
+  FrameConfigUse.SaveSettings(PropStorage);
 end;
 
 procedure TFormTTimer.LoadSettings;
 begin
   FrameSettingsUse.LoadSettings(PropStorage);
+  FrameConfigUse.LoadSettings(PropStorage);
+  TimeCounter.Interval:= FrameConfigUse.TimerInterval;
 end;
 
 procedure TFormTTimer.StartEvent(ASetName: String; APeriods: TPeriodsList);
@@ -90,6 +92,9 @@ end;
 procedure TFormTTimer.ReturnEvent(Sender: TObject);
 begin
   ControlPageTimer.ActivePage:= TabSettings;
+
+  { apply config }
+  TimeCounter.Interval:= FrameConfigUse.TimerInterval;
 end;
 
 end.

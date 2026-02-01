@@ -25,23 +25,23 @@ object FrameConfig: TFrameConfig
     ClientHeight = 207
     ClientWidth = 320
     TabOrder = 0
-    object LabelTimerPeriod: TLabel
+    object LabelTimerInterval: TLabel
       Left = 4
       Height = 23
       Top = 4
-      Width = 94
-      Caption = 'Timer Period (ms)'
+      Width = 99
+      Caption = 'Timer Interval (ms)'
       Layout = tlCenter
     end
-    object EditTimerPeriod: TSpinEdit
-      Left = 102
+    object EditTimerInterval: TSpinEdit
+      Left = 107
       Height = 23
       Top = 4
       Width = 103
       TabOrder = 0
     end
     object PanelEmpty: TPanel
-      Left = 209
+      Left = 214
       Height = 23
       Top = 4
       Width = 42
@@ -52,26 +52,26 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 31
-      Width = 94
+      Width = 99
       Caption = 'Sound Start'
       Layout = tlCenter
     end
-    object EditSoundStart: TFileNameEdit
-      Left = 102
+    object FileNameStart: TFileNameEdit
+      Left = 107
       Height = 23
       Top = 31
       Width = 103
-      FileName = 'EditSoundStart'
+      FileName = 'FileNameStart'
       FilterIndex = 0
       HideDirectories = False
       ButtonWidth = 23
       NumGlyphs = 1
       MaxLength = 0
       TabOrder = 1
-      Text = 'EditSoundStart'
+      Text = 'FileNameStart'
     end
     object ButtonPlayStart: TBitBtn
-      Left = 209
+      Left = 214
       Height = 23
       Top = 31
       Width = 42
@@ -104,12 +104,12 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 58
-      Width = 94
+      Width = 99
       Caption = 'Sound End'
       Layout = tlCenter
     end
     object FileNameEnd: TFileNameEdit
-      Left = 102
+      Left = 107
       Height = 23
       Top = 58
       Width = 103
@@ -123,7 +123,7 @@ object FrameConfig: TFrameConfig
       Text = 'EditSoundEnd'
     end
     object ButtonPlayEnd: TBitBtn
-      Left = 209
+      Left = 214
       Height = 23
       Top = 58
       Width = 42
@@ -156,12 +156,12 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 85
-      Width = 94
+      Width = 99
       Caption = 'Sound Final'
       Layout = tlCenter
     end
     object FileNameFinal: TFileNameEdit
-      Left = 102
+      Left = 107
       Height = 23
       Top = 85
       Width = 103
@@ -175,7 +175,7 @@ object FrameConfig: TFrameConfig
       Text = 'FileNameFinal'
     end
     object ButtonPlayFinal: TBitBtn
-      Left = 209
+      Left = 214
       Height = 23
       Top = 85
       Width = 42
@@ -208,12 +208,12 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 112
-      Width = 94
+      Width = 99
       Caption = 'Sound Warn'
       Layout = tlCenter
     end
     object FileNameWarn: TFileNameEdit
-      Left = 102
+      Left = 107
       Height = 23
       Top = 112
       Width = 103
@@ -227,7 +227,7 @@ object FrameConfig: TFrameConfig
       Text = 'FileNameWarn'
     end
     object ButtonPlayWarn: TBitBtn
-      Left = 209
+      Left = 214
       Height = 23
       Top = 112
       Width = 42
@@ -260,12 +260,12 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 139
-      Width = 94
+      Width = 99
       Caption = 'Sound Init'
       Layout = tlCenter
     end
     object FileNameInit: TFileNameEdit
-      Left = 102
+      Left = 107
       Height = 23
       Top = 139
       Width = 103
@@ -279,7 +279,7 @@ object FrameConfig: TFrameConfig
       Text = 'FileNameInit'
     end
     object ButtonPlayInit: TBitBtn
-      Left = 209
+      Left = 214
       Height = 23
       Top = 139
       Width = 42
@@ -346,6 +346,7 @@ object FrameConfig: TFrameConfig
       Caption = 'Ok'
       ModalResult = 1
       TabOrder = 1
+      OnClick = ButtonOkClick
     end
   end
 end
