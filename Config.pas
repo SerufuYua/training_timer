@@ -15,6 +15,7 @@ type
   { TFrameConfig }
 
   TFrameConfig = class(TFrame)
+    ButtonDefault: TButton;
     ButtonPlayStart: TBitBtn;
     ButtonCancel: TButton;
     ButtonOk: TButton;
@@ -39,6 +40,7 @@ type
     EditTimerInterval: TSpinEdit;
     PlaySound: Tplaysound;
     procedure ButtonCancelClick(Sender: TObject);
+    procedure ButtonDefaultClick(Sender: TObject);
     procedure ButtonOkClick(Sender: TObject);
     procedure ButtonPlaySound(Sender: TObject);
   protected
@@ -115,6 +117,22 @@ begin
 
   if Assigned(FReturnEvent) then
     FReturnEvent(self);
+end;
+
+procedure TFrameConfig.ButtonDefaultClick(Sender: TObject);
+begin
+  FTimerInterval:= DefaultTimerInterval;
+  FSoundStart:= DefaultSoundStart;
+  FSoundEnd:= DefaultSoundEnd;
+  FSoundFinal:= DefaultSoundFinal;
+  FSoundWarn:= DefaultSoundWarn;
+  FSoundInit:= DefaultSoundInit;
+  EditTimerInterval.Value:= DefaultTimerInterval;
+  FileNameStart.Caption:= DefaultSoundStart;
+  FileNameEnd.Caption:= DefaultSoundEnd;
+  FileNameFinal.Caption:= DefaultSoundFinal;
+  FileNameWarn.Caption:= DefaultSoundWarn;
+  FileNameInit.Caption:= DefaultSoundInit;
 end;
 
 procedure TFrameConfig.ButtonOkClick(Sender: TObject);

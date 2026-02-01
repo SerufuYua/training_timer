@@ -341,18 +341,28 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 25
       Top = 4
-      Width = 154
+      Width = 101
       AutoSize = True
       Caption = 'Cancel'
       ModalResult = 2
       TabOrder = 0
       OnClick = ButtonCancelClick
     end
-    object ButtonOk: TButton
-      Left = 162
+    object ButtonDefault: TButton
+      Left = 109
       Height = 25
       Top = 4
-      Width = 154
+      Width = 102
+      AutoSize = True
+      Caption = 'Default'
+      TabOrder = 2
+      OnClick = ButtonDefaultClick
+    end
+    object ButtonOk: TButton
+      Left = 215
+      Height = 25
+      Top = 4
+      Width = 101
       AutoSize = True
       Caption = 'Ok'
       ModalResult = 1
