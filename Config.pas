@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Spin, EditBtn,
-  Buttons, XMLPropStorage;
+  Buttons, XMLPropStorage, uplaysound;
 
 type
 
@@ -37,8 +37,10 @@ type
     PanelParameters: TPanel;
     PanelButtons: TPanel;
     EditTimerInterval: TSpinEdit;
+    PlaySound: Tplaysound;
     procedure ButtonCancelClick(Sender: TObject);
     procedure ButtonOkClick(Sender: TObject);
+    procedure ButtonPlaySound(Sender: TObject);
   protected
     FReturnEvent: TNotifyEvent;
     FTimerInterval: Integer;
@@ -104,6 +106,13 @@ end;
 
 procedure TFrameConfig.ButtonCancelClick(Sender: TObject);
 begin
+  EditTimerInterval.Value:= FTimerInterval;
+  FileNameStart.Caption:= FSoundStart;
+  FileNameEnd.Caption:= FSoundEnd;
+  FileNameFinal.Caption:= FSoundFinal;
+  FileNameWarn.Caption:= FSoundWarn;
+  FileNameInit.Caption:= FSoundInit;
+
   if Assigned(FReturnEvent) then
     FReturnEvent(nil);
 end;
@@ -119,6 +128,24 @@ begin
 
   if Assigned(FReturnEvent) then
     FReturnEvent(nil);
+end;
+
+procedure TFrameConfig.ButtonPlaySound(Sender: TObject);
+var
+  component: TComponent;
+begin
+  if (NOT (Sender is TComponent)) then Exit;
+  component:= Sender as TComponent;
+
+  case component.Name of
+    'ButtonPlayStart': PlaySound.SoundFile:= FileNameStart.Caption;
+    'ButtonPlayEnd':   PlaySound.SoundFile:= FileNameEnd.Caption;
+    'ButtonPlayFinal': PlaySound.SoundFile:= FileNameFinal.Caption;
+    'ButtonPlayWarn':  PlaySound.SoundFile:= FileNameWarn.Caption;
+    'ButtonPlayInit':  PlaySound.SoundFile:= FileNameInit.Caption;
+  end;
+
+  PlaySound.Execute;
 end;
 
 end.

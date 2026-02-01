@@ -99,6 +99,7 @@ object FrameConfig: TFrameConfig
         000000000000000000000000000408080842070707C30000005F
       }
       TabOrder = 7
+      OnClick = ButtonPlaySound
     end
     object LabelSoundEnd: TLabel
       Left = 4
@@ -151,6 +152,7 @@ object FrameConfig: TFrameConfig
         000000000000000000000000000408080842070707C30000005F
       }
       TabOrder = 8
+      OnClick = ButtonPlaySound
     end
     object LabelSoundFinal: TLabel
       Left = 4
@@ -203,6 +205,7 @@ object FrameConfig: TFrameConfig
         000000000000000000000000000408080842070707C30000005F
       }
       TabOrder = 9
+      OnClick = ButtonPlaySound
     end
     object LabelSoundWarn: TLabel
       Left = 4
@@ -255,6 +258,7 @@ object FrameConfig: TFrameConfig
         000000000000000000000000000408080842070707C30000005F
       }
       TabOrder = 10
+      OnClick = ButtonPlaySound
     end
     object LabelSoundInit: TLabel
       Left = 4
@@ -307,6 +311,7 @@ object FrameConfig: TFrameConfig
         000000000000000000000000000408080842070707C30000005F
       }
       TabOrder = 11
+      OnClick = ButtonPlaySound
     end
   end
   object PanelButtons: TPanel
@@ -348,5 +353,24 @@ object FrameConfig: TFrameConfig
       TabOrder = 1
       OnClick = ButtonOkClick
     end
+  end
+  object PlaySound: Tplaysound
+    About.Description.Strings = (
+      'Plays WAVE sounds in Windows or Linux'#13#10'Public methods: Execute and StopSound'
+    )
+    About.Title = 'About PlaySound'
+    About.Height = 400
+    About.Width = 400
+    About.Font.Color = clNavy
+    About.Font.Height = -13
+    About.BackGroundColor = clCream
+    About.Version = '0.0.10'
+    About.Authorname = 'Gordon Bamber'
+    About.Organisation = 'Public Domain'
+    About.AuthorEmail = 'minesadorada@charcodelvalle.com'
+    About.ComponentName = 'PlaySound'
+    About.LicenseType = abModifiedGPL
+    Left = 32
+    Top = 160
   end
 end
