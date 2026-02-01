@@ -133,6 +133,7 @@ object FrameSettings: TFrameSettings
         Width = 132
         TabOrder = 1
         Text = 'EditName'
+        OnChange = EditSettingChange
       end
       object LabelRounds: TLabel
         Left = 5
