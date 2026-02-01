@@ -20,6 +20,7 @@ object FrameConfig: TFrameConfig
     ChildSizing.TopBottomSpacing = 4
     ChildSizing.HorizontalSpacing = 4
     ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 3
     ClientHeight = 207
@@ -29,22 +30,22 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 4
-      Width = 99
+      Width = 133
       Caption = 'Timer Interval (ms)'
       Layout = tlCenter
     end
     object EditTimerInterval: TSpinEdit
-      Left = 107
+      Left = 141
       Height = 23
       Top = 4
-      Width = 103
+      Width = 139
       TabOrder = 0
     end
     object PanelEmpty: TPanel
-      Left = 214
+      Left = 284
       Height = 23
       Top = 4
-      Width = 42
+      Width = 32
       BevelOuter = bvNone
       TabOrder = 6
     end
@@ -52,15 +53,15 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 31
-      Width = 99
+      Width = 133
       Caption = 'Sound Start'
       Layout = tlCenter
     end
     object FileNameStart: TFileNameEdit
-      Left = 107
+      Left = 141
       Height = 23
       Top = 31
-      Width = 103
+      Width = 139
       FileName = 'FileNameStart'
       FilterIndex = 0
       HideDirectories = False
@@ -71,11 +72,12 @@ object FrameConfig: TFrameConfig
       Text = 'FileNameStart'
     end
     object ButtonPlayStart: TBitBtn
-      Left = 214
+      Left = 284
       Height = 23
       Top = 31
-      Width = 42
+      Width = 32
       AutoSize = True
+      Constraints.MaxWidth = 32
       Glyph.Data = {
         76020000424D760200000000000036000000280000000C0000000C0000000100
         2000000000004002000064000000640000000000000000000000000000000101
@@ -105,15 +107,15 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 58
-      Width = 99
+      Width = 133
       Caption = 'Sound End'
       Layout = tlCenter
     end
     object FileNameEnd: TFileNameEdit
-      Left = 107
+      Left = 141
       Height = 23
       Top = 58
-      Width = 103
+      Width = 139
       FileName = 'EditSoundEnd'
       FilterIndex = 0
       HideDirectories = False
@@ -124,11 +126,12 @@ object FrameConfig: TFrameConfig
       Text = 'EditSoundEnd'
     end
     object ButtonPlayEnd: TBitBtn
-      Left = 214
+      Left = 284
       Height = 23
       Top = 58
-      Width = 42
+      Width = 32
       AutoSize = True
+      Constraints.MaxWidth = 32
       Glyph.Data = {
         76020000424D760200000000000036000000280000000C0000000C0000000100
         2000000000004002000064000000640000000000000000000000000000000101
@@ -158,15 +161,15 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 85
-      Width = 99
+      Width = 133
       Caption = 'Sound Final'
       Layout = tlCenter
     end
     object FileNameFinal: TFileNameEdit
-      Left = 107
+      Left = 141
       Height = 23
       Top = 85
-      Width = 103
+      Width = 139
       FileName = 'FileNameFinal'
       FilterIndex = 0
       HideDirectories = False
@@ -177,11 +180,12 @@ object FrameConfig: TFrameConfig
       Text = 'FileNameFinal'
     end
     object ButtonPlayFinal: TBitBtn
-      Left = 214
+      Left = 284
       Height = 23
       Top = 85
-      Width = 42
+      Width = 32
       AutoSize = True
+      Constraints.MaxWidth = 32
       Glyph.Data = {
         76020000424D760200000000000036000000280000000C0000000C0000000100
         2000000000004002000064000000640000000000000000000000000000000101
@@ -211,15 +215,15 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 112
-      Width = 99
+      Width = 133
       Caption = 'Sound Warn'
       Layout = tlCenter
     end
     object FileNameWarn: TFileNameEdit
-      Left = 107
+      Left = 141
       Height = 23
       Top = 112
-      Width = 103
+      Width = 139
       FileName = 'FileNameWarn'
       FilterIndex = 0
       HideDirectories = False
@@ -230,11 +234,12 @@ object FrameConfig: TFrameConfig
       Text = 'FileNameWarn'
     end
     object ButtonPlayWarn: TBitBtn
-      Left = 214
+      Left = 284
       Height = 23
       Top = 112
-      Width = 42
+      Width = 32
       AutoSize = True
+      Constraints.MaxWidth = 32
       Glyph.Data = {
         76020000424D760200000000000036000000280000000C0000000C0000000100
         2000000000004002000064000000640000000000000000000000000000000101
@@ -264,15 +269,15 @@ object FrameConfig: TFrameConfig
       Left = 4
       Height = 23
       Top = 139
-      Width = 99
+      Width = 133
       Caption = 'Sound Init'
       Layout = tlCenter
     end
     object FileNameInit: TFileNameEdit
-      Left = 107
+      Left = 141
       Height = 23
       Top = 139
-      Width = 103
+      Width = 139
       FileName = 'FileNameInit'
       FilterIndex = 0
       HideDirectories = False
@@ -283,11 +288,12 @@ object FrameConfig: TFrameConfig
       Text = 'FileNameInit'
     end
     object ButtonPlayInit: TBitBtn
-      Left = 214
+      Left = 284
       Height = 23
       Top = 139
-      Width = 42
+      Width = 32
       AutoSize = True
+      Constraints.MaxWidth = 32
       Glyph.Data = {
         76020000424D760200000000000036000000280000000C0000000C0000000100
         2000000000004002000064000000640000000000000000000000000000000101
