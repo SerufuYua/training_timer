@@ -82,7 +82,7 @@ procedure TFormTTimer.LoadSettings;
 begin
   FrameSettingsUse.LoadSettings(PropStorage);
   FrameConfigUse.LoadSettings(PropStorage);
-  TimeCounter.Interval:= FrameConfigUse.TimerInterval;
+  TimeCounter.Interval:= TimerInterval;
 end;
 
 procedure TFormTTimer.StartEvent(ASetName: String; APeriods: TPeriodsList);
@@ -96,7 +96,7 @@ begin
   ControlPageTimer.ActivePage:= TabSettings;
 
   { apply config }
-  TimeCounter.Interval:= FrameConfigUse.TimerInterval;
+  TimeCounter.Interval:= TimerInterval;
 end;
 
 procedure TFormTTimer.ConfigEvent(Sender: TObject);

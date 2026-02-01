@@ -88,7 +88,7 @@ type
 implementation
 
 uses
-  Graphics;
+  Graphics, Config;
 
 type
   TSettingsSimple = record

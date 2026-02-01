@@ -29,6 +29,130 @@ object FormTTimer: TFormTTimer
         Align = alClient
         ClientHeight = 390
         ClientWidth = 312
+        inherited PanelSettingsCompose: TPanel
+          inherited PanelSettings: TPanel
+            inherited EditRoundTimeS: TFrameEditTime
+              Left = 81
+              Height = 23
+              Top = 67
+              Width = 132
+              ClientHeight = 23
+              ClientWidth = 132
+              TabOrder = 2
+              inherited PanelMin: TPanel
+                Width = 65
+                ClientWidth = 65
+                inherited EditMin: TSpinEdit
+                  Width = 50
+                end
+                inherited LabelMin: TLabel
+                  Left = 54
+                end
+              end
+              inherited PanelSec: TPanel
+                Left = 70
+                Width = 62
+                ClientWidth = 62
+                inherited EditSec: TSpinEdit
+                  Width = 53
+                end
+                inherited LabelSec: TLabel
+                  Left = 57
+                end
+              end
+            end
+            inherited EditRestTimeS: TFrameEditTime
+              Left = 81
+              Height = 23
+              Top = 98
+              Width = 132
+              ClientHeight = 23
+              ClientWidth = 132
+              TabOrder = 3
+              inherited PanelMin: TPanel
+                Width = 65
+                ClientWidth = 65
+                inherited EditMin: TSpinEdit
+                  Width = 50
+                end
+                inherited LabelMin: TLabel
+                  Left = 54
+                end
+              end
+              inherited PanelSec: TPanel
+                Left = 70
+                Width = 62
+                ClientWidth = 62
+                inherited EditSec: TSpinEdit
+                  Width = 53
+                end
+                inherited LabelSec: TLabel
+                  Left = 57
+                end
+              end
+            end
+            inherited EditPrepareTimeS: TFrameEditTime
+              Left = 81
+              Height = 23
+              Top = 129
+              Width = 132
+              ClientHeight = 23
+              ClientWidth = 132
+              TabOrder = 4
+              inherited PanelMin: TPanel
+                Width = 65
+                ClientWidth = 65
+                inherited EditMin: TSpinEdit
+                  Width = 50
+                end
+                inherited LabelMin: TLabel
+                  Left = 54
+                end
+              end
+              inherited PanelSec: TPanel
+                Left = 70
+                Width = 62
+                ClientWidth = 62
+                inherited EditSec: TSpinEdit
+                  Width = 53
+                end
+                inherited LabelSec: TLabel
+                  Left = 57
+                end
+              end
+            end
+            inherited EditWarningTimeS: TFrameEditTime
+              Left = 81
+              Height = 23
+              Top = 160
+              Width = 132
+              ClientHeight = 23
+              ClientWidth = 132
+              TabOrder = 5
+              inherited PanelMin: TPanel
+                Width = 65
+                ClientWidth = 65
+                inherited EditMin: TSpinEdit
+                  Width = 50
+                end
+                inherited LabelMin: TLabel
+                  Left = 54
+                end
+              end
+              inherited PanelSec: TPanel
+                Left = 70
+                Width = 62
+                ClientWidth = 62
+                inherited EditSec: TSpinEdit
+                  Width = 53
+                end
+                inherited LabelSec: TLabel
+                  Left = 57
+                end
+              end
+            end
+          end
+        end
       end
     end
     object TabConfig: TTabSheet

@@ -56,14 +56,10 @@ type
     property StopEvent: TNotifyEvent write FStopEvent;
   end;
 
-const
-  SoundStart = 'data\sound\start.wav';
-  SoundEnd = 'data\sound\end.wav';
-  SoundFinal = 'data\sound\fin.wav';
-  SoundWarn = 'data\sound\warn.wav';
-  SoundInit = 'data\sound\init.wav';
-
 implementation
+
+uses
+  Config;
 
 {$R *.lfm}
 
