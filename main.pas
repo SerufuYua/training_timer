@@ -6,9 +6,12 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, XMLPropStorage, Buttons, ChainTimer, Settings, Config, About;
+  ExtCtrls, XMLPropStorage, Buttons, Generics.Collections,
+  ChainTimer, Settings, Config, About;
 
 type
+
+  TTabStack = {$ifdef FPC}specialize{$endif} TObjectStack<TTabSheet>;
 
   { TFormTTimer }
 
@@ -29,14 +32,17 @@ type
     procedure PropStorageSaveProperties(Sender: TObject);
     procedure TimeCounterTimer(Sender: TObject);
   protected
+    FTabStack: TTabStack;
     procedure SaveSettings;
     procedure LoadSettings;
     procedure StartEvent(ASetName: String; APeriods: TPeriodsList);
     procedure ReturnEvent(Sender: TObject);
     procedure ConfigEvent(Sender: TObject);
     procedure AboutEvent(Sender: TObject);
+    function ReadActiveTab: TTabSheet;
+    procedure WriteActiveTab(const AValue: TTabSheet);
   public
-
+    property ActiveTab: TTabSheet read ReadActiveTab write WriteActiveTab;
   end;
 
 var
@@ -50,6 +56,7 @@ implementation
 
 procedure TFormTTimer.FormCreate(Sender: TObject);
 begin
+  FTabStack:= TTabStack.Create(False);
   FrameTimerUse.StopEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
   FrameConfigUse.ReturnEvent:= {$ifdef FPC}@{$endif}ReturnEvent;
   FrameConfigUse.AboutEvent:= {$ifdef FPC}@{$endif}AboutEvent;
@@ -94,12 +101,15 @@ end;
 procedure TFormTTimer.StartEvent(ASetName: String; APeriods: TPeriodsList);
 begin
   FrameTimerUse.Start(ASetName, APeriods);
-  ControlPageTimer.ActivePage:= TabTraining;
+  ActiveTab:= TabTraining;
 end;
 
 procedure TFormTTimer.ReturnEvent(Sender: TObject);
 begin
-  ControlPageTimer.ActivePage:= TabSettings;
+  if (FTabStack.Count > 0) then
+    ControlPageTimer.ActivePage:= FTabStack.Pop
+  else
+    ControlPageTimer.ActivePage:= TabSettings;
 
   { apply config }
   TimeCounter.Interval:= TimerInterval;
@@ -107,12 +117,23 @@ end;
 
 procedure TFormTTimer.ConfigEvent(Sender: TObject);
 begin
-  ControlPageTimer.ActivePage:= TabConfig;
+  ActiveTab:= TabConfig;
 end;
 
 procedure TFormTTimer.AboutEvent(Sender: TObject);
 begin
-  ControlPageTimer.ActivePage:= TabAbout;
+  ActiveTab:= TabAbout;
+end;
+
+function TFormTTimer.ReadActiveTab: TTabSheet;
+begin
+  Result:= ControlPageTimer.ActivePage;
+end;
+
+procedure TFormTTimer.WriteActiveTab(const AValue: TTabSheet);
+begin
+  FTabStack.Push(ControlPageTimer.ActivePage);
+  ControlPageTimer.ActivePage:= AValue;
 end;
 
 end.
