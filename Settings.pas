@@ -21,6 +21,7 @@ type
     ButtonCopySet: TButton;
     ButtonRemoveSet: TButton;
     ButtonStart: TButton;
+    ButtonAbout: TButton;
     EditMin: TSpinEdit;
     EditMin1: TSpinEdit;
     EditMin2: TSpinEdit;
@@ -65,13 +66,14 @@ type
     PanelSettings: TPanel;
     PanelSettingsCompose: TPanel;
     procedure BoxSettingsChange(Sender: TObject);
+    procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonConfigClick(Sender: TObject);
     procedure ButtonSetControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
   protected
     FStartEvent: TStartEvent;
-    FConfigEvent: TNotifyEvent;
+    FConfigEvent, FAboutEvent: TNotifyEvent;
     procedure UpdateSettingsBox;
     procedure ShowStatistic;
     procedure WriteSetIndex(AValue: Integer);
@@ -83,6 +85,7 @@ type
     property SetIndex: Integer read ReadSetIndex write WriteSetIndex;
     property StartEvent: TStartEvent write FStartEvent;
     property ConfigEvent: TNotifyEvent write FConfigEvent;
+    property AboutEvent: TNotifyEvent write FAboutEvent;
   end;
 
 implementation
@@ -247,6 +250,12 @@ begin
   EditWarningTimeS.Value:= SettingsSimpleList[SetIndex].WarningTimeMs div 1000;
 
   ShowStatistic;
+end;
+
+procedure TFrameSettings.ButtonAboutClick(Sender: TObject);
+begin
+  if Assigned(FAboutEvent) then
+    FAboutEvent(self);
 end;
 
 procedure TFrameSettings.ButtonConfigClick(Sender: TObject);

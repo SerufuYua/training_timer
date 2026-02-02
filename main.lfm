@@ -53,6 +53,18 @@ object FormTTimer: TFormTTimer
         ClientWidth = 312
       end
     end
+    object TabAbout: TTabSheet
+      Caption = 'About'
+      ClientHeight = 390
+      ClientWidth = 312
+      inline FrameAboutUse: TFrameAbout
+        Height = 390
+        Width = 312
+        Align = alClient
+        ClientHeight = 390
+        ClientWidth = 312
+      end
+    end
   end
   object TimeCounter: TTimer
     Interval = 100

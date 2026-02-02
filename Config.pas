@@ -15,6 +15,7 @@ type
   { TFrameConfig }
 
   TFrameConfig = class(TFrame)
+    ButtonAbout: TButton;
     ButtonDefault: TButton;
     ButtonPlayStart: TBitBtn;
     ButtonCancel: TButton;
@@ -39,16 +40,18 @@ type
     PanelButtons: TPanel;
     EditTimerInterval: TSpinEdit;
     PlaySound: Tplaysound;
+    procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonCancelClick(Sender: TObject);
     procedure ButtonDefaultClick(Sender: TObject);
     procedure ButtonOkClick(Sender: TObject);
     procedure ButtonPlaySound(Sender: TObject);
   protected
-    FReturnEvent: TNotifyEvent;
+    FReturnEvent, FAboutEvent: TNotifyEvent;
   public
     procedure LoadSettings(APropStorage: TXMLPropStorage);
     procedure SaveSettings(APropStorage: TXMLPropStorage);
     property ReturnEvent: TNotifyEvent write FReturnEvent;
+    property AboutEvent: TNotifyEvent write FAboutEvent;
   end;
 
 var
@@ -113,6 +116,12 @@ begin
 
   if Assigned(FReturnEvent) then
     FReturnEvent(self);
+end;
+
+procedure TFrameConfig.ButtonAboutClick(Sender: TObject);
+begin
+  if Assigned(FAboutEvent) then
+    FAboutEvent(self);
 end;
 
 procedure TFrameConfig.ButtonDefaultClick(Sender: TObject);

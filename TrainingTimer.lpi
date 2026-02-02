@@ -116,6 +116,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit>
+      <Unit>
+        <Filename Value="about.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrameAbout"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="About"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
