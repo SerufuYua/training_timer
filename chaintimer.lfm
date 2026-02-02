@@ -166,7 +166,14 @@ object FrameTimer: TFrameTimer
     About.AuthorEmail = 'minesadorada@charcodelvalle.com'
     About.ComponentName = 'PlaySound'
     About.LicenseType = abModifiedGPL
-    Left = 46
-    Top = 81
+    Left = 24
+    Top = 16
+  end
+  object TimeCounter: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = TimeCounterTimer
+    Left = 24
+    Top = 80
   end
 end

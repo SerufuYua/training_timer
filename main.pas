@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, XMLPropStorage, Buttons, Generics.Collections,
+  XMLPropStorage, Buttons, Generics.Collections,
   ChainTimer, Settings, Config, About;
 
 type
@@ -25,12 +25,10 @@ type
     TabConfig: TTabSheet;
     TabAbout: TTabSheet;
     TabTraining: TTabSheet;
-    TimeCounter: TTimer;
     PropStorage: TXMLPropStorage;
     procedure FormCreate(Sender: TObject);
     procedure PropStorageRestoreProperties(Sender: TObject);
     procedure PropStorageSaveProperties(Sender: TObject);
-    procedure TimeCounterTimer(Sender: TObject);
   protected
     FTabStack: TTabStack;
     procedure SaveSettings;
@@ -80,11 +78,6 @@ begin
   SaveSettings;
 end;
 
-procedure TFormTTimer.TimeCounterTimer(Sender: TObject);
-begin
-  FrameTimerUse.UpdateTime(TimeCounter.Interval);
-end;
-
 procedure TFormTTimer.SaveSettings;
 begin
   FrameSettingsUse.SaveSettings(PropStorage);
@@ -95,7 +88,6 @@ procedure TFormTTimer.LoadSettings;
 begin
   FrameSettingsUse.LoadSettings(PropStorage);
   FrameConfigUse.LoadSettings(PropStorage);
-  TimeCounter.Interval:= TimerInterval;
 end;
 
 procedure TFormTTimer.StartEvent(ASetName: String; APeriods: TPeriodsList);
@@ -110,9 +102,6 @@ begin
     ControlPageTimer.ActivePage:= FTabStack.Pop
   else
     ControlPageTimer.ActivePage:= TabSettings;
-
-  { apply config }
-  TimeCounter.Interval:= TimerInterval;
 end;
 
 procedure TFormTTimer.ConfigEvent(Sender: TObject);

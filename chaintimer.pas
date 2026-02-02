@@ -32,13 +32,14 @@ type
     PanelControl: TPanel;
     PlaySound: Tplaysound;
     ShapeSignal: TShape;
+    TimeCounter: TTimer;
     procedure ButtonPauseClick(Sender: TObject);
     procedure ButtonRestartClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
     procedure LabelTimeResize(Sender: TObject);
+    procedure TimeCounterTimer(Sender: TObject);
   protected
     FPeriods: TPeriodsList;
-    FTimerEnable: Boolean;
     FStopEvent: TNotifyEvent;
     FPeriod: Integer;
     FPeriodTimeMs, FWarningTimeMs: Cardinal;
@@ -67,7 +68,8 @@ uses
 
 procedure TFrameTimer.Start(ASetName: String; APeriods: TPeriodsList);
 begin
-  FTimerEnable:= False;
+  TimeCounter.Interval:= TimerInterval;
+  TimeCounter.Enabled:= False;
   LabelSet.Caption:= ASetName;
   FPeriods:= APeriods;
 
@@ -86,13 +88,13 @@ end;
 
 procedure TFrameTimer.Pause;
 begin
-  FTimerEnable:= False;
+  TimeCounter.Enabled:= False;
   ButtonPause.Caption:= 'Continue...';
 end;
 
 procedure TFrameTimer.Continue;
 begin
-  FTimerEnable:= True;
+  TimeCounter.Enabled:= True;
   ButtonPause.Caption:= 'Pause';
 end;
 
@@ -107,8 +109,6 @@ begin
 end;
 
 begin
-  if (NOT FTimerEnable) then Exit;
-
   { warning and initial signals }
   if IsTime(FWarningTimeMs) then
   begin
@@ -166,7 +166,7 @@ end;
 
 procedure TFrameTimer.ButtonPauseClick(Sender: TObject);
 begin
-  if FTimerEnable then
+  if TimeCounter.Enabled then
     Pause
   else
     Continue;
@@ -180,7 +180,7 @@ end;
 
 procedure TFrameTimer.ButtonStopClick(Sender: TObject);
 begin
-  FTimerEnable:= False;
+  TimeCounter.Enabled:= False;
   if Assigned(FStopEvent) then
     FStopEvent(self);
 end;
@@ -188,6 +188,11 @@ end;
 procedure TFrameTimer.LabelTimeResize(Sender: TObject);
 begin
   LabelTime.Font.Height:= LabelTime.Height;
+end;
+
+procedure TFrameTimer.TimeCounterTimer(Sender: TObject);
+begin
+  UpdateTime(TimeCounter.Interval);
 end;
 
 procedure TFrameTimer.ShowTime(ATimeMs: Cardinal);
@@ -215,7 +220,7 @@ begin
   end
   else
   begin
-    FTimerEnable:= False;
+    TimeCounter.Enabled:= False;
     ShapeSignal.Brush.Color:= clBlack;
     ButtonPause.Enabled:= False;
   end;
