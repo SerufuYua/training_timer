@@ -5,7 +5,8 @@ unit ChainTimer;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, Graphics, uplaysound;
+  Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, Graphics, uplaysound,
+  meProgressBarEx;
 
 type
 
@@ -26,6 +27,7 @@ type
     LabelTime: TLabel;
     LabelPeriod: TLabel;
     LabelSet: TLabel;
+    ProgressBar: TmeProgressBarEx;
     PanelTime: TPanel;
     PanelLabels: TPanel;
     PanelCounter: TPanel;
@@ -128,6 +130,7 @@ begin
       IsTime(initTime * 3)) then
   begin
     ShapeSignal.Brush.Color:= clBlack;
+    ProgressBar.ProgressColor:= clBlack;
   end
   else
   if (IsTime(initTime * 1 - (initTime div 2)) OR
@@ -135,18 +138,21 @@ begin
       IsTime(initTime * 3 - (initTime div 2))) then
   begin
     ShapeSignal.Brush.Color:= FSignalColor;
+    ProgressBar.ProgressColor:= FSignalColor;
   end;
 
   { color blink warning signal }
   if IsTime(FWarningTimeMs) then
   begin
     ShapeSignal.Brush.Color:= clGray;
+    ProgressBar.ProgressColor:= clGray;
   end
   else
   if ((FWarningTimeMs > initTime) AND
       (IsTime(FWarningTimeMs - (initTime div 2)))) then
   begin
     ShapeSignal.Brush.Color:= FSignalColor;
+    ProgressBar.ProgressColor:= FSignalColor;
   end;
 
   { count time and change period }
@@ -154,6 +160,7 @@ begin
   begin
     FPeriodTimeMs:= FPeriodTimeMs - ATimeMsElapsed;
     ShowTime(FPeriodTimeMs);
+    ProgressBar.Progress:= ProgressBar.Max - FPeriodTimeMs;
   end
   else
   begin
@@ -203,6 +210,8 @@ begin
   min:= sec div 60;
   sec:= sec - (min * 60);
   LabelTime.Caption:= IntToStr(min) + ':' + IntToStr(sec);
+
+  ProgressBar.TextFormat:= IntToStr(min) + ':' + IntToStr(sec);
 end;
 
 procedure TFrameTimer.WritePeriod(AValue: Integer);
@@ -214,14 +223,18 @@ begin
     LabelPeriod.Caption:= FPeriods[AValue].Name;
     FSignalColor:= FPeriods[AValue].Color;
     ShapeSignal.Brush.Color:= FSignalColor;
+    ProgressBar.ProgressColor:= FSignalColor;
     FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
     FPeriodTimeMs:= FPeriods[AValue].TimeMs;
+    ProgressBar.Max:= FPeriods[AValue].TimeMs;
+    ProgressBar.Progress:= 0;
     FFinalSound:= FPeriods[AValue].FinalSound;
   end
   else
   begin
     TimeCounter.Enabled:= False;
     ShapeSignal.Brush.Color:= clBlack;
+    ProgressBar.ProgressColor:= clBlack;
     ButtonPause.Enabled:= False;
   end;
 end;

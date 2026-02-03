@@ -68,6 +68,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="progressbar_lzr"/>
+      </Item>
+      <Item>
         <PackageName Value="playwavepackage"/>
       </Item>
       <Item>

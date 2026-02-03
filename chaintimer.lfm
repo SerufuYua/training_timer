@@ -1,11 +1,11 @@
 object FrameTimer: TFrameTimer
   Left = 0
-  Height = 240
+  Height = 459
   Top = 0
   Width = 320
   Align = alClient
   AutoSize = True
-  ClientHeight = 240
+  ClientHeight = 459
   ClientWidth = 320
   LCLVersion = '4.4.0.0'
   TabOrder = 0
@@ -13,7 +13,7 @@ object FrameTimer: TFrameTimer
   DesignTop = 27
   object PanelCounter: TPanel
     Left = 0
-    Height = 147
+    Height = 366
     Top = 0
     Width = 320
     Align = alClient
@@ -23,7 +23,7 @@ object FrameTimer: TFrameTimer
     ChildSizing.TopBottomSpacing = 4
     ChildSizing.HorizontalSpacing = 4
     ChildSizing.VerticalSpacing = 4
-    ClientHeight = 147
+    ClientHeight = 366
     ClientWidth = 320
     TabOrder = 0
     object PanelLabels: TPanel
@@ -65,7 +65,7 @@ object FrameTimer: TFrameTimer
     end
     object PanelTime: TPanel
       Left = 5
-      Height = 65
+      Height = 284
       Top = 77
       Width = 310
       Align = alClient
@@ -76,12 +76,12 @@ object FrameTimer: TFrameTimer
       ChildSizing.ShrinkHorizontal = crsSameSize
       ChildSizing.ShrinkVertical = crsSameSize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 65
+      ClientHeight = 284
       ClientWidth = 310
       TabOrder = 1
       object LabelTime: TLabel
         Left = 0
-        Height = 30
+        Height = 92
         Top = 0
         Width = 310
         Alignment = taCenter
@@ -94,19 +94,33 @@ object FrameTimer: TFrameTimer
       end
       object ShapeSignal: TShape
         Left = 0
-        Height = 31
-        Top = 34
+        Height = 92
+        Top = 96
         Width = 310
         Pen.Color = clYellow
         Pen.Width = 3
         Shape = stCircle
+      end
+      object ProgressBar: TmeProgressBarEx
+        Left = 0
+        Height = 92
+        Top = 192
+        Width = 310
+        BorderColor = clGray
+        Max = 1000
+        Progress = 800
+        ProgressColor = clSkyBlue
+        TextFormat = 'time %d/%d ms (%d%%)'
+        Font.Color = clBlack
+        TextOutline = True
+        TextOutlineColor = clWhite
       end
     end
   end
   object PanelControl: TPanel
     Left = 0
     Height = 93
-    Top = 147
+    Top = 366
     Width = 320
     Align = alBottom
     AutoSize = True
