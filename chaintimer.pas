@@ -24,7 +24,6 @@ type
     ButtonRestart: TButton;
     ButtonStop: TButton;
     ButtonPause: TButton;
-    LabelTime: TLabel;
     LabelPeriod: TLabel;
     LabelSet: TLabel;
     ProgressBar: TmeProgressBarEx;
@@ -37,7 +36,7 @@ type
     procedure ButtonPauseClick(Sender: TObject);
     procedure ButtonRestartClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
-    procedure LabelTimeResize(Sender: TObject);
+    procedure FrameResize(Sender: TObject);
     procedure TimeCounterTimer(Sender: TObject);
   protected
     FPeriods: TPeriodsList;
@@ -187,9 +186,9 @@ begin
     FStopEvent(self);
 end;
 
-procedure TFrameTimer.LabelTimeResize(Sender: TObject);
+procedure TFrameTimer.FrameResize(Sender: TObject);
 begin
-  LabelTime.Font.Height:= LabelTime.Height;
+  ProgressBar.Font.Height:= ProgressBar.Height;
 end;
 
 procedure TFrameTimer.TimeCounterTimer(Sender: TObject);
@@ -204,8 +203,6 @@ begin
   sec:= (ATimeMs + 1) div 1000;
   min:= sec div 60;
   sec:= sec - (min * 60);
-  LabelTime.Caption:= IntToStr(min) + ':' + IntToStr(sec);
-
   ProgressBar.TextFormat:= IntToStr(min) + ':' + IntToStr(sec);
 end;
 
