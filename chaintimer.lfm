@@ -81,7 +81,7 @@ object FrameTimer: TFrameTimer
       TabOrder = 1
       object LabelTime: TLabel
         Left = 0
-        Height = 92
+        Height = 140
         Top = 0
         Width = 310
         Alignment = taCenter
@@ -92,19 +92,10 @@ object FrameTimer: TFrameTimer
         ParentFont = False
         OnResize = LabelTimeResize
       end
-      object ShapeSignal: TShape
-        Left = 0
-        Height = 92
-        Top = 96
-        Width = 310
-        Pen.Color = clYellow
-        Pen.Width = 3
-        Shape = stCircle
-      end
       object ProgressBar: TmeProgressBarEx
         Left = 0
-        Height = 92
-        Top = 192
+        Height = 140
+        Top = 144
         Width = 310
         BorderColor = clGray
         Max = 1000

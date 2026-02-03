@@ -33,7 +33,6 @@ type
     PanelCounter: TPanel;
     PanelControl: TPanel;
     PlaySound: Tplaysound;
-    ShapeSignal: TShape;
     TimeCounter: TTimer;
     procedure ButtonPauseClick(Sender: TObject);
     procedure ButtonRestartClick(Sender: TObject);
@@ -129,7 +128,6 @@ begin
       IsTime(initTime * 2) OR
       IsTime(initTime * 3)) then
   begin
-    ShapeSignal.Brush.Color:= clBlack;
     ProgressBar.ProgressColor:= clBlack;
   end
   else
@@ -137,21 +135,18 @@ begin
       IsTime(initTime * 2 - (initTime div 2)) OR
       IsTime(initTime * 3 - (initTime div 2))) then
   begin
-    ShapeSignal.Brush.Color:= FSignalColor;
     ProgressBar.ProgressColor:= FSignalColor;
   end;
 
   { color blink warning signal }
   if IsTime(FWarningTimeMs) then
   begin
-    ShapeSignal.Brush.Color:= clGray;
     ProgressBar.ProgressColor:= clGray;
   end
   else
   if ((FWarningTimeMs > initTime) AND
       (IsTime(FWarningTimeMs - (initTime div 2)))) then
   begin
-    ShapeSignal.Brush.Color:= FSignalColor;
     ProgressBar.ProgressColor:= FSignalColor;
   end;
 
@@ -222,7 +217,6 @@ begin
     ShowTime(FPeriods[AValue].TimeMs);
     LabelPeriod.Caption:= FPeriods[AValue].Name;
     FSignalColor:= FPeriods[AValue].Color;
-    ShapeSignal.Brush.Color:= FSignalColor;
     ProgressBar.ProgressColor:= FSignalColor;
     FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
     FPeriodTimeMs:= FPeriods[AValue].TimeMs;
@@ -233,7 +227,6 @@ begin
   else
   begin
     TimeCounter.Enabled:= False;
-    ShapeSignal.Brush.Color:= clBlack;
     ProgressBar.ProgressColor:= clBlack;
     ButtonPause.Enabled:= False;
   end;
