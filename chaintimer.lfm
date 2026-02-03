@@ -13,7 +13,7 @@ object FrameTimer: TFrameTimer
   DesignTop = 27
   object PanelCounter: TPanel
     Left = 0
-    Height = 366
+    Height = 424
     Top = 0
     Width = 320
     Align = alClient
@@ -23,7 +23,7 @@ object FrameTimer: TFrameTimer
     ChildSizing.TopBottomSpacing = 4
     ChildSizing.HorizontalSpacing = 4
     ChildSizing.VerticalSpacing = 4
-    ClientHeight = 366
+    ClientHeight = 424
     ClientWidth = 320
     TabOrder = 0
     object PanelLabels: TPanel
@@ -65,7 +65,7 @@ object FrameTimer: TFrameTimer
     end
     object PanelTime: TPanel
       Left = 5
-      Height = 284
+      Height = 342
       Top = 77
       Width = 310
       Align = alClient
@@ -76,12 +76,12 @@ object FrameTimer: TFrameTimer
       ChildSizing.ShrinkHorizontal = crsSameSize
       ChildSizing.ShrinkVertical = crsSameSize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 284
+      ClientHeight = 342
       ClientWidth = 310
       TabOrder = 1
       object LabelTime: TLabel
         Left = 0
-        Height = 140
+        Height = 169
         Top = 0
         Width = 310
         Alignment = taCenter
@@ -94,8 +94,8 @@ object FrameTimer: TFrameTimer
       end
       object ProgressBar: TmeProgressBarEx
         Left = 0
-        Height = 140
-        Top = 144
+        Height = 169
+        Top = 173
         Width = 310
         BorderColor = clGray
         Max = 1000
@@ -103,6 +103,7 @@ object FrameTimer: TFrameTimer
         ProgressColor = clSkyBlue
         TextFormat = 'time %d/%d ms (%d%%)'
         Font.Color = clBlack
+        Font.Style = [fsBold]
         TextOutline = True
         TextOutlineColor = clWhite
       end
@@ -110,8 +111,8 @@ object FrameTimer: TFrameTimer
   end
   object PanelControl: TPanel
     Left = 0
-    Height = 93
-    Top = 366
+    Height = 35
+    Top = 424
     Width = 320
     Align = alBottom
     AutoSize = True
@@ -120,39 +121,40 @@ object FrameTimer: TFrameTimer
     ChildSizing.TopBottomSpacing = 4
     ChildSizing.HorizontalSpacing = 4
     ChildSizing.VerticalSpacing = 4
-    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-    ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 93
+    ChildSizing.EnlargeHorizontal = crsSameSize
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ClientHeight = 35
     ClientWidth = 320
     TabOrder = 1
-    object ButtonPause: TButton
+    object ButtonStop: TButton
       Left = 5
       Height = 25
       Top = 5
-      Width = 310
-      Caption = 'Pause'
-      TabOrder = 0
-      OnClick = ButtonPauseClick
+      Width = 101
+      AutoSize = True
+      Caption = 'Stop'
+      TabOrder = 1
+      OnClick = ButtonStopClick
     end
     object ButtonRestart: TButton
-      Left = 5
+      Left = 110
       Height = 25
-      Top = 34
-      Width = 310
+      Top = 5
+      Width = 100
+      AutoSize = True
       Caption = 'Restart'
       TabOrder = 2
       OnClick = ButtonRestartClick
     end
-    object ButtonStop: TButton
-      Left = 5
+    object ButtonPause: TButton
+      Left = 214
       Height = 25
-      Top = 63
-      Width = 310
-      Caption = 'Stop'
-      TabOrder = 1
-      OnClick = ButtonStopClick
+      Top = 5
+      Width = 101
+      AutoSize = True
+      Caption = 'Pause'
+      TabOrder = 0
+      OnClick = ButtonPauseClick
     end
   end
   object PlaySound: Tplaysound
