@@ -57,7 +57,7 @@ type
 implementation
 
 uses
-  Types, Math;
+  Types;
 
 {$R *.lfm}
 
@@ -128,7 +128,7 @@ begin
     Painter.Canvas.Brush.Style := bsClear; { Transparent text background }
 
     { Calculate maximum font size }
-    for i:= 1 to Max(Width, Height) do
+    for i:= 1 to Height do
     begin
       Painter.Canvas.Font.Size:= i;
       TextSize:= Painter.Canvas.TextExtent(FText);
