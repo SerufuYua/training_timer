@@ -16,11 +16,11 @@ type
     procedure PaintProgressPaint(Sender: TObject);
   protected
     FBorderColor, FProgressColor: TColor;
-    FMin, FMax, FProgress: Integer;
+    FMinProgress, FMaxProgress, FProgress: Integer;
     procedure WriteBorderColor(AValue: TColor);
     procedure WriteProgressColor(AValue: TColor);
-    procedure WriteMin(AValue: Integer);
-    procedure WriteMax(AValue: Integer);
+    procedure WriteMinProgress(AValue: Integer);
+    procedure WriteMaxProgress(AValue: Integer);
     procedure WriteProgress(AValue: Integer);
   public
     const
@@ -29,16 +29,16 @@ type
       DefaultColor = clBtnFace;
       DefaultBorderColor = clBlack;
       DefaultProgressColor = clSkyBlue;
-      DefaultMin = 0;
-      DefaultMax = 100;
+      DefaultMinProgress = 0;
+      DefaultMaxProgress = 100;
       DefaultProgress = 50;
 
     constructor Create(AOwner: TComponent); override;
     property Color default DefaultColor;
     property BorderColor: TColor read FBorderColor write WriteBorderColor default DefaultBorderColor;
     property ProgressColor: TColor read FProgressColor write WriteProgressColor default DefaultProgressColor;
-    property Min: Integer read FMin write WriteMin default DefaultMin;
-    property Max: Integer read FMax write WriteMax default DefaultMax;
+    property MinProgress: Integer read FMinProgress write WriteMinProgress default DefaultMinProgress;
+    property MaxProgress: Integer read FMaxProgress write WriteMaxProgress default DefaultMaxProgress;
     property Progress: Integer read FProgress write WriteProgress default DefaultProgress;
   end;
 
@@ -57,8 +57,8 @@ begin
   Color:= DefaultColor;
   FBorderColor:= DefaultBorderColor;
   FProgressColor:= DefaultProgressColor;
-  FMin:= DefaultMin;
-  FMax:= DefaultMax;
+  FMinProgress:= DefaultMinProgress;
+  FMaxProgress:= DefaultMaxProgress;
   FProgress:= DefaultProgress;
 end;
 
@@ -79,8 +79,8 @@ begin
   PaintProgress.Canvas.FillRect(InnerRect);
 
   { Calculate progress width with proper offset }
-  if FMax > FMin then
-    ProgressWidth:= Round((FProgress - FMin) / (FMax - FMin) * (InnerRect.Right - InnerRect.Left - 2))
+  if FMaxProgress > FMinProgress then
+    ProgressWidth:= Round((FProgress - FMinProgress) / (FMaxProgress - FMinProgress) * (InnerRect.Right - InnerRect.Left - 2))
   else
     ProgressWidth:= 0;
 
@@ -111,25 +111,25 @@ begin
   Invalidate;
 end;
 
-procedure TFrameProgress.WriteMin(AValue: Integer);
+procedure TFrameProgress.WriteMinProgress(AValue: Integer);
 begin
-  if (FMin = AValue) then Exit;
-  FMin:= AValue;
-  if (FMin > FMax) then
-    FMax:= FMin;
-  if (FProgress < FMin) then
-    FProgress:= FMin;
+  if (FMinProgress = AValue) then Exit;
+  FMinProgress:= AValue;
+  if (FMinProgress > FMaxProgress) then
+    FMaxProgress:= FMinProgress;
+  if (FProgress < FMinProgress) then
+    FProgress:= FMinProgress;
   Invalidate;
 end;
 
-procedure TFrameProgress.WriteMax(AValue: Integer);
+procedure TFrameProgress.WriteMaxProgress(AValue: Integer);
 begin
-  if (FMax = AValue) then Exit;
-  FMax:= AValue;
-  if (FMax < FMin) then
-    FMax:= FMin;
-  if (FProgress > FMax) then
-    FProgress:= FMax;
+  if (FMaxProgress = AValue) then Exit;
+  FMaxProgress:= AValue;
+  if (FMaxProgress < FMinProgress) then
+    FMaxProgress:= FMinProgress;
+  if (FProgress > FMaxProgress) then
+    FProgress:= FMaxProgress;
   Invalidate;
 end;
 
@@ -137,10 +137,10 @@ procedure TFrameProgress.WriteProgress(AValue: Integer);
 begin
   if (FProgress = AValue) then Exit;
   FProgress:= AValue;
-  if (FProgress < FMin) then
-    FProgress:= FMin;
-  if (FProgress > FMax) then
-    FProgress:= FMax;
+  if (FProgress < FMinProgress) then
+    FProgress:= FMinProgress;
+  if (FProgress > FMaxProgress) then
+    FProgress:= FMaxProgress;
   Invalidate;
 end;
 

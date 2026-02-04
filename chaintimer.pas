@@ -225,9 +225,9 @@ begin
     FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
     FPeriodTimeMs:= FPeriods[AValue].TimeMs;
     ProgressBar.Max:= FPeriods[AValue].TimeMs;
-    FrameProgressUse.Max:= FPeriods[AValue].TimeMs;
+    FrameProgressUse.MaxProgress:= FPeriods[AValue].TimeMs;
     ProgressBar.Min:= 0;
-    FrameProgressUse.Min:= 0;
+    FrameProgressUse.MinProgress:= 0;
     ProgressBar.Progress:= 0;
     FrameProgressUse.Progress:= 0;
     FFinalSound:= FPeriods[AValue].FinalSound;
