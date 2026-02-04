@@ -9,7 +9,6 @@ object FrameTimer: TFrameTimer
   ClientWidth = 320
   LCLVersion = '4.4.0.0'
   TabOrder = 0
-  OnResize = FrameResize
   DesignLeft = 457
   DesignTop = 27
   object PanelCounter: TPanel
@@ -80,22 +79,15 @@ object FrameTimer: TFrameTimer
       ClientHeight = 342
       ClientWidth = 310
       TabOrder = 1
-      object ProgressBar: TmeProgressBarEx
-        Left = 0
-        Height = 169
-        Top = 0
-        Width = 310
-        BorderColor = clGray
-        Max = 1000
-        Progress = 800
-        ProgressColor = clSkyBlue
-        TextFormat = 'time %d/%d ms (%d%%)'
-        Font.Color = clBlack
-        Font.Style = [fsBold]
-        TextOutline = True
-        TextOutlineColor = clWhite
-      end
       inline FrameProgressUse: TFrameProgress
+        Height = 342
+        Width = 310
+        ClientHeight = 342
+        ClientWidth = 310
+        inherited Painter: TPaintBox
+          Height = 342
+          Width = 310
+        end
       end
     end
   end

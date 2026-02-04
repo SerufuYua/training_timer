@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, Graphics, ProgressBar,
-  uplaysound, meProgressBarEx;
+  uplaysound;
 
 type
 
@@ -27,7 +27,6 @@ type
     FrameProgressUse: TFrameProgress;
     LabelPeriod: TLabel;
     LabelSet: TLabel;
-    ProgressBar: TmeProgressBarEx;
     PanelTime: TPanel;
     PanelLabels: TPanel;
     PanelCounter: TPanel;
@@ -37,7 +36,6 @@ type
     procedure ButtonPauseClick(Sender: TObject);
     procedure ButtonRestartClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
-    procedure FrameResize(Sender: TObject);
     procedure TimeCounterTimer(Sender: TObject);
   protected
     FPeriods: TPeriodsList;
@@ -128,7 +126,6 @@ begin
       IsTime(initTime * 2) OR
       IsTime(initTime * 3)) then
   begin
-    ProgressBar.ProgressColor:= clBlack;
     FrameProgressUse.ProgressColor:= clBlack;
   end
   else
@@ -136,21 +133,18 @@ begin
       IsTime(initTime * 2 - (initTime div 2)) OR
       IsTime(initTime * 3 - (initTime div 2))) then
   begin
-    ProgressBar.ProgressColor:= FSignalColor;
     FrameProgressUse.ProgressColor:= FSignalColor;
   end;
 
   { color blink warning signal }
   if IsTime(FWarningTimeMs) then
   begin
-    ProgressBar.ProgressColor:= clGray;
     FrameProgressUse.ProgressColor:= clGray;
   end
   else
   if ((FWarningTimeMs > initTime) AND
       (IsTime(FWarningTimeMs - (initTime div 2)))) then
   begin
-    ProgressBar.ProgressColor:= FSignalColor;
     FrameProgressUse.ProgressColor:= FSignalColor;
   end;
 
@@ -159,8 +153,7 @@ begin
   begin
     FPeriodTimeMs:= FPeriodTimeMs - ATimeMsElapsed;
     ShowTime(FPeriodTimeMs);
-    ProgressBar.Progress:= ProgressBar.Max - FPeriodTimeMs;
-    FrameProgressUse.Progress:= ProgressBar.Max - FPeriodTimeMs;
+    FrameProgressUse.Progress:= FrameProgressUse.MaxProgress - FPeriodTimeMs;
   end
   else
   begin
@@ -192,11 +185,6 @@ begin
     FStopEvent(self);
 end;
 
-procedure TFrameTimer.FrameResize(Sender: TObject);
-begin
-  ProgressBar.Font.Height:= ProgressBar.Height;
-end;
-
 procedure TFrameTimer.TimeCounterTimer(Sender: TObject);
 begin
   UpdateTime(TimeCounter.Interval);
@@ -209,7 +197,6 @@ begin
   sec:= (ATimeMs + 1) div 1000;
   min:= sec div 60;
   sec:= sec - (min * 60);
-  ProgressBar.TextFormat:= IntToStr(min) + ':' + IntToStr(sec);
   FrameProgressUse.Text:= IntToStr(min) + ':' + IntToStr(sec);
 end;
 
@@ -221,22 +208,17 @@ begin
     ShowTime(FPeriods[AValue].TimeMs);
     LabelPeriod.Caption:= FPeriods[AValue].Name;
     FSignalColor:= FPeriods[AValue].Color;
-    ProgressBar.ProgressColor:= FSignalColor;
     FrameProgressUse.ProgressColor:= FSignalColor;
     FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
     FPeriodTimeMs:= FPeriods[AValue].TimeMs;
-    ProgressBar.Max:= FPeriods[AValue].TimeMs;
     FrameProgressUse.MaxProgress:= FPeriods[AValue].TimeMs;
-    ProgressBar.Min:= 0;
     FrameProgressUse.MinProgress:= 0;
-    ProgressBar.Progress:= 0;
     FrameProgressUse.Progress:= 0;
     FFinalSound:= FPeriods[AValue].FinalSound;
   end
   else
   begin
     TimeCounter.Enabled:= False;
-    ProgressBar.ProgressColor:= clBlack;
     FrameProgressUse.ProgressColor:= clBlack;
     ButtonPause.Enabled:= False;
   end;
