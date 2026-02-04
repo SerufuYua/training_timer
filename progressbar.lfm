@@ -9,12 +9,12 @@ object FrameProgress: TFrameProgress
   TabOrder = 0
   DesignLeft = 457
   DesignTop = 27
-  object PaintProgress: TPaintBox
+  object Painter: TPaintBox
     Left = 0
     Height = 240
     Top = 0
     Width = 320
     Align = alClient
-    OnPaint = PaintProgressPaint
+    OnPaint = PainterPaint
   end
 end

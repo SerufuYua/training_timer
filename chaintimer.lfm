@@ -96,11 +96,6 @@ object FrameTimer: TFrameTimer
         TextOutlineColor = clWhite
       end
       inline FrameProgressUse: TFrameProgress
-        Height = 169
-        Top = 173
-        Width = 310
-        ClientHeight = 169
-        ClientWidth = 310
       end
     end
   end

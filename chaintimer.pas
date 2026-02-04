@@ -210,6 +210,7 @@ begin
   min:= sec div 60;
   sec:= sec - (min * 60);
   ProgressBar.TextFormat:= IntToStr(min) + ':' + IntToStr(sec);
+  FrameProgressUse.Text:= IntToStr(min) + ':' + IntToStr(sec);
 end;
 
 procedure TFrameTimer.WritePeriod(AValue: Integer);

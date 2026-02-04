@@ -12,16 +12,22 @@ type
   { TFrameProgress }
 
   TFrameProgress = class(TFrame)
-    PaintProgress: TPaintBox;
-    procedure PaintProgressPaint(Sender: TObject);
+    Painter: TPaintBox;
+    procedure PainterPaint(Sender: TObject);
   protected
-    FBorderColor, FProgressColor: TColor;
+    FBorderColor, FProgressColor, FTextOutlineColor: TColor;
     FMinProgress, FMaxProgress, FProgress: Integer;
+    FText: String;
+    FFont: TFont;
     procedure WriteBorderColor(AValue: TColor);
     procedure WriteProgressColor(AValue: TColor);
     procedure WriteMinProgress(AValue: Integer);
     procedure WriteMaxProgress(AValue: Integer);
     procedure WriteProgress(AValue: Integer);
+    procedure WriteFont(AValue: TFont);
+    procedure WriteText(AValue: string);
+    procedure WriteTextOutlineColor(AValue: TColor);
+    procedure FontChanged(Sender: TObject); override;
   public
     const
       DefaultWidth = 150;
@@ -29,20 +35,29 @@ type
       DefaultColor = clBtnFace;
       DefaultBorderColor = clBlack;
       DefaultProgressColor = clSkyBlue;
+      DefaultTextColor = clBlack;
+      DefaultTextOutlineColor = clWhite;
       DefaultMinProgress = 0;
       DefaultMaxProgress = 100;
       DefaultProgress = 50;
+      DefaultText = '00:00';
 
     constructor Create(AOwner: TComponent); override;
     property Color default DefaultColor;
     property BorderColor: TColor read FBorderColor write WriteBorderColor default DefaultBorderColor;
     property ProgressColor: TColor read FProgressColor write WriteProgressColor default DefaultProgressColor;
+    property TextOutlineColor: TColor read FTextOutlineColor write WriteTextOutlineColor default DefaultTextOutlineColor;
     property MinProgress: Integer read FMinProgress write WriteMinProgress default DefaultMinProgress;
     property MaxProgress: Integer read FMaxProgress write WriteMaxProgress default DefaultMaxProgress;
     property Progress: Integer read FProgress write WriteProgress default DefaultProgress;
+    property Font: TFont read FFont write WriteFont;
+    property Text: string read FText write WriteText;
   end;
 
 implementation
+
+uses
+  Types, Math;
 
 {$R *.lfm}
 
@@ -57,26 +72,35 @@ begin
   Color:= DefaultColor;
   FBorderColor:= DefaultBorderColor;
   FProgressColor:= DefaultProgressColor;
+  FTextOutlineColor:= DefaultTextOutlineColor;
   FMinProgress:= DefaultMinProgress;
   FMaxProgress:= DefaultMaxProgress;
   FProgress:= DefaultProgress;
+  FText:= DefaultText;
+
+  FFont:= TFont.Create;
+  FFont.OnChange:= @FontChanged;
+  FFont.Color:= DefaultTextColor;
+  FFont.Bold:= True;
 end;
 
-procedure TFrameProgress.PaintProgressPaint(Sender: TObject);
+procedure TFrameProgress.PainterPaint(Sender: TObject);
 var
-  ProgressWidth: Integer;
+  ProgressWidth, TextX, TextY, i: Integer;
   ProgressRect, InnerRect: TRect;
+  OldFont: TFont;
+  TextSize: TSize;
 begin
   { Draw border (1px) }
-  PaintProgress.Canvas.Pen.Color:= FBorderColor;
-  PaintProgress.Canvas.Brush.Color:= Color;
-  PaintProgress.Canvas.Rectangle(0, 0, Width, Height);
+  Painter.Canvas.Pen.Color:= FBorderColor;
+  Painter.Canvas.Brush.Color:= Color;
+  Painter.Canvas.Rectangle(0, 0, Width, Height);
 
   { Inner rectangle with 1px offset from border }
   InnerRect:= Rect(1, 1, Width - 1, Height - 1);
 
   { Fill background }
-  PaintProgress.Canvas.FillRect(InnerRect);
+  Painter.Canvas.FillRect(InnerRect);
 
   { Calculate progress width with proper offset }
   if FMaxProgress > FMinProgress then
@@ -92,8 +116,48 @@ begin
                         InnerRect.Left + 1 + ProgressWidth,
                         InnerRect.Bottom - 1 { Bottom offset } );
 
-    PaintProgress.Canvas.Brush.Color:= FProgressColor;
-    PaintProgress.Canvas.FillRect(ProgressRect);
+    Painter.Canvas.Brush.Color:= FProgressColor;
+    Painter.Canvas.FillRect(ProgressRect);
+  end;
+
+  { Draw text }
+  OldFont := TFont.Create;
+  try
+    OldFont.Assign(Painter.Canvas.Font);
+    Painter.Canvas.Font := FFont;
+    Painter.Canvas.Brush.Style := bsClear; { Transparent text background }
+
+    { Calculate maximum font size }
+    for i:= 1 to Max(Width, Height) do
+    begin
+      Painter.Canvas.Font.Size:= i;
+      TextSize:= Painter.Canvas.TextExtent(FText);
+      if ((TextSize.cx >= Width) OR (TextSize.cy >= Height)) then
+      begin
+        Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size - 1;
+        Break;
+      end;
+    end;
+
+    { Calculate text position }
+    TextX := (Width - TextSize.Width) div 2;
+    TextY := (Height - TextSize.Height) div 2;
+
+    { Draw text outline }
+    Painter.Canvas.Font.Color := FTextOutlineColor;
+    Painter.Canvas.TextOut(TextX + 1, TextY + 1, FText);
+    Painter.Canvas.TextOut(TextX - 1, TextY + 1, FText);
+    Painter.Canvas.TextOut(TextX + 1, TextY - 1, FText);
+    Painter.Canvas.TextOut(TextX - 1, TextY - 1, FText);
+
+    { Draw main text }
+    Painter.Canvas.Font.Color := FFont.Color;
+    Painter.Canvas.TextOut(TextX, TextY, FText);
+
+    { Restore original font }
+    Painter.Canvas.Font := OldFont;
+  finally
+    OldFont.Free;
   end;
 end;
 
@@ -108,6 +172,13 @@ procedure TFrameProgress.WriteProgressColor(AValue: TColor);
 begin
   if (FProgressColor = AValue) then Exit;
   FProgressColor:= AValue;
+  Invalidate;
+end;
+
+procedure TFrameProgress.WriteTextOutlineColor(AValue: TColor);
+begin
+  if FTextOutlineColor = AValue then Exit;
+  FTextOutlineColor:= AValue;
   Invalidate;
 end;
 
@@ -141,6 +212,24 @@ begin
     FProgress:= FMinProgress;
   if (FProgress > FMaxProgress) then
     FProgress:= FMaxProgress;
+  Invalidate;
+end;
+
+procedure TFrameProgress.WriteFont(AValue: TFont);
+begin
+  FFont.Assign(AValue);
+end;
+
+procedure TFrameProgress.WriteText(AValue: string);
+begin
+  if FText = AValue then Exit;
+  FText:= AValue;
+  Invalidate;
+end;
+
+procedure TFrameProgress.FontChanged(Sender: TObject);
+begin
+  inherited;
   Invalidate;
 end;
 
