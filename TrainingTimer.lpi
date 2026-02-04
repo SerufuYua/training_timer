@@ -127,6 +127,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="About"/>
       </Unit>
+      <Unit>
+        <Filename Value="progressbar.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrameProgress"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ProgressBar"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

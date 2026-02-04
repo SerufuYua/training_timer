@@ -1,0 +1,20 @@
+object FrameProgress: TFrameProgress
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '4.4.0.0'
+  TabOrder = 0
+  DesignLeft = 457
+  DesignTop = 27
+  object PaintProgress: TPaintBox
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 320
+    Align = alClient
+    OnPaint = PaintProgressPaint
+  end
+end

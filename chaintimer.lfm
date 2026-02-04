@@ -82,7 +82,7 @@ object FrameTimer: TFrameTimer
       TabOrder = 1
       object ProgressBar: TmeProgressBarEx
         Left = 0
-        Height = 342
+        Height = 169
         Top = 0
         Width = 310
         BorderColor = clGray
@@ -94,6 +94,13 @@ object FrameTimer: TFrameTimer
         Font.Style = [fsBold]
         TextOutline = True
         TextOutlineColor = clWhite
+      end
+      inline FrameProgressUse: TFrameProgress
+        Height = 169
+        Top = 173
+        Width = 310
+        ClientHeight = 169
+        ClientWidth = 310
       end
     end
   end

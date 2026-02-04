@@ -5,8 +5,8 @@ unit ChainTimer;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, Graphics, uplaysound,
-  meProgressBarEx;
+  Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, Graphics, ProgressBar,
+  uplaysound, meProgressBarEx;
 
 type
 
@@ -24,6 +24,7 @@ type
     ButtonRestart: TButton;
     ButtonStop: TButton;
     ButtonPause: TButton;
+    FrameProgressUse: TFrameProgress;
     LabelPeriod: TLabel;
     LabelSet: TLabel;
     ProgressBar: TmeProgressBarEx;
@@ -128,6 +129,7 @@ begin
       IsTime(initTime * 3)) then
   begin
     ProgressBar.ProgressColor:= clBlack;
+    FrameProgressUse.ProgressColor:= clBlack;
   end
   else
   if (IsTime(initTime * 1 - (initTime div 2)) OR
@@ -135,18 +137,21 @@ begin
       IsTime(initTime * 3 - (initTime div 2))) then
   begin
     ProgressBar.ProgressColor:= FSignalColor;
+    FrameProgressUse.ProgressColor:= FSignalColor;
   end;
 
   { color blink warning signal }
   if IsTime(FWarningTimeMs) then
   begin
     ProgressBar.ProgressColor:= clGray;
+    FrameProgressUse.ProgressColor:= clGray;
   end
   else
   if ((FWarningTimeMs > initTime) AND
       (IsTime(FWarningTimeMs - (initTime div 2)))) then
   begin
     ProgressBar.ProgressColor:= FSignalColor;
+    FrameProgressUse.ProgressColor:= FSignalColor;
   end;
 
   { count time and change period }
@@ -155,6 +160,7 @@ begin
     FPeriodTimeMs:= FPeriodTimeMs - ATimeMsElapsed;
     ShowTime(FPeriodTimeMs);
     ProgressBar.Progress:= ProgressBar.Max - FPeriodTimeMs;
+    FrameProgressUse.Progress:= ProgressBar.Max - FPeriodTimeMs;
   end
   else
   begin
@@ -215,16 +221,22 @@ begin
     LabelPeriod.Caption:= FPeriods[AValue].Name;
     FSignalColor:= FPeriods[AValue].Color;
     ProgressBar.ProgressColor:= FSignalColor;
+    FrameProgressUse.ProgressColor:= FSignalColor;
     FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
     FPeriodTimeMs:= FPeriods[AValue].TimeMs;
     ProgressBar.Max:= FPeriods[AValue].TimeMs;
+    FrameProgressUse.Max:= FPeriods[AValue].TimeMs;
+    ProgressBar.Min:= 0;
+    FrameProgressUse.Min:= 0;
     ProgressBar.Progress:= 0;
+    FrameProgressUse.Progress:= 0;
     FFinalSound:= FPeriods[AValue].FinalSound;
   end
   else
   begin
     TimeCounter.Enabled:= False;
     ProgressBar.ProgressColor:= clBlack;
+    FrameProgressUse.ProgressColor:= clBlack;
     ButtonPause.Enabled:= False;
   end;
 end;
