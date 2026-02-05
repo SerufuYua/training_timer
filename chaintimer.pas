@@ -49,6 +49,7 @@ type
     procedure Continue;
     procedure ShowTime(ATimeMs: Comp);
     procedure WritePeriod(AValue: Integer);
+    function TimeMs: Comp;
   public
     procedure UpdateTime(ATimeMsElapsed: Comp);
     procedure Start(ASetName: String; APeriods: TPeriodsList);
@@ -222,6 +223,11 @@ begin
     FrameProgressUse.ProgressColor:= clBlack;
     ButtonPause.Enabled:= False;
   end;
+end;
+
+function TFrameTimer.TimeMs: Comp;
+begin
+  Result:= TimeStampToMSecs(DateTimeToTimeStamp(Time));
 end;
 
 end.
