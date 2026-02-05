@@ -41,7 +41,7 @@ type
     FPeriods: TPeriodsList;
     FStopEvent: TNotifyEvent;
     FPeriod: Integer;
-    FPeriodTimeMs, FWarningTimeMs: Comp;
+    FStartTimeMs, FLastTimeMsRemaining, FPeriodTimeMs, FWarningTimeMs: Comp;
     FFinalSound: String;
     FSignalColor: TColor;
     procedure ResetTimer;
@@ -51,7 +51,7 @@ type
     procedure WritePeriod(AValue: Integer);
     function TimeMs: Comp;
   public
-    procedure UpdateTime(ATimeMsElapsed: Comp);
+    procedure UpdateTime;
     procedure Start(ASetName: String; APeriods: TPeriodsList);
     property Period: Integer read FPeriod write WritePeriod;
     property StopEvent: TNotifyEvent write FStopEvent;
@@ -79,6 +79,8 @@ end;
 
 procedure TFrameTimer.ResetTimer;
 begin
+  FPeriodTimeMs:= 0;
+  FStartTimeMs:= TimeMs;
   Period:= 0;
   Continue;
   ButtonPause.Enabled:= True;
@@ -98,18 +100,24 @@ begin
   ButtonPause.Caption:= 'Pause';
 end;
 
-procedure TFrameTimer.UpdateTime(ATimeMsElapsed: Comp);
+procedure TFrameTimer.UpdateTime;
 const
   initTime = 1000;
 
+var
+  TimeMsElapsed, TimeMsRemaining: Comp;
+
 function IsTime(thisTime: Comp): Boolean; inline;
 begin
-  Result:= ((FPeriodTimeMs >= thisTime) AND
-            ((FPeriodTimeMs - ATimeMsElapsed) < thisTime));
+  Result:= ((FLastTimeMsRemaining >= thisTime) AND
+            (TimeMsRemaining < thisTime));
 end;
 
 begin
-  { warning and initial signals }
+  TimeMsElapsed:= TimeMs - FStartTimeMs;
+  TimeMsRemaining:= FPeriodTimeMs - TimeMsElapsed;
+
+  { play warning and initial signals }
   if IsTime(FWarningTimeMs) then
   begin
     PlaySound.SoundFile:= SoundWarn;
@@ -150,11 +158,10 @@ begin
   end;
 
   { count time and change period }
-  if (FPeriodTimeMs > ATimeMsElapsed) then
+  if (TimeMsRemaining > 0) then
   begin
-    FPeriodTimeMs:= FPeriodTimeMs - ATimeMsElapsed;
-    ShowTime(FPeriodTimeMs);
-    FrameProgressUse.Progress:= FrameProgressUse.MaxProgress - FPeriodTimeMs;
+    ShowTime(TimeMsRemaining);
+    FrameProgressUse.Progress:= FrameProgressUse.MaxProgress - TimeMsRemaining;
   end
   else
   begin
@@ -163,6 +170,10 @@ begin
     PlaySound.Execute;
     Period:= Period + 1;
   end;
+
+  { remember Time Remaining }
+  FLastTimeMsRemaining:= TimeMsRemaining;
+
 end;
 
 procedure TFrameTimer.ButtonPauseClick(Sender: TObject);
@@ -188,7 +199,7 @@ end;
 
 procedure TFrameTimer.TimeCounterTimer(Sender: TObject);
 begin
-  UpdateTime(TimeCounter.Interval);
+  UpdateTime;
 end;
 
 procedure TFrameTimer.ShowTime(ATimeMs: Comp);
@@ -211,7 +222,7 @@ begin
     FSignalColor:= FPeriods[AValue].Color;
     FrameProgressUse.ProgressColor:= FSignalColor;
     FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
-    FPeriodTimeMs:= FPeriods[AValue].TimeMs;
+    FPeriodTimeMs:= FPeriodTimeMs + FPeriods[AValue].TimeMs;
     FrameProgressUse.MaxProgress:= FPeriods[AValue].TimeMs;
     FrameProgressUse.MinProgress:= 0;
     FrameProgressUse.Progress:= 0;
