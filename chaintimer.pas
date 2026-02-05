@@ -14,7 +14,7 @@ type
 
   TTimePeriod = record
     Name, FinalSound: String;
-    TimeMs, WarningTimeMs: Cardinal;
+    TimeMs, WarningTimeMs: Comp;
     Color: TColor;
   end;
 
@@ -41,16 +41,16 @@ type
     FPeriods: TPeriodsList;
     FStopEvent: TNotifyEvent;
     FPeriod: Integer;
-    FPeriodTimeMs, FWarningTimeMs: Cardinal;
+    FPeriodTimeMs, FWarningTimeMs: Comp;
     FFinalSound: String;
     FSignalColor: TColor;
     procedure ResetTimer;
     procedure Pause;
     procedure Continue;
-    procedure ShowTime(ATimeMs: Cardinal);
+    procedure ShowTime(ATimeMs: Comp);
     procedure WritePeriod(AValue: Integer);
   public
-    procedure UpdateTime(ATimeMsElapsed: Cardinal);
+    procedure UpdateTime(ATimeMsElapsed: Comp);
     procedure Start(ASetName: String; APeriods: TPeriodsList);
     property Period: Integer read FPeriod write WritePeriod;
     property StopEvent: TNotifyEvent write FStopEvent;
@@ -97,11 +97,11 @@ begin
   ButtonPause.Caption:= 'Pause';
 end;
 
-procedure TFrameTimer.UpdateTime(ATimeMsElapsed: Cardinal);
+procedure TFrameTimer.UpdateTime(ATimeMsElapsed: Comp);
 const
   initTime = 1000;
 
-function IsTime(thisTime: Cardinal): Boolean; inline;
+function IsTime(thisTime: Comp): Boolean; inline;
 begin
   Result:= ((FPeriodTimeMs >= thisTime) AND
             ((FPeriodTimeMs - ATimeMsElapsed) < thisTime));
@@ -190,9 +190,9 @@ begin
   UpdateTime(TimeCounter.Interval);
 end;
 
-procedure TFrameTimer.ShowTime(ATimeMs: Cardinal);
+procedure TFrameTimer.ShowTime(ATimeMs: Comp);
 var
-  min, sec: Cardinal;
+  min, sec: Comp;
 begin
   sec:= (ATimeMs + 1) div 1000;
   min:= sec div 60;
