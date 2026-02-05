@@ -84,10 +84,6 @@ object FrameTimer: TFrameTimer
         Width = 310
         ClientHeight = 342
         ClientWidth = 310
-        inherited Painter: TPaintBox
-          Height = 342
-          Width = 310
-        end
       end
     end
   end

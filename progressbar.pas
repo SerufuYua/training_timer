@@ -5,7 +5,7 @@ unit ProgressBar;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, ExtCtrls, Graphics;
+  Classes, SysUtils, Forms, Controls, ExtCtrls, Graphics, Types;
 
 type
 
@@ -30,6 +30,7 @@ type
     procedure WriteText(AValue: string);
     procedure WriteTextOutlineColor(AValue: TColor);
     procedure FontChanged(Sender: TObject); override;
+    procedure CalculateFontSize;
   public
     const
       DefaultWidth = 150;
@@ -62,9 +63,6 @@ type
 
 implementation
 
-uses
-  Types;
-
 {$R *.lfm}
 
 { TFrameProgress }
@@ -90,11 +88,12 @@ begin
   FFont.OnChange:= @FontChanged;
   FFont.Color:= DefaultTextColor;
   FFont.Bold:= True;
+  FFont.Quality:= fqDraft;
 end;
 
 procedure TFrameProgress.PainterPaint(Sender: TObject);
 var
-  ProgressWidth, TextX, TextY, i: Integer;
+  ProgressWidth, TextX, TextY: Integer;
   ProgressRect, InnerRect: TRect;
   OldFont: TFont;
   TextSize: TSize;
@@ -135,19 +134,9 @@ begin
     Painter.Canvas.Font:= FFont;
     Painter.Canvas.Brush.Style := bsClear; { Transparent text background }
 
-    { Calculate maximum font size }
-    for i:= 1 to Height do
-    begin
-      Painter.Canvas.Font.Size:= i;
-      TextSize:= Painter.Canvas.TextExtent(FText);
-      if ((TextSize.cx >= Width) OR (TextSize.cy >= Height)) then
-      begin
-        Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size - 1;
-        Break;
-      end;
-    end;
-
     { Calculate text position }
+    CalculateFontSize;
+    TextSize:= Painter.Canvas.TextExtent(FText);
     TextX:= (Width - TextSize.Width) div 2;
     TextY:= (Height - TextSize.Height) div 2;
 
@@ -166,6 +155,42 @@ begin
     Painter.Canvas.Font:= OldFont;
   finally
     OldFont.Free;
+  end;
+end;
+
+procedure TFrameProgress.CalculateFontSize;
+var
+  i: Integer;
+  TextSize: TSize;
+begin
+  { Calculate maximum font size }
+  TextSize:= Painter.Canvas.TextExtent(FText);
+  if ((TextSize.cx >= Width) OR (TextSize.cy >= Height)) then
+  begin { too big }
+    Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size - 1;
+    for i:= 1 to Height do
+    begin
+      TextSize:= Painter.Canvas.TextExtent(FText);
+      if ((TextSize.cx >= Width) OR (TextSize.cy >= Height)) then
+        Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size - 1
+      else
+        Exit;
+    end;
+  end
+  else
+  begin { too small }
+    Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size + 1;
+    for i:= 1 to Height do
+    begin
+      TextSize:= Painter.Canvas.TextExtent(FText);
+      if ((TextSize.cx >= Width) OR (TextSize.cy >= Height)) then
+      begin
+        Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size - 1;
+        Exit;
+      end
+      else
+        Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size + 1
+    end;
   end;
 end;
 
