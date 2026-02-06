@@ -41,7 +41,8 @@ type
     FPeriods: TPeriodsList;
     FStopEvent: TNotifyEvent;
     FPeriod: Integer;
-    FStartTimeMs, FLastTimeMsRemaining, FPeriodTimeMs, FWarningTimeMs: Comp;
+    FStartTimeMs, FStartPauseMs, FLastTimeMsRemaining, FPeriodTimeMs,
+      FWarningTimeMs: Comp;
     FFinalSound: String;
     FSignalColor: TColor;
     procedure ResetTimer;
@@ -82,20 +83,23 @@ begin
   FPeriodTimeMs:= 0;
   FStartTimeMs:= TimeMs;
   Period:= 0;
-  Continue;
+  TimeCounter.Enabled:= True;
   ButtonPause.Enabled:= True;
+  ButtonPause.Caption:= 'Pause';
   PlaySound.SoundFile:= SoundInit;
   PlaySound.Execute;
 end;
 
 procedure TFrameTimer.Pause;
 begin
+  FStartPauseMs:= TimeMs;
   TimeCounter.Enabled:= False;
   ButtonPause.Caption:= 'Continue...';
 end;
 
 procedure TFrameTimer.Continue;
 begin
+  FStartTimeMs:= FStartTimeMs + (TimeMs - FStartPauseMs);
   TimeCounter.Enabled:= True;
   ButtonPause.Caption:= 'Pause';
 end;
@@ -182,7 +186,6 @@ begin
     Pause
   else
     Continue;
-
 end;
 
 procedure TFrameTimer.ButtonRestartClick(Sender: TObject);
