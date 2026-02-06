@@ -16,7 +16,7 @@ Binaries available on [GitHub](https://github.com/SerufuYua/training_timer/relea
 
 Use [Lazarus](https://www.lazarus-ide.org/) to compile.<br>
 Open in Lazarus `TrainingTimer.lpi` file and compile / run from Lazarus.<br>
-Make sure to first register [PlaySoundPackage Lazarus packages](https://wiki.lazarus.freepascal.org/PlotPanel).
+Make sure to first register [PlaySoundPackage Lazarus packages](https://packages.lazarus-ide.org).
 
 ## Versions
 
