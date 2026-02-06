@@ -35,6 +35,8 @@ object FrameAbout: TFrameAbout
       Width = 312
       Lines.Strings = (
         'Training Timer'
+        'Developer: Serufu Yua (@serufu_yua)'
+        ''
         'Version 1.2'
         'IDE: Lazarus 4.4'
         'Compiller: Free Pascal 3.2.2'
@@ -43,11 +45,45 @@ object FrameAbout: TFrameAbout
         ''
         'This app is free software under GNU GPL 2 license.'
         ''
-        'Developer: Serufu Yua (@serufu_yua)'
       )
       ReadOnly = True
       ScrollBars = ssAutoVertical
       TabOrder = 0
+    end
+    object PanelWebUrl: TPanel
+      Left = 4
+      Height = 23
+      Top = 180
+      Width = 312
+      Align = alBottom
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ClientHeight = 23
+      ClientWidth = 312
+      TabOrder = 1
+      object LabelWeb: TLabel
+        Left = 4
+        Height = 15
+        Top = 4
+        Width = 27
+        Align = alLeft
+        Caption = 'Web:'
+      end
+      object LabelUrl: TLabel
+        Left = 35
+        Height = 15
+        Top = 4
+        Width = 273
+        Align = alClient
+        Caption = 'https://github.com/SerufuYua/training_timer'
+        OnClick = LabelUrlClick
+        OnMouseEnter = LabelUrlMouseEnter
+        OnMouseLeave = LabelUrlMouseLeave
+      end
     end
   end
   object PanelButton: TPanel
