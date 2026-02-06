@@ -346,7 +346,7 @@ begin
   begin
     if ((i mod 2) = 0) then
     begin
-      periods[i].Name:= 'Rest';
+      periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
       periods[i].TimeMs:= EditRestTimeS.Value * 1000;
       periods[i].WarningTimeMs:= EditWarningTimeS.Value * 1000;
       periods[i].Color:= clYellow;

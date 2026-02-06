@@ -152,6 +152,7 @@ object FrameSettings: TFrameSettings
         MinValue = 1
         TabOrder = 0
         Value = 3
+        OnChange = EditSettingChange
       end
       object LabelRoundTime: TLabel
         Left = 5
