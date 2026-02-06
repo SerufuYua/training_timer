@@ -21,10 +21,10 @@ type
     procedure EditTimeChange(Sender: TObject);
   protected
     FOnChange: TNotifyEvent;
-    procedure WriteValue(AValue: Cardinal);
-    function ReadValue: Cardinal;
+    procedure WriteValue(AValue: Comp);
+    function ReadValue: Comp;
   public
-    property Value: Cardinal read ReadValue write WriteValue;
+    property Value: Comp read ReadValue write WriteValue;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   end;
 
@@ -60,7 +60,7 @@ begin
     FOnChange(self);
 end;
 
-procedure TFrameEditTime.WriteValue(AValue: Cardinal);
+procedure TFrameEditTime.WriteValue(AValue: Comp);
 var
   min, sec: Cardinal;
 begin
@@ -71,7 +71,7 @@ begin
   EditMin.Value:= min;
 end;
 
-function TFrameEditTime.ReadValue: Cardinal;
+function TFrameEditTime.ReadValue: Comp;
 begin
   Result:= (EditMin.Value * 60) + EditSec.Value;
 end;
