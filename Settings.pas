@@ -151,7 +151,7 @@ begin
 
     for i:= 0 to (num - 1) do
     begin
-      path:= 'Settings/Set' + IntToStr(i + 1) + '/';
+      path:= 'Settings/Set' + IntToStr(i) + '/';
       SettingsSimpleList[i].Name:= APropStorage.ReadString(path + 'Name', 'Set ' + IntToStr(i + 1));
       SettingsSimpleList[i].Rounds:= APropStorage.ReadInteger(path + 'Rounds', DefaultRounds);
       SettingsSimpleList[i].RoundTimeMs:= APropStorage.ReadInteger(path + 'RoundTimeMs', DefaultRoundTimeMs);
@@ -177,13 +177,23 @@ begin
 
   for i:= 0 to (num - 1) do
   begin
-    path:= 'Settings/Set' + IntToStr(i + 1) + '/';
+    path:= 'Settings/Set' + IntToStr(i) + '/';
     APropStorage.WriteString(path + 'Name', SettingsSimpleList[i].Name);
-    APropStorage.WriteInteger(path + 'Rounds', SettingsSimpleList[i].Rounds);
-    APropStorage.WriteInteger(path + 'RoundTimeMs', SettingsSimpleList[i].RoundTimeMs);
-    APropStorage.WriteInteger(path + 'RestTimeMs', SettingsSimpleList[i].RestTimeMs);
-    APropStorage.WriteInteger(path + 'PrepareTimeMs', SettingsSimpleList[i].PrepareTimeMs);
-    APropStorage.WriteInteger(path + 'WarningTimeMs', SettingsSimpleList[i].WarningTimeMs);
+
+    if (SettingsSimpleList[i].Rounds <> DefaultRounds) then
+      APropStorage.WriteInteger(path + 'Rounds', SettingsSimpleList[i].Rounds);
+
+    if (SettingsSimpleList[i].RoundTimeMs <> DefaultRoundTimeMs) then
+      APropStorage.WriteInteger(path + 'RoundTimeMs', SettingsSimpleList[i].RoundTimeMs);
+
+    if (SettingsSimpleList[i].RestTimeMs <> DefaultRestTimeMs) then
+      APropStorage.WriteInteger(path + 'RestTimeMs', SettingsSimpleList[i].RestTimeMs);
+
+    if (SettingsSimpleList[i].PrepareTimeMs <> DefaultPrepareTimeMs) then
+      APropStorage.WriteInteger(path + 'PrepareTimeMs', SettingsSimpleList[i].PrepareTimeMs);
+
+    if (SettingsSimpleList[i].WarningTimeMs <> DefaultWarningTimeMs) then
+      APropStorage.WriteInteger(path + 'WarningTimeMs', SettingsSimpleList[i].WarningTimeMs);
   end;
 
   APropStorage.WriteInteger('Settings/SetNum', SetIndex);

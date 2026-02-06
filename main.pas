@@ -48,6 +48,9 @@ var
 
 implementation
 
+uses
+  TypInfo;
+
 {$R *.lfm}
 
 { TFormTTimer }
@@ -80,12 +83,24 @@ end;
 
 procedure TFormTTimer.SaveSettings;
 begin
+  if (WindowState = TWindowState.wsNormal) then
+  begin
+    PropStorage.WriteInteger('Width', Width);
+    PropStorage.WriteInteger('Height', Height);
+  end;
+
+  PropStorage.WriteString('WindowState', GetEnumName(TypeInfo(TWindowState), Ord(WindowState)));
+
   FrameSettingsUse.SaveSettings(PropStorage);
   FrameConfigUse.SaveSettings(PropStorage);
 end;
 
 procedure TFormTTimer.LoadSettings;
 begin
+  Width:= PropStorage.ReadInteger('Width', self.GetDefaultWidth);
+  Height:= PropStorage.ReadInteger('Height', self.GetDefaultHeight);
+  WindowState:= TWindowState(GetEnumValue(TypeInfo(TWindowState), PropStorage.ReadString('WindowState', GetEnumName(TypeInfo(TWindowState), Ord(TWindowState.wsNormal)))));
+
   FrameSettingsUse.LoadSettings(PropStorage);
   FrameConfigUse.LoadSettings(PropStorage);
 end;

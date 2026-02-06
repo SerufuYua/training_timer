@@ -76,13 +76,13 @@ procedure TFrameConfig.LoadSettings(APropStorage: TXMLPropStorage);
 var
   path: String;
 begin
-  path:= 'Config';
-  TimerInterval:= APropStorage.ReadInteger(path + '/TimerInterval', DefaultTimerInterval);
-  SoundStart:= APropStorage.ReadString(path + '/SoundStart', DefaultSoundStart);
-  SoundEnd:= APropStorage.ReadString(path + '/SoundEnd', DefaultSoundEnd);
-  SoundFinal:= APropStorage.ReadString(path + '/SoundFinal', DefaultSoundFinal);
-  SoundWarn:= APropStorage.ReadString(path + '/SoundWarn', DefaultSoundWarn);
-  SoundInit:= APropStorage.ReadString(path + '/SoundInit', DefaultSoundInit);
+  path:= 'Config/';
+  TimerInterval:= APropStorage.ReadInteger(path + 'TimerInterval', DefaultTimerInterval);
+  SoundStart:= APropStorage.ReadString(path + 'SoundStart', DefaultSoundStart);
+  SoundEnd:= APropStorage.ReadString(path + 'SoundEnd', DefaultSoundEnd);
+  SoundFinal:= APropStorage.ReadString(path + 'SoundFinal', DefaultSoundFinal);
+  SoundWarn:= APropStorage.ReadString(path + 'SoundWarn', DefaultSoundWarn);
+  SoundInit:= APropStorage.ReadString(path + 'SoundInit', DefaultSoundInit);
 
   EditTimerInterval.Value:= TimerInterval;
   FileNameStart.Caption:= SoundStart;
@@ -96,13 +96,26 @@ procedure TFrameConfig.SaveSettings(APropStorage: TXMLPropStorage);
 var
   path: String;
 begin
-  path:= 'Config';
-  APropStorage.WriteInteger(path + '/TimerInterval', TimerInterval);
-  APropStorage.WriteString(path + '/SoundStart', SoundStart);
-  APropStorage.WriteString(path + '/SoundEnd', SoundEnd);
-  APropStorage.WriteString(path + '/SoundFinal', SoundFinal);
-  APropStorage.WriteString(path + '/SoundWarn', SoundWarn);
-  APropStorage.WriteString(path + '/SoundInit', SoundInit);
+  APropStorage.DoEraseSections(APropStorage.RootNodePath + '/Config');
+
+  path:= 'Config/';
+  if (TimerInterval <> DefaultTimerInterval) then
+    APropStorage.WriteInteger(path + 'TimerInterval', TimerInterval);
+
+  if (SoundStart <> DefaultSoundStart) then
+    APropStorage.WriteString(path + 'SoundStart', SoundStart);
+
+  if (SoundEnd <> DefaultSoundEnd) then
+    APropStorage.WriteString(path + 'SoundEnd', SoundEnd);
+
+  if (SoundFinal <> DefaultSoundFinal) then
+    APropStorage.WriteString(path + 'SoundFinal', SoundFinal);
+
+  if (SoundWarn <> DefaultSoundWarn) then
+    APropStorage.WriteString(path + 'SoundWarn', SoundWarn);
+
+  if (SoundInit <> DefaultSoundInit) then
+    APropStorage.WriteString(path + 'SoundInit', SoundInit);
 end;
 
 procedure TFrameConfig.ButtonCancelClick(Sender: TObject);
