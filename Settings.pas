@@ -325,10 +325,10 @@ begin
   SetLength(periods, EditRounds.Value * 2);
 
   periods[0].Name:= 'Prepare';
-  periods[0].FinalSound:= SoundStart;
   periods[0].TimeMs:= EditPrepareTimeS.Value * 1000;
   periods[0].WarningTimeMs:= EditWarningTimeS.Value * 1000;
   periods[0].Color:= clLime;
+  periods[0].FinalSound:= SoundStart;
 
   lastPeriod:= EditRounds.Value * 2 - 1;
 
@@ -338,12 +338,13 @@ begin
     begin
       periods[i].Name:= 'Rest';
       periods[i].TimeMs:= EditRestTimeS.Value * 1000;
-      periods[i].FinalSound:= SoundStart;
+      periods[i].WarningTimeMs:= EditWarningTimeS.Value * 1000;
       periods[i].Color:= clYellow;
+      periods[i].FinalSound:= SoundStart;
     end
     else
     begin
-      periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1);
+      periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
       periods[i].TimeMs:= EditRoundTimeS.Value * 1000;
       periods[i].WarningTimeMs:= EditWarningTimeS.Value * 1000;
       periods[i].Color:= clRed;
