@@ -210,21 +210,21 @@ end;
 
 procedure TFrameProgress.WriteTextOutlineColor(AValue: TColor);
 begin
-  if FTextOutlineColor = AValue then Exit;
+  if (FTextOutlineColor = AValue) then Exit;
   FTextOutlineColor:= AValue;
   Invalidate;
 end;
 
 procedure TFrameProgress.WriteTextOutline(AValue: Integer);
 begin
-  if FTextOutline = AValue then Exit;
+  if (FTextOutline = AValue) then Exit;
   FTextOutline:= AValue;
   Invalidate;
 end;
 
 procedure TFrameProgress.WriteBorder(AValue: Integer);
 begin
-  if FBorder = AValue then Exit;
+  if (FBorder = AValue) then Exit;
   FBorder:= AValue;
   Invalidate;
 end;
@@ -269,7 +269,7 @@ end;
 
 procedure TFrameProgress.WriteText(AValue: string);
 begin
-  if FText = AValue then Exit;
+  if (FText = AValue) then Exit;
   FText:= AValue;
   Invalidate;
 end;
