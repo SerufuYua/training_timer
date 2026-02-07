@@ -160,18 +160,20 @@ end;
 
 procedure TFrameProgress.CalculateFontSize;
 var
-  i: Integer;
+  i, w, h: Integer;
   TextSize: TSize;
 begin
   { Calculate maximum font size }
+  w:= Painter.Width;
+  h:= Painter.Height div 2;
   TextSize:= Painter.Canvas.TextExtent(FText);
-  if ((TextSize.cx >= Width) OR (TextSize.cy >= Height)) then
+  if ((TextSize.cx >= w) OR (TextSize.cy >= h)) then
   begin { too big }
     Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size - 1;
-    for i:= 1 to Height do
+    for i:= 1 to h do
     begin
       TextSize:= Painter.Canvas.TextExtent(FText);
-      if ((TextSize.cx >= Width) OR (TextSize.cy >= Height)) then
+      if ((TextSize.cx >= w) OR (TextSize.cy >= h)) then
         Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size - 1
       else
         Exit;
@@ -180,10 +182,10 @@ begin
   else
   begin { too small }
     Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size + 1;
-    for i:= 1 to Height do
+    for i:= 1 to h do
     begin
       TextSize:= Painter.Canvas.TextExtent(FText);
-      if ((TextSize.cx >= Width) OR (TextSize.cy >= Height)) then
+      if ((TextSize.cx >= w) OR (TextSize.cy >= h)) then
       begin
         Painter.Canvas.Font.Size:= Painter.Canvas.Font.Size - 1;
         Exit;
