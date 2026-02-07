@@ -48,7 +48,7 @@ type
     procedure ResetTimer;
     procedure Pause;
     procedure Continue;
-    procedure ShowTime(ATimeMs: Comp);
+    procedure ShowTime(ATimeMs: Integer);
     procedure WritePeriod(AValue: Integer);
     function TimeMs: Comp;
   public
@@ -164,8 +164,8 @@ begin
   { count time and change period }
   if (TimeMsRemaining > 0) then
   begin
-    ShowTime(TimeMsRemaining);
-    FrameProgressUse.Progress:= FrameProgressUse.MaxProgress - TimeMsRemaining;
+    ShowTime(Round(TimeMsRemaining));
+    FrameProgressUse.Progress:= FrameProgressUse.MaxProgress - Round(TimeMsRemaining);
   end
   else
   begin
@@ -205,9 +205,9 @@ begin
   UpdateTime;
 end;
 
-procedure TFrameTimer.ShowTime(ATimeMs: Comp);
+procedure TFrameTimer.ShowTime(ATimeMs: Integer);
 var
-  min, sec: Comp;
+  min, sec: Integer;
 begin
   sec:= (ATimeMs + 1) div 1000;
   min:= sec div 60;
@@ -220,13 +220,13 @@ begin
   if (AValue < Length(FPeriods)) then
   begin
     FPeriod:= AValue;
-    ShowTime(FPeriods[AValue].TimeMs);
+    ShowTime(Round(FPeriods[AValue].TimeMs));
     LabelPeriod.Caption:= FPeriods[AValue].Name;
     FSignalColor:= FPeriods[AValue].Color;
     FrameProgressUse.ProgressColor:= FSignalColor;
     FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
     FPeriodTimeMs:= FPeriodTimeMs + FPeriods[AValue].TimeMs;
-    FrameProgressUse.MaxProgress:= FPeriods[AValue].TimeMs;
+    FrameProgressUse.MaxProgress:= Round(FPeriods[AValue].TimeMs);
     FrameProgressUse.MinProgress:= 0;
     FrameProgressUse.Progress:= 0;
     FFinalSound:= FPeriods[AValue].FinalSound;

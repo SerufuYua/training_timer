@@ -97,7 +97,7 @@ type
   TSettingsSimple = record
     Name: String;
     Rounds: Integer;
-    RoundTimeMs, RestTimeMs, PrepareTimeMs, WarningTimeMs: Comp;
+    RoundTimeMs, RestTimeMs, PrepareTimeMs, WarningTimeMs: Integer;
   end;
 
   TSettingsSimpleList = Array of TSettingsSimple;
@@ -384,7 +384,7 @@ end;
 
 procedure TFrameSettings.ShowStatistic;
 var
-  min, sec: Comp;
+  min, sec: Integer;
 begin
   sec:= EditPrepareTimeS.Value +
         EditRestTimeS.Value * (EditRounds.Value - 1) +

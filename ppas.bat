@@ -1,7 +1,7 @@
 @echo off
 SET THEFILE=D:\boxing\TrainingTimer\TrainingTimer.exe
 echo Linking %THEFILE%
-C:\lazarus\fpc\3.2.2\bin\x86_64-win64\ld.exe -b pei-x86-64  --gc-sections   --subsystem windows --entry=_WinMainCRTStartup    -o D:\boxing\TrainingTimer\TrainingTimer.exe D:\boxing\TrainingTimer\link6904.res
+C:\lazarus\fpc\3.2.2\bin\x86_64-win64\ld.exe -b pei-x86-64  --gc-sections   --subsystem windows --entry=_WinMainCRTStartup    -o D:\boxing\TrainingTimer\TrainingTimer.exe D:\boxing\TrainingTimer\link5336.res
 if errorlevel 1 goto linkend
 goto end
 :asmend
