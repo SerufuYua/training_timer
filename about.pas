@@ -57,7 +57,7 @@ begin
   begin
     Load(HINSTANCE);
     LabelTitle.Caption:= StringFileInfo.Items[0].Values['ProductName'];
-    LabelVer.Caption:= 'Version' + StringFileInfo.Items[0].Values['FileVersion'];
+    LabelVer.Caption:= 'Version ' + StringFileInfo.Items[0].Values['FileVersion'];
     Free;
   end;
 
