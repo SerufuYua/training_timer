@@ -49,7 +49,7 @@ var
 implementation
 
 uses
-  TypInfo;
+  TypInfo, FileInfo;
 
 {$R *.lfm}
 
@@ -65,6 +65,14 @@ begin
   FrameSettingsUse.StartEvent:= {$ifdef FPC}@{$endif}StartEvent;
   FrameSettingsUse.ConfigEvent:= {$ifdef FPC}@{$endif}ConfigEvent;
   FrameSettingsUse.AboutEvent:= {$ifdef FPC}@{$endif}AboutEvent;
+
+  with TVersionInfo.Create do
+  begin
+    Load(HINSTANCE);
+    Caption:= StringFileInfo.Items[0].Values['ProductName'] + ' ' +
+              StringFileInfo.Items[0].Values['FileVersion'];
+    Free;
+  end;
 
   {$ifdef RELEASE}
   ControlPageTimer.ShowTabs:= False;

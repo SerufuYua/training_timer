@@ -13,9 +13,15 @@ type
 
   TFrameAbout = class(TFrame)
     ButtonOk: TButton;
+    LabelFPC: TLabel;
+    LabelLaz: TLabel;
+    LabelTitle: TLabel;
+    LabelVer: TLabel;
     LabelUrl: TLabel;
     LabelWeb: TLabel;
     MemoAbout: TMemo;
+    PanelDescript: TPanel;
+    PanelVerInfo: TPanel;
     PanelWebUrl: TPanel;
     PanelInfo: TPanel;
     PanelButton: TPanel;
@@ -33,7 +39,7 @@ type
 implementation
 
 uses
-  LCLIntf, Graphics;
+  LCLIntf, Graphics, FileInfo, LCLVersion;
 
 const
   FMouseLeave: TColor = clBlue;
@@ -46,6 +52,17 @@ const
 constructor TFrameAbout.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+
+  with TVersionInfo.Create do
+  begin
+    Load(HINSTANCE);
+    LabelTitle.Caption:= StringFileInfo.Items[0].Values['ProductName'];
+    LabelVer.Caption:= 'Version' + StringFileInfo.Items[0].Values['FileVersion'];
+    Free;
+  end;
+
+  LabelLaz.Caption:= 'Lazarus ' + lcl_version;
+  LabelFPC.Caption:= 'Free Pascal ' + {$I %FPCVERSION%};
 
   LabelUrl.Font.Color:= FMouseLeave;
 end;

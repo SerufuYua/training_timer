@@ -28,61 +28,113 @@ object FrameAbout: TFrameAbout
     ClientHeight = 207
     ClientWidth = 320
     TabOrder = 0
-    object MemoAbout: TMemo
+    object PanelVerInfo: TPanel
       Left = 4
       Height = 199
       Top = 4
-      Width = 312
-      Lines.Strings = (
-        'Training Timer'
-        'Developer: Serufu Yua (@serufu_yua)'
-        ''
-        'Version 1.2'
-        'IDE: Lazarus 4.4'
-        'Compiller: Free Pascal 3.2.2'
-        ''
-        'This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more.'
-        ''
-        'This app is free software under GNU GPL 2 license.'
-        ''
-      )
-      ReadOnly = True
-      ScrollBars = ssAutoVertical
-      TabOrder = 0
-    end
-    object PanelWebUrl: TPanel
-      Left = 4
-      Height = 23
-      Top = 180
-      Width = 312
-      Align = alBottom
+      Width = 54
+      Align = alLeft
       AutoSize = True
       BevelOuter = bvNone
-      ChildSizing.LeftRightSpacing = 4
-      ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 4
       ChildSizing.VerticalSpacing = 4
-      ClientHeight = 23
-      ClientWidth = 312
-      TabOrder = 1
-      object LabelWeb: TLabel
-        Left = 4
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ClientHeight = 199
+      ClientWidth = 54
+      TabOrder = 0
+      object LabelTitle: TLabel
+        Left = 0
         Height = 15
-        Top = 4
-        Width = 27
-        Align = alLeft
-        Caption = 'Web:'
+        Top = 0
+        Width = 54
+        Caption = 'LabelTitle'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
-      object LabelUrl: TLabel
-        Left = 35
+      object LabelVer: TLabel
+        Left = 0
         Height = 15
-        Top = 4
-        Width = 273
+        Top = 19
+        Width = 54
+        Caption = 'LabelVer'
+      end
+      object LabelLaz: TLabel
+        Left = 0
+        Height = 15
+        Top = 38
+        Width = 54
+        Caption = 'LabelLaz'
+      end
+      object LabelFPC: TLabel
+        Left = 0
+        Height = 15
+        Top = 57
+        Width = 54
+        Caption = 'LabelFPC'
+      end
+    end
+    object PanelDescript: TPanel
+      Left = 62
+      Height = 199
+      Top = 4
+      Width = 254
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 199
+      ClientWidth = 254
+      TabOrder = 1
+      object MemoAbout: TMemo
+        Left = 0
+        Height = 176
+        Top = 0
+        Width = 254
         Align = alClient
-        Caption = 'https://github.com/SerufuYua/training_timer'
-        OnClick = LabelUrlClick
-        OnMouseEnter = LabelUrlMouseEnter
-        OnMouseLeave = LabelUrlMouseLeave
+        Lines.Strings = (
+          'Developer: Serufu Yua (@serufu_yua)'
+          ''
+          'This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more.'
+          ''
+          'This app is free software under GNU GPL 2 license.'
+          ''
+        )
+        ReadOnly = True
+        ScrollBars = ssAutoVertical
+        TabOrder = 0
+      end
+      object PanelWebUrl: TPanel
+        Left = 0
+        Height = 23
+        Top = 176
+        Width = 254
+        Align = alBottom
+        AutoSize = True
+        BevelOuter = bvNone
+        ChildSizing.LeftRightSpacing = 4
+        ChildSizing.TopBottomSpacing = 4
+        ChildSizing.HorizontalSpacing = 4
+        ChildSizing.VerticalSpacing = 4
+        ClientHeight = 23
+        ClientWidth = 254
+        TabOrder = 1
+        object LabelWeb: TLabel
+          Left = 4
+          Height = 15
+          Top = 4
+          Width = 27
+          Align = alLeft
+          Caption = 'Web:'
+        end
+        object LabelUrl: TLabel
+          Left = 35
+          Height = 15
+          Top = 4
+          Width = 215
+          Align = alClient
+          Caption = 'https://github.com/SerufuYua/training_timer'
+          OnClick = LabelUrlClick
+          OnMouseEnter = LabelUrlMouseEnter
+          OnMouseLeave = LabelUrlMouseLeave
+        end
       end
     end
   end
