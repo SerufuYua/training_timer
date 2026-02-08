@@ -20,16 +20,20 @@ Make sure to first register [PlaySoundPackage Lazarus packages](https://packages
 
 ## Versions
 
+### Version 1.2.1
+
+Bug fixes and optimization.
+
 ### Version 1.2
 
 Changes:
 
-  * You can use sounds of your choice
+  * You can use sounds of your choice;
 
-  * Improved counting visualization
+  * Improved counting visualization;
 
-  * Improved timekeeping accuracy
+  * Improved timekeeping accuracy.
 
 ### Version 1.1
 
-First release
+First release.
