@@ -20,7 +20,6 @@ type
     LabelUrl: TLabel;
     LabelWeb: TLabel;
     MemoAbout: TMemo;
-    PanelDescript: TPanel;
     PanelVerInfo: TPanel;
     PanelWebUrl: TPanel;
     PanelInfo: TPanel;

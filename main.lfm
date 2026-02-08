@@ -6,6 +6,8 @@ object FormTTimer: TFormTTimer
   Caption = 'Training Timer'
   ClientHeight = 418
   ClientWidth = 320
+  Constraints.MinHeight = 330
+  Constraints.MinWidth = 300
   LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   object ControlPageTimer: TPageControl
