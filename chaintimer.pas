@@ -25,6 +25,7 @@ type
     ButtonStop: TButton;
     ButtonPause: TButton;
     FrameProgressUse: TFrameProgress;
+    LabelFullTime: TLabel;
     LabelPeriod: TLabel;
     LabelSet: TLabel;
     PanelTime: TPanel;
@@ -42,13 +43,14 @@ type
     FStopEvent: TNotifyEvent;
     FPeriod: Integer;
     FStartTimeMs, FStartPauseMs, FLastTimeMsRemaining, FPeriodTimeMs,
-      FWarningTimeMs: Comp;
+      FWarningTimeMs, FFullTimeMs: Comp;
     FFinalSound: String;
     FSignalColor: TColor;
     procedure ResetTimer;
     procedure Pause;
     procedure Continue;
     procedure ShowTime(ATimeMs: Integer);
+    procedure ShowFullTime(ATimeMs: Integer);
     procedure WritePeriod(AValue: Integer);
     function TimeMs: Comp;
   public
@@ -68,11 +70,19 @@ uses
 { TFrameTimer }
 
 procedure TFrameTimer.Start(ASetName: String; APeriods: TPeriodsList);
+var
+  i: Integer;
 begin
   TimeCounter.Interval:= TimerInterval;
   TimeCounter.Enabled:= False;
   LabelSet.Caption:= ASetName;
   FPeriods:= APeriods;
+
+  FFullTimeMs:= 0;
+  for i:= Low(FPeriods) to High(FPeriods) do
+  begin
+    FFullTimeMs:= FFullTimeMs + FPeriods[i].TimeMs;
+  end;
 
   { enable timer }
   ResetTimer;
@@ -165,6 +175,7 @@ begin
   if (TimeMsRemaining > 0) then
   begin
     ShowTime(Round(TimeMsRemaining));
+    ShowFullTime(Round(FFullTimeMs - TimeMsElapsed));
     FrameProgressUse.Progress:= FrameProgressUse.MaxProgress - Round(TimeMsRemaining);
   end
   else
@@ -213,6 +224,16 @@ begin
   min:= sec div 60;
   sec:= sec - (min * 60);
   FrameProgressUse.Text:= IntToStr(min) + ':' + IntToStr(sec);
+end;
+
+procedure TFrameTimer.ShowFullTime(ATimeMs: Integer);
+var
+  min, sec: Integer;
+begin
+  sec:= (ATimeMs + 1) div 1000;
+  min:= sec div 60;
+  sec:= sec - (min * 60);
+  LabelFullTime.Caption:= IntToStr(min) + ':' + IntToStr(sec);
 end;
 
 procedure TFrameTimer.WritePeriod(AValue: Integer);

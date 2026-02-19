@@ -28,7 +28,7 @@ object FrameTimer: TFrameTimer
     TabOrder = 0
     object PanelLabels: TPanel
       Left = 5
-      Height = 68
+      Height = 104
       Top = 5
       Width = 310
       Align = alTop
@@ -37,7 +37,7 @@ object FrameTimer: TFrameTimer
       ChildSizing.VerticalSpacing = 4
       ChildSizing.EnlargeHorizontal = crsSameSize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 68
+      ClientHeight = 104
       ClientWidth = 310
       TabOrder = 0
       object LabelSet: TLabel
@@ -62,11 +62,21 @@ object FrameTimer: TFrameTimer
         Layout = tlCenter
         ParentFont = False
       end
+      object LabelFullTime: TLabel
+        Left = 0
+        Height = 32
+        Top = 72
+        Width = 310
+        Caption = 'LabelFullTime'
+        Font.Height = -24
+        Layout = tlCenter
+        ParentFont = False
+      end
     end
     object PanelTime: TPanel
       Left = 5
-      Height = 342
-      Top = 77
+      Height = 306
+      Top = 113
       Width = 310
       Align = alClient
       BevelOuter = bvNone
@@ -76,14 +86,18 @@ object FrameTimer: TFrameTimer
       ChildSizing.ShrinkHorizontal = crsSameSize
       ChildSizing.ShrinkVertical = crsSameSize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 342
+      ClientHeight = 306
       ClientWidth = 310
       TabOrder = 1
       inline FrameProgressUse: TFrameProgress
-        Height = 342
+        Height = 306
         Width = 310
-        ClientHeight = 342
+        ClientHeight = 306
         ClientWidth = 310
+        inherited Painter: TPaintBox
+          Height = 306
+          Width = 310
+        end
       end
     end
   end
