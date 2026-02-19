@@ -97,6 +97,8 @@ begin
     PropStorage.WriteInteger('Height', Height);
   end;
 
+  PropStorage.WriteInteger('Left', Left);
+  PropStorage.WriteInteger('Top', Top);
   PropStorage.WriteString('WindowState', GetEnumName(TypeInfo(TWindowState), Ord(WindowState)));
 
   FrameSettingsUse.SaveSettings(PropStorage);
@@ -107,6 +109,8 @@ procedure TFormTTimer.LoadSettings;
 begin
   Width:= PropStorage.ReadInteger('Width', self.GetDefaultWidth);
   Height:= PropStorage.ReadInteger('Height', self.GetDefaultHeight);
+  Left:= PropStorage.ReadInteger('Left', self.GetDefaultHeight);
+  Top:= PropStorage.ReadInteger('Top', self.GetDefaultHeight);
   WindowState:= TWindowState(GetEnumValue(TypeInfo(TWindowState), PropStorage.ReadString('WindowState', GetEnumName(TypeInfo(TWindowState), Ord(TWindowState.wsNormal)))));
 
   FrameSettingsUse.LoadSettings(PropStorage);
