@@ -82,15 +82,15 @@ type
   protected
     FStartEvent: TStartEvent;
     FProEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
-    procedure UpdateSettingsBox;
+    procedure UpdateBoxSettings;
     procedure ShowStatistic;
-    procedure WriteSetIndex(AValue: Integer);
-    function ReadSetIndex: Integer;
+    procedure WriteIndexSet(AValue: Integer);
+    function ReadIndexSet: Integer;
   public
     constructor Create(TheOwner: TComponent); override;
     procedure LoadSettings(APropStorage: TXMLPropStorage);
     procedure SaveSettings(APropStorage: TXMLPropStorage);
-    property SetIndex: Integer read ReadSetIndex write WriteSetIndex;
+    property IndexSet: Integer read ReadIndexSet write WriteIndexSet;
     property StartEvent: TStartEvent write FStartEvent;
     property ProEvent: TNotifyEvent write FProEvent;
     property ConfigEvent: TNotifyEvent write FConfigEvent;
@@ -148,8 +148,8 @@ begin
     SettingsSimpleList[0].WarningTimeMs:= DefaultWarningTimeMs;
     SettingsSimpleList[0].Warning:= DefaultWarning;
 
-    UpdateSettingsBox;
-    SetIndex:= 0;
+    UpdateBoxSettings;
+    IndexSet:= 0;
   end
   else
   begin
@@ -167,8 +167,8 @@ begin
       SettingsSimpleList[i].Warning:= APropStorage.ReadBoolean(path + 'Warning', DefaultWarning);
     end;
 
-    UpdateSettingsBox;
-    SetIndex:= APropStorage.ReadInteger(SettingsStor + '/NumSet', 0);
+    UpdateBoxSettings;
+    IndexSet:= APropStorage.ReadInteger(SettingsStor + '/NumSet', 0);
   end;
 end;
 
@@ -206,7 +206,7 @@ begin
       APropStorage.WriteBoolean(path + 'Warning', SettingsSimpleList[i].Warning);
   end;
 
-  APropStorage.WriteInteger(SettingsStor + '/NumSet', SetIndex);
+  APropStorage.WriteInteger(SettingsStor + '/NumSet', IndexSet);
 end;
 
 procedure TFrameSettings.EditSettingChange(Sender: TObject);
@@ -217,7 +217,7 @@ var
   editTime: TFrameEditTime;
   editWarn: TCheckBox;
 begin
-  if ((NOT (Sender is TComponent)) OR (SetIndex < 0)) then Exit;
+  if ((NOT (Sender is TComponent)) OR (IndexSet < 0)) then Exit;
 
   component:= Sender as TComponent;
 
@@ -225,38 +225,38 @@ begin
     'EditName':
     begin
       editStr:= component as TEdit;
-      SettingsSimpleList[SetIndex].Name:= editStr.Caption;
-      BoxSettings.Items[SetIndex]:= editStr.Caption;
+      SettingsSimpleList[IndexSet].Name:= editStr.Caption;
+      BoxSettings.Items[IndexSet]:= editStr.Caption;
     end;
     'EditRounds':
     begin
       editNum:= component as TSpinEdit;
-      SettingsSimpleList[SetIndex].Rounds:= editNum.Value;
+      SettingsSimpleList[IndexSet].Rounds:= editNum.Value;
     end;
     'EditRoundTimeS':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[SetIndex].RoundTimeMs:= editTime.Value * 1000;
+      SettingsSimpleList[IndexSet].RoundTimeMs:= editTime.Value * 1000;
     end;
     'EditRestTimeS':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[SetIndex].RestTimeMs:= editTime.Value * 1000;
+      SettingsSimpleList[IndexSet].RestTimeMs:= editTime.Value * 1000;
     end;
     'EditPrepareTimeS':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[SetIndex].PrepareTimeMs:= editTime.Value * 1000;
+      SettingsSimpleList[IndexSet].PrepareTimeMs:= editTime.Value * 1000;
     end;
     'EditWarningTimeS':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[SetIndex].WarningTimeMs:= editTime.Value * 1000;
+      SettingsSimpleList[IndexSet].WarningTimeMs:= editTime.Value * 1000;
     end;
     'CheckWarning':
     begin
       editWarn:= component as TCheckBox;
-      SettingsSimpleList[SetIndex].Warning:= editWarn.Checked;
+      SettingsSimpleList[IndexSet].Warning:= editWarn.Checked;
       LabelWarningTime.Enabled:= editWarn.Checked;
       EditWarningTimeS.Enabled:= editWarn.Checked;
     end;
@@ -267,15 +267,15 @@ end;
 
 procedure TFrameSettings.BoxSettingsChange(Sender: TObject);
 begin
-  if (SetIndex < 0) then Exit;
+  if (IndexSet < 0) then Exit;
 
-  EditName.Caption:= SettingsSimpleList[SetIndex].Name;
-  EditRounds.Value:= SettingsSimpleList[SetIndex].Rounds;
-  EditRoundTimeS.Value:= SettingsSimpleList[SetIndex].RoundTimeMs div 1000;
-  EditRestTimeS.Value:= SettingsSimpleList[SetIndex].RestTimeMs div 1000;
-  EditPrepareTimeS.Value:= SettingsSimpleList[SetIndex].PrepareTimeMs div 1000;
-  EditWarningTimeS.Value:= SettingsSimpleList[SetIndex].WarningTimeMs div 1000;
-  CheckWarning.Checked:= SettingsSimpleList[SetIndex].Warning;
+  EditName.Caption:= SettingsSimpleList[IndexSet].Name;
+  EditRounds.Value:= SettingsSimpleList[IndexSet].Rounds;
+  EditRoundTimeS.Value:= SettingsSimpleList[IndexSet].RoundTimeMs div 1000;
+  EditRestTimeS.Value:= SettingsSimpleList[IndexSet].RestTimeMs div 1000;
+  EditPrepareTimeS.Value:= SettingsSimpleList[IndexSet].PrepareTimeMs div 1000;
+  EditWarningTimeS.Value:= SettingsSimpleList[IndexSet].WarningTimeMs div 1000;
+  CheckWarning.Checked:= SettingsSimpleList[IndexSet].Warning;
   LabelWarningTime.Enabled:= CheckWarning.Checked;
   EditWarningTimeS.Enabled:= CheckWarning.Checked;
 
@@ -322,30 +322,30 @@ begin
       SettingsSimpleList[idx].WarningTimeMs:= DefaultWarningTimeMs;
       SettingsSimpleList[idx].Warning:= DefaultWarning;
 
-      UpdateSettingsBox;
-      SetIndex:= idx;
+      UpdateBoxSettings;
+      IndexSet:= idx;
     end;
     'ButtonRemoveSet':
     begin
       if (Length(SettingsSimpleList) > 1) then
       begin
-        idx:= SetIndex;
+        idx:= IndexSet;
         BoxSettings.Items.Delete(idx);
         Delete(SettingsSimpleList, idx, 1);
-        SetIndex:= 0;
+        IndexSet:= 0;
       end;
     end;
     'ButtonCopySet':
     begin
-      if ((Length(SettingsSimpleList) > 0) AND (SetIndex > -1)) then
+      if ((Length(SettingsSimpleList) > 0) AND (IndexSet > -1)) then
       begin
         SetLength(SettingsSimpleList, (Length(SettingsSimpleList) + 1));
         idx:= High(SettingsSimpleList);
-        SettingsSimpleList[idx]:= SettingsSimpleList[SetIndex];
+        SettingsSimpleList[idx]:= SettingsSimpleList[IndexSet];
         SettingsSimpleList[idx].Name:= SettingsSimpleList[idx].Name + ' Copy';
 
-        UpdateSettingsBox;
-        SetIndex:= idx;
+        UpdateBoxSettings;
+        IndexSet:= idx;
       end;
     end;
   end;
@@ -398,7 +398,7 @@ begin
     FStartEvent(EditName.Caption, periods);
 end;
 
-procedure TFrameSettings.UpdateSettingsBox;
+procedure TFrameSettings.UpdateBoxSettings;
 var
   i: Integer;
 begin
@@ -421,13 +421,13 @@ begin
   LabelStatisticTime.Caption:= IntToStr(min) + ' m  ' + IntToStr(sec) + ' s';
 end;
 
-procedure TFrameSettings.WriteSetIndex(AValue: Integer);
+procedure TFrameSettings.WriteIndexSet(AValue: Integer);
 begin
   BoxSettings.ItemIndex:= AValue;
   BoxSettingsChange(nil);
 end;
 
-function TFrameSettings.ReadSetIndex: Integer;
+function TFrameSettings.ReadIndexSet: Integer;
 begin
   Result:= BoxSettings.ItemIndex;
 end;

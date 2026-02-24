@@ -69,17 +69,17 @@ type
   protected
     FStartEvent: TStartEvent;
     FSimpleEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
-    procedure UpdateSettingsBox;
-    procedure UpdateSetsList;
+    procedure UpdateBoxSettings;
+    procedure UpdateListPeriods;
     procedure ShowStatistic;
     function MakeDefaultPeriods: TPeriodsList;
-    procedure WriteSetIndex(AValue: Integer);
-    function ReadSetIndex: Integer;
+    procedure WriteIndexSet(AValue: Integer);
+    function ReadIndexSet: Integer;
   public
     constructor Create(TheOwner: TComponent); override;
     procedure LoadSettings(APropStorage: TXMLPropStorage);
     procedure SaveSettings(APropStorage: TXMLPropStorage);
-    property SetIndex: Integer read ReadSetIndex write WriteSetIndex;
+    property IndexSet: Integer read ReadIndexSet write WriteIndexSet;
     property StartEvent: TStartEvent write FStartEvent;
     property SimpleEvent: TNotifyEvent write FSimpleEvent;
     property ConfigEvent: TNotifyEvent write FConfigEvent;
@@ -179,8 +179,8 @@ begin
     SettingsProList[0].Name:= DefaultName;
     SettingsProList[0].Periods:= MakeDefaultPeriods;
 
-    UpdateSettingsBox;
-    SetIndex:= 0;
+    UpdateBoxSettings;
+    IndexSet:= 0;
   end
   else
   begin
@@ -205,8 +205,8 @@ begin
       end;
     end;
 
-    UpdateSettingsBox;
-    SetIndex:= APropStorage.ReadInteger(SettingsStor + '/NumSet', 0);
+    UpdateBoxSettings;
+    IndexSet:= APropStorage.ReadInteger(SettingsStor + '/NumSet', 0);
   end;
 end;
 
@@ -250,7 +250,7 @@ begin
     end;
   end;
 
-  APropStorage.WriteInteger(SettingsStor + '/NumSet', SetIndex);
+  APropStorage.WriteInteger(SettingsStor + '/NumSet', IndexSet);
 end;
 
 procedure TFrameSettingsPro.ButtonAboutClick(Sender: TObject);
@@ -266,7 +266,7 @@ var
 //  editTime: TFrameEditTime;
 //  editWarn: TCheckBox;
 begin
-  if ((NOT (Sender is TComponent)) OR (SetIndex < 0)) then Exit;
+  if ((NOT (Sender is TComponent)) OR (IndexSet < 0)) then Exit;
 
   component:= Sender as TComponent;
 
@@ -274,23 +274,23 @@ begin
     'EditNameSet':
     begin
       editStr:= component as TEdit;
-      SettingsProList[SetIndex].Name:= editStr.Caption;
-      BoxSettings.Items[SetIndex]:= editStr.Caption;
+      SettingsProList[IndexSet].Name:= editStr.Caption;
+      BoxSettings.Items[IndexSet]:= editStr.Caption;
     end;
     'EditPeriodTimeS':
     begin
 //      editTime:= component as TFrameEditTime;
-//      SettingsProList[SetIndex].RoundTimeMs:= editTime.Value * 1000;
+//      SettingsProList[IndexSet].RoundTimeMs:= editTime.Value * 1000;
     end;
     'EditWarningTimeS':
     begin
 //      editTime:= component as TFrameEditTime;
-//      SettingsSimpleList[SetIndex].WarningTimeMs:= editTime.Value * 1000;
+//      SettingsSimpleList[IndexSet].WarningTimeMs:= editTime.Value * 1000;
     end;
     'CheckWarning':
     begin
 //      editWarn:= component as TCheckBox;
-//      SettingsSimpleList[SetIndex].Warning:= editWarn.Checked;
+//      SettingsSimpleList[IndexSet].Warning:= editWarn.Checked;
 //      LabelWarningTime.Enabled:= editWarn.Checked;
 //      EditWarningTimeS.Enabled:= editWarn.Checked;
     end;
@@ -301,10 +301,10 @@ end;
 
 procedure TFrameSettingsPro.BoxSettingsChange(Sender: TObject);
 begin
-  if (SetIndex < 0) then Exit;
+  if (IndexSet < 0) then Exit;
 
-  EditNameSet.Caption:= SettingsProList[SetIndex].Name;
-  UpdateSetsList;
+  EditNameSet.Caption:= SettingsProList[IndexSet].Name;
+  UpdateListPeriods;
   ShowStatistic;
 end;
 
@@ -337,30 +337,30 @@ begin
       SettingsProList[idx].Name:= DefaultName;
       SettingsProList[idx].Periods:= MakeDefaultPeriods;
 
-      UpdateSettingsBox;
-      SetIndex:= idx;
+      UpdateBoxSettings;
+      IndexSet:= idx;
     end;
     'ButtonRemoveSet':
     begin
       if (Length(SettingsProList) > 1) then
       begin
-        idx:= SetIndex;
+        idx:= IndexSet;
         BoxSettings.Items.Delete(idx);
         Delete(SettingsProList, idx, 1);
-        SetIndex:= 0;
+        IndexSet:= 0;
       end;
     end;
     'ButtonCopySet':
     begin
-      if ((Length(SettingsProList) > 0) AND (SetIndex > -1)) then
+      if ((Length(SettingsProList) > 0) AND (IndexSet > -1)) then
       begin
         SetLength(SettingsProList, (Length(SettingsProList) + 1));
         idx:= High(SettingsProList);
-        SettingsProList[idx]:= SettingsProList[SetIndex];
+        SettingsProList[idx]:= SettingsProList[IndexSet];
         SettingsProList[idx].Name:= SettingsProList[idx].Name + ' Copy';
 
-        UpdateSettingsBox;
-        SetIndex:= idx;
+        UpdateBoxSettings;
+        IndexSet:= idx;
       end;
     end;
   end;
@@ -371,7 +371,7 @@ begin
 
 end;
 
-procedure TFrameSettingsPro.UpdateSettingsBox;
+procedure TFrameSettingsPro.UpdateBoxSettings;
 var
   i: Integer;
 begin
@@ -381,14 +381,14 @@ begin
     BoxSettings.Items.Add(SettingsProList[i].Name);
 end;
 
-procedure TFrameSettingsPro.UpdateSetsList;
+procedure TFrameSettingsPro.UpdateListPeriods;
 var
   i: Integer;
 begin
   ListPeriods.Clear;
 
-  for i:= 0 to (Length(SettingsProList[SetIndex].Periods) - 1) do
-    ListPeriods.Items.Add(SettingsProList[SetIndex].Periods[i].Name);
+  for i:= 0 to (Length(SettingsProList[IndexSet].Periods) - 1) do
+    ListPeriods.Items.Add(SettingsProList[IndexSet].Periods[i].Name);
 end;
 
 procedure TFrameSettingsPro.ShowStatistic;
@@ -396,8 +396,8 @@ var
   min, sec, i: Integer;
 begin
   sec:= 0;
-  for i:= 0 to (Length(SettingsProList[SetIndex].Periods) - 1) do
-    sec:= sec + SettingsProList[SetIndex].Periods[i].TimeMs div 1000;
+  for i:= 0 to (Length(SettingsProList[IndexSet].Periods) - 1) do
+    sec:= sec + SettingsProList[IndexSet].Periods[i].TimeMs div 1000;
 
   min:= sec div 60;
   sec:= sec - (min * 60);
@@ -405,13 +405,13 @@ begin
   LabelStatisticTime.Caption:= IntToStr(min) + ' m  ' + IntToStr(sec) + ' s';
 end;
 
-procedure TFrameSettingsPro.WriteSetIndex(AValue: Integer);
+procedure TFrameSettingsPro.WriteIndexSet(AValue: Integer);
 begin
   BoxSettings.ItemIndex:= AValue;
   BoxSettingsChange(nil);
 end;
 
-function TFrameSettingsPro.ReadSetIndex: Integer;
+function TFrameSettingsPro.ReadIndexSet: Integer;
 begin
   Result:= BoxSettings.ItemIndex;
 end;
