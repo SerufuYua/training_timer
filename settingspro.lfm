@@ -46,7 +46,7 @@ object FrameSettingsPro: TFrameSettingsPro
         ReadOnly = True
         TabOrder = 0
         Text = 'BoxSettings'
-        OnChange = BoxSettingsChange
+        OnSelect = BoxSettingsSelect
       end
       object PanelSetsControl: TPanel
         Left = 188
@@ -192,6 +192,7 @@ object FrameSettingsPro: TFrameSettingsPro
       Align = alClient
       ItemHeight = 0
       TabOrder = 1
+      OnSelectionChange = ListPeriodsSelectionChange
     end
     object PanelPeriodControl: TPanel
       Left = 274

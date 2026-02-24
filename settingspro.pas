@@ -59,13 +59,14 @@ type
     PanelSettingsCompose: TPanel;
     PanelSettingsCompose1: TPanel;
     PanelSettingsNameSet: TPanel;
-    procedure BoxSettingsChange(Sender: TObject);
+    procedure BoxSettingsSelect(Sender: TObject);
     procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonConfigClick(Sender: TObject);
     procedure ButtonSimpleClick(Sender: TObject);
     procedure ButtonSetControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
+    procedure ListPeriodsSelectionChange(Sender: TObject; User: boolean);
   protected
     FStartEvent: TStartEvent;
     FSimpleEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
@@ -75,11 +76,14 @@ type
     function MakeDefaultPeriods: TPeriodsList;
     procedure WriteIndexSet(AValue: Integer);
     function ReadIndexSet: Integer;
+    procedure WriteIndexPeriod(AValue: Integer);
+    function ReadIndexPeriod: Integer;
   public
     constructor Create(TheOwner: TComponent); override;
     procedure LoadSettings(APropStorage: TXMLPropStorage);
     procedure SaveSettings(APropStorage: TXMLPropStorage);
     property IndexSet: Integer read ReadIndexSet write WriteIndexSet;
+    property IndexPeriod: Integer read ReadIndexPeriod write WriteIndexPeriod;
     property StartEvent: TStartEvent write FStartEvent;
     property SimpleEvent: TNotifyEvent write FSimpleEvent;
     property ConfigEvent: TNotifyEvent write FConfigEvent;
@@ -144,7 +148,7 @@ begin
     for i:= 1 to lastPeriod do
     begin
       Result[i].WarningTimeMs:= DefaultWarningTimeMs;
-      Result[0].Warning:= DefaultWarning;
+      Result[i].Warning:= DefaultWarning;
 
       if ((i mod 2) = 0) then
       begin
@@ -299,7 +303,20 @@ begin
   ShowStatistic;
 end;
 
-procedure TFrameSettingsPro.BoxSettingsChange(Sender: TObject);
+procedure TFrameSettingsPro.ListPeriodsSelectionChange(Sender: TObject;
+  User: boolean);
+begin
+  if ((IndexSet < 0) OR (IndexPeriod < 0)) then Exit;
+
+  EditNamePeriod.Caption:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
+  EditPeriodTimeS.Value:= SettingsProList[IndexSet].Periods[IndexPeriod].TimeMs div 1000;
+  EditWarningTimeS.Value:= SettingsProList[IndexSet].Periods[IndexPeriod].WarningTimeMs div 1000;
+  CheckWarning.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Warning;
+  ComboSound.ItemIndex:= Ord(SettingsProList[IndexSet].Periods[IndexPeriod].FinalSound);
+  ColorBox.Selected:= SettingsProList[IndexSet].Periods[IndexPeriod].Color;
+end;
+
+procedure TFrameSettingsPro.BoxSettingsSelect(Sender: TObject);
 begin
   if (IndexSet < 0) then Exit;
 
@@ -408,12 +425,22 @@ end;
 procedure TFrameSettingsPro.WriteIndexSet(AValue: Integer);
 begin
   BoxSettings.ItemIndex:= AValue;
-  BoxSettingsChange(nil);
+  BoxSettingsSelect(nil);
 end;
 
 function TFrameSettingsPro.ReadIndexSet: Integer;
 begin
   Result:= BoxSettings.ItemIndex;
+end;
+
+procedure TFrameSettingsPro.WriteIndexPeriod(AValue: Integer);
+begin
+  ListPeriods.ItemIndex:= AValue;
+end;
+
+function TFrameSettingsPro.ReadIndexPeriod: Integer;
+begin
+  Result:= ListPeriods.ItemIndex;
 end;
 
 end.

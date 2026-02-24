@@ -72,7 +72,7 @@ type
     PanelSetsControl: TPanel;
     PanelSettings: TPanel;
     PanelSettingsCompose: TPanel;
-    procedure BoxSettingsChange(Sender: TObject);
+    procedure BoxSettingsSelect(Sender: TObject);
     procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonConfigClick(Sender: TObject);
     procedure ButtonProClick(Sender: TObject);
@@ -265,7 +265,7 @@ begin
   ShowStatistic;
 end;
 
-procedure TFrameSettings.BoxSettingsChange(Sender: TObject);
+procedure TFrameSettings.BoxSettingsSelect(Sender: TObject);
 begin
   if (IndexSet < 0) then Exit;
 
@@ -424,7 +424,7 @@ end;
 procedure TFrameSettings.WriteIndexSet(AValue: Integer);
 begin
   BoxSettings.ItemIndex:= AValue;
-  BoxSettingsChange(nil);
+  BoxSettingsSelect(nil);
 end;
 
 function TFrameSettings.ReadIndexSet: Integer;

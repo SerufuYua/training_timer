@@ -34,7 +34,7 @@ object FrameSettings: TFrameSettings
       ReadOnly = True
       TabOrder = 0
       Text = 'BoxSettings'
-      OnChange = BoxSettingsChange
+      OnSelect = BoxSettingsSelect
     end
     object PanelSetsControl: TPanel
       Left = 217
