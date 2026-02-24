@@ -92,17 +92,17 @@ object FrameSettings: TFrameSettings
   end
   object PanelSettingsCompose: TPanel
     Left = 0
-    Height = 402
+    Height = 373
     Top = 33
     Width = 320
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 402
+    ClientHeight = 373
     ClientWidth = 320
     TabOrder = 2
     object PanelSettings: TPanel
       Left = 0
-      Height = 402
+      Height = 373
       Top = 0
       Width = 240
       Align = alLeft
@@ -115,7 +115,7 @@ object FrameSettings: TFrameSettings
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 3
-      ClientHeight = 402
+      ClientHeight = 373
       ClientWidth = 240
       TabOrder = 0
       object LabelName: TLabel
@@ -290,8 +290,8 @@ object FrameSettings: TFrameSettings
   end
   object PanelButtons: TPanel
     Left = 0
-    Height = 34
-    Top = 435
+    Height = 63
+    Top = 406
     Width = 320
     Align = alBottom
     AutoSize = True
@@ -301,15 +301,40 @@ object FrameSettings: TFrameSettings
     ChildSizing.HorizontalSpacing = 4
     ChildSizing.VerticalSpacing = 4
     ChildSizing.EnlargeHorizontal = crsSameSize
-    ChildSizing.Layout = cclTopToBottomThenLeftToRight
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 34
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 3
+    ClientHeight = 63
     ClientWidth = 320
     TabOrder = 0
+    object PanelEmpty1: TPanel
+      Left = 4
+      Height = 25
+      Top = 4
+      Width = 101
+      BevelOuter = bvNone
+      TabOrder = 4
+    end
+    object ButtonPro: TButton
+      Left = 109
+      Height = 25
+      Top = 4
+      Width = 102
+      AutoSize = True
+      Caption = 'Pro >>'
+      TabOrder = 3
+    end
+    object PanelEmpty2: TPanel
+      Left = 215
+      Height = 25
+      Top = 4
+      Width = 101
+      BevelOuter = bvNone
+      TabOrder = 5
+    end
     object ButtonConfig: TBitBtn
       Left = 4
       Height = 26
-      Top = 4
+      Top = 33
       Width = 101
       AutoSize = True
       Caption = 'Config'
@@ -355,7 +380,7 @@ object FrameSettings: TFrameSettings
     object ButtonAbout: TButton
       Left = 109
       Height = 26
-      Top = 4
+      Top = 33
       Width = 102
       AutoSize = True
       Caption = 'About'
@@ -365,7 +390,7 @@ object FrameSettings: TFrameSettings
     object ButtonStart: TButton
       Left = 215
       Height = 26
-      Top = 4
+      Top = 33
       Width = 101
       AutoSize = True
       Caption = 'Start'

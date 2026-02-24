@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
   XMLPropStorage, Buttons, Generics.Collections,
-  ChainTimer, Settings, Config, About;
+  ChainTimer, Settings, Config, About, SettingsPro;
 
 type
 
@@ -18,12 +18,14 @@ type
   TFormTTimer = class(TForm)
     FrameAboutUse: TFrameAbout;
     FrameConfigUse: TFrameConfig;
+    FrameSettingsPro1: TFrameSettingsPro;
     FrameSettingsUse: TFrameSettings;
     FrameTimerUse: TFrameTimer;
     ControlPageTimer: TPageControl;
     TabSettings: TTabSheet;
     TabConfig: TTabSheet;
     TabAbout: TTabSheet;
+    TabSettingsPro: TTabSheet;
     TabTraining: TTabSheet;
     PropStorage: TXMLPropStorage;
     procedure FormCreate(Sender: TObject);

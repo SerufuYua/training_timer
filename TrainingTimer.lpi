@@ -133,6 +133,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ProgressBar"/>
       </Unit>
+      <Unit>
+        <Filename Value="settingspro.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrameSettingsPro"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="SettingsPro"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

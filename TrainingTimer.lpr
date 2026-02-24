@@ -10,7 +10,8 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, main, ChainTimer, EditTime, Settings, Config, About, ProgressBar;
+  Forms, main, ChainTimer, EditTime, Settings, Config, About, ProgressBar,
+  SettingsPro;
 
 {$R *.res}
 

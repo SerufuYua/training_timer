@@ -22,6 +22,7 @@ type
     ButtonRemoveSet: TButton;
     ButtonStart: TButton;
     ButtonAbout: TButton;
+    ButtonPro: TButton;
     CheckWarning: TCheckBox;
     EditMin: TSpinEdit;
     EditMin1: TSpinEdit;
@@ -53,12 +54,14 @@ type
     LabelStatistic: TLabel;
     LabelStatisticTime: TLabel;
     LabelWarningTime: TLabel;
+    PanelEmpty1: TPanel;
     PanelDummy1: TPanel;
     PanelButtons: TPanel;
     PanelDummy2: TPanel;
     PanelDummy3: TPanel;
     PanelDummy4: TPanel;
     PanelDummy5: TPanel;
+    PanelEmpty2: TPanel;
     PanelMin: TPanel;
     PanelMin1: TPanel;
     PanelMin2: TPanel;

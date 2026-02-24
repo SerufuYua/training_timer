@@ -15,15 +15,27 @@ object FormTTimer: TFormTTimer
     Height = 418
     Top = 0
     Width = 320
-    ActivePage = TabSettings
+    ActivePage = TabSettingsPro
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object TabSettings: TTabSheet
       Caption = 'Settings'
       ClientHeight = 390
       ClientWidth = 312
       inline FrameSettingsUse: TFrameSettings
+        Height = 390
+        Width = 312
+        Align = alClient
+        ClientHeight = 390
+        ClientWidth = 312
+      end
+    end
+    object TabSettingsPro: TTabSheet
+      Caption = 'TabSettingsPro'
+      ClientHeight = 390
+      ClientWidth = 312
+      inline FrameSettingsPro1: TFrameSettingsPro
         Height = 390
         Width = 312
         Align = alClient
