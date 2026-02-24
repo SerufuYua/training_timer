@@ -403,6 +403,7 @@ object FrameSettingsPro: TFrameSettingsPro
         AutoSize = True
         Caption = '<< Simple'
         TabOrder = 3
+        OnClick = ButtonSimpleClick
       end
       object PanelEmply4: TPanel
         Left = 215
@@ -456,6 +457,7 @@ object FrameSettingsPro: TFrameSettingsPro
           6090010101040000000001010101000000010000000000000000
         }
         TabOrder = 1
+        OnClick = ButtonConfigClick
       end
       object ButtonAbout: TButton
         Left = 109
@@ -465,6 +467,7 @@ object FrameSettingsPro: TFrameSettingsPro
         AutoSize = True
         Caption = 'About'
         TabOrder = 2
+        OnClick = ButtonAboutClick
       end
       object ButtonStart: TButton
         Left = 215
@@ -474,6 +477,7 @@ object FrameSettingsPro: TFrameSettingsPro
         AutoSize = True
         Caption = 'Start'
         TabOrder = 0
+        OnClick = ButtonStartClick
       end
     end
   end

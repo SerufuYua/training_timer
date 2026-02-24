@@ -322,6 +322,7 @@ object FrameSettings: TFrameSettings
       AutoSize = True
       Caption = 'Pro >>'
       TabOrder = 3
+      OnClick = ButtonProClick
     end
     object PanelEmpty2: TPanel
       Left = 215

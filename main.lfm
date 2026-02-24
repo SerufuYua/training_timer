@@ -35,7 +35,7 @@ object FormTTimer: TFormTTimer
       Caption = 'TabSettingsPro'
       ClientHeight = 390
       ClientWidth = 312
-      inline FrameSettingsPro1: TFrameSettingsPro
+      inline FrameSettingsProUse: TFrameSettingsPro
         Height = 390
         Width = 312
         Align = alClient

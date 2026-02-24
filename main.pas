@@ -18,7 +18,7 @@ type
   TFormTTimer = class(TForm)
     FrameAboutUse: TFrameAbout;
     FrameConfigUse: TFrameConfig;
-    FrameSettingsPro1: TFrameSettingsPro;
+    FrameSettingsProUse: TFrameSettingsPro;
     FrameSettingsUse: TFrameSettings;
     FrameTimerUse: TFrameTimer;
     ControlPageTimer: TPageControl;
@@ -37,6 +37,8 @@ type
     procedure LoadSettings;
     procedure StartEvent(ASetName: String; APeriods: TPeriodsList);
     procedure ReturnEvent(Sender: TObject);
+    procedure SettingsEvent(Sender: TObject);
+    procedure SettingsProEvent(Sender: TObject);
     procedure ConfigEvent(Sender: TObject);
     procedure AboutEvent(Sender: TObject);
     function ReadActiveTab: TTabSheet;
@@ -67,6 +69,11 @@ begin
   FrameSettingsUse.StartEvent:= {$ifdef FPC}@{$endif}StartEvent;
   FrameSettingsUse.ConfigEvent:= {$ifdef FPC}@{$endif}ConfigEvent;
   FrameSettingsUse.AboutEvent:= {$ifdef FPC}@{$endif}AboutEvent;
+  FrameSettingsUse.ProEvent:= {$ifdef FPC}@{$endif}SettingsProEvent;
+  FrameSettingsProUse.StartEvent:= {$ifdef FPC}@{$endif}StartEvent;
+  FrameSettingsProUse.ConfigEvent:= {$ifdef FPC}@{$endif}ConfigEvent;
+  FrameSettingsProUse.AboutEvent:= {$ifdef FPC}@{$endif}AboutEvent;
+  FrameSettingsProUse.SimpleEvent:= {$ifdef FPC}@{$endif}SettingsEvent;
 
   with TVersionInfo.Create do
   begin
@@ -131,6 +138,16 @@ begin
     ControlPageTimer.ActivePage:= FTabStack.Pop
   else
     ControlPageTimer.ActivePage:= TabSettings;
+end;
+
+procedure TFormTTimer.SettingsEvent(Sender: TObject);
+begin
+  ActiveTab:= TabSettings;
+end;
+
+procedure TFormTTimer.SettingsProEvent(Sender: TObject);
+begin
+  ActiveTab:= TabSettingsPro;
 end;
 
 procedure TFormTTimer.ConfigEvent(Sender: TObject);

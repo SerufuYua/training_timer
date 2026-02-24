@@ -21,6 +21,7 @@ type
   end;
 
   TPeriodsList = Array of TTimePeriod;
+  TStartEvent = procedure(ASetName: String; APeriods: TPeriodsList) of object;
 
   TFrameTimer = class(TFrame)
     ButtonRestart: TButton;

@@ -10,8 +10,6 @@ uses
 
 type
 
-  TStartEvent = procedure(ASetName: String; APeriods: TPeriodsList) of object;
-
   { TFrameSettings }
 
   TFrameSettings = class(TFrame)
@@ -77,12 +75,13 @@ type
     procedure BoxSettingsChange(Sender: TObject);
     procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonConfigClick(Sender: TObject);
+    procedure ButtonProClick(Sender: TObject);
     procedure ButtonSetControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
   protected
     FStartEvent: TStartEvent;
-    FConfigEvent, FAboutEvent: TNotifyEvent;
+    FProEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
     procedure UpdateSettingsBox;
     procedure ShowStatistic;
     procedure WriteSetIndex(AValue: Integer);
@@ -93,6 +92,7 @@ type
     procedure SaveSettings(APropStorage: TXMLPropStorage);
     property SetIndex: Integer read ReadSetIndex write WriteSetIndex;
     property StartEvent: TStartEvent write FStartEvent;
+    property ProEvent: TNotifyEvent write FProEvent;
     property ConfigEvent: TNotifyEvent write FConfigEvent;
     property AboutEvent: TNotifyEvent write FAboutEvent;
   end;
@@ -299,6 +299,12 @@ procedure TFrameSettings.ButtonConfigClick(Sender: TObject);
 begin
   if Assigned(FConfigEvent) then
     FConfigEvent(self);
+end;
+
+procedure TFrameSettings.ButtonProClick(Sender: TObject);
+begin
+  if Assigned(FProEvent) then
+    FProEvent(self);
 end;
 
 procedure TFrameSettings.ButtonSetControlClick(Sender: TObject);

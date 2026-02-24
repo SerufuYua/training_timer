@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Buttons, Spin,
-  ColorBox, EditTime;
+  ColorBox, EditTime, ChainTimer;
 
 type
 
@@ -55,15 +55,48 @@ type
     PanelSettingsCompose: TPanel;
     PanelSettingsCompose1: TPanel;
     PanelSettingsNameSet: TPanel;
-  private
-
+    procedure ButtonAboutClick(Sender: TObject);
+    procedure ButtonConfigClick(Sender: TObject);
+    procedure ButtonSimpleClick(Sender: TObject);
+    procedure ButtonStartClick(Sender: TObject);
+  protected
+    FStartEvent: TStartEvent;
+    FSimpleEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
   public
-
+    property StartEvent: TStartEvent write FStartEvent;
+    property SimpleEvent: TNotifyEvent write FSimpleEvent;
+    property ConfigEvent: TNotifyEvent write FConfigEvent;
+    property AboutEvent: TNotifyEvent write FAboutEvent;
   end;
 
 implementation
 
 {$R *.lfm}
+
+{ TFrameSettingsPro }
+
+procedure TFrameSettingsPro.ButtonAboutClick(Sender: TObject);
+begin
+  if Assigned(FAboutEvent) then
+    FAboutEvent(self);
+end;
+
+procedure TFrameSettingsPro.ButtonConfigClick(Sender: TObject);
+begin
+  if Assigned(FConfigEvent) then
+    FConfigEvent(self);
+end;
+
+procedure TFrameSettingsPro.ButtonSimpleClick(Sender: TObject);
+begin
+  if Assigned(FSimpleEvent) then
+    FSimpleEvent(self);
+end;
+
+procedure TFrameSettingsPro.ButtonStartClick(Sender: TObject);
+begin
+
+end;
 
 end.
 
