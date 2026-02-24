@@ -63,6 +63,7 @@ type
     procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonConfigClick(Sender: TObject);
     procedure ButtonSimpleClick(Sender: TObject);
+    procedure ButtonSetControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
   protected
     FStartEvent: TStartEvent;
@@ -275,6 +276,52 @@ procedure TFrameSettingsPro.ButtonSimpleClick(Sender: TObject);
 begin
   if Assigned(FSimpleEvent) then
     FSimpleEvent(self);
+end;
+
+procedure TFrameSettingsPro.ButtonSetControlClick(Sender: TObject);
+var
+  component: TComponent;
+  idx: Integer;
+begin
+  if (NOT (Sender is TComponent)) then Exit;
+
+  component:= Sender as TComponent;
+
+  case component.Name of
+    'ButtonAddSet':
+    begin
+      SetLength(SettingsProList, (Length(SettingsProList) + 1));
+      idx:= High(SettingsProList);
+      SettingsProList[idx].Name:= DefaultName;
+      SettingsProList[idx].Periods:= MakeDefaultPeriods;
+
+      UpdateSettingsBox;
+      SetIndex:= idx;
+    end;
+    'ButtonRemoveSet':
+    begin
+      if (Length(SettingsProList) > 1) then
+      begin
+        idx:= SetIndex;
+        BoxSettings.Items.Delete(idx);
+        Delete(SettingsProList, idx, 1);
+        SetIndex:= 0;
+      end;
+    end;
+    'ButtonCopySet':
+    begin
+      if ((Length(SettingsProList) > 0) AND (SetIndex > -1)) then
+      begin
+        SetLength(SettingsProList, (Length(SettingsProList) + 1));
+        idx:= High(SettingsProList);
+        SettingsProList[idx]:= SettingsProList[SetIndex];
+        SettingsProList[idx].Name:= SettingsProList[idx].Name + ' Copy';
+
+        UpdateSettingsBox;
+        SetIndex:= idx;
+      end;
+    end;
+  end;
 end;
 
 procedure TFrameSettingsPro.ButtonStartClick(Sender: TObject);
