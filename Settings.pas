@@ -363,7 +363,7 @@ begin
   periods[0].WarningTimeMs:= EditWarningTimeS.Value * 1000;
   periods[0].Warning:= CheckWarning.Checked;
   periods[0].Color:= clLime;
-  periods[0].FinalSound:= SoundStart;
+  periods[0].FinalSound:= TSoundType.Start;
 
   lastPeriod:= EditRounds.Value * 2 - 1;
 
@@ -377,7 +377,7 @@ begin
       periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
       periods[i].TimeMs:= EditRestTimeS.Value * 1000;
       periods[i].Color:= clYellow;
-      periods[i].FinalSound:= SoundStart;
+      periods[i].FinalSound:= TSoundType.Start;
     end
     else
     begin
@@ -385,9 +385,9 @@ begin
       periods[i].TimeMs:= EditRoundTimeS.Value * 1000;
       periods[i].Color:= clRed;
       if (i = lastPeriod) then
-        periods[i].FinalSound:= SoundFinal
+        periods[i].FinalSound:= TSoundType.Final
       else
-        periods[i].FinalSound:= SoundEnd;
+        periods[i].FinalSound:= TSoundType.Ending;
     end;
   end;
 

@@ -11,6 +11,7 @@ uses
 type
 
   TStopEvent = procedure of object;
+  TSoundType = (Start, Ending, Final, Warn, Init);
 
   { TFrameConfig }
 
@@ -54,19 +55,28 @@ type
     property AboutEvent: TNotifyEvent write FAboutEvent;
   end;
 
-var
-  TimerInterval: Integer;
-  SoundStart, SoundEnd, SoundFinal, SoundWarn, SoundInit: String;
+  function Sound(value: TSoundType): String;
+  function TimerInterval: Integer;
 
 implementation
 
+var
+  ATimerInterval: Integer;
+  ASoundStart, ASoundEnding, ASoundFinal, ASoundWarn, ASoundInit: String;
+
 const
   DefaultSoundStart = 'data\sound\start.wav';
-  DefaultSoundEnd = 'data\sound\end.wav';
+  DefaultSoundEnding = 'data\sound\end.wav';
   DefaultSoundFinal = 'data\sound\fin.wav';
   DefaultSoundWarn = 'data\sound\warn.wav';
   DefaultSoundInit = 'data\sound\init.wav';
   DefaultTimerInterval = 100;
+  ParamTimerInterval = 'TimerInterval';
+  ParamSoundStart = 'SoundStart';
+  ParamSoundEnding = 'SoundEnding';
+  ParamSoundFinal = 'SoundFinal';
+  ParamSoundWarn = 'SoundWarn';
+  ParamSoundInit = 'SoundInit';
 
 {$R *.lfm}
 
@@ -77,19 +87,19 @@ var
   path: String;
 begin
   path:= 'Config/';
-  TimerInterval:= APropStorage.ReadInteger(path + 'TimerInterval', DefaultTimerInterval);
-  SoundStart:= APropStorage.ReadString(path + 'SoundStart', DefaultSoundStart);
-  SoundEnd:= APropStorage.ReadString(path + 'SoundEnd', DefaultSoundEnd);
-  SoundFinal:= APropStorage.ReadString(path + 'SoundFinal', DefaultSoundFinal);
-  SoundWarn:= APropStorage.ReadString(path + 'SoundWarn', DefaultSoundWarn);
-  SoundInit:= APropStorage.ReadString(path + 'SoundInit', DefaultSoundInit);
+  ATimerInterval:= APropStorage.ReadInteger(path + ParamTimerInterval, DefaultTimerInterval);
+  ASoundStart:= APropStorage.ReadString(path + ParamSoundStart, DefaultSoundStart);
+  ASoundEnding:= APropStorage.ReadString(path + ParamSoundEnding, DefaultSoundEnding);
+  ASoundFinal:= APropStorage.ReadString(path + ParamSoundFinal, DefaultSoundFinal);
+  ASoundWarn:= APropStorage.ReadString(path + ParamSoundWarn, DefaultSoundWarn);
+  ASoundInit:= APropStorage.ReadString(path + ParamSoundInit, DefaultSoundInit);
 
-  EditTimerInterval.Value:= TimerInterval;
-  FileNameStart.Caption:= SoundStart;
-  FileNameEnd.Caption:= SoundEnd;
-  FileNameFinal.Caption:= SoundFinal;
-  FileNameWarn.Caption:= SoundWarn;
-  FileNameInit.Caption:= SoundInit;
+  EditTimerInterval.Value:= ATimerInterval;
+  FileNameStart.Caption:= ASoundStart;
+  FileNameEnd.Caption:= ASoundEnding;
+  FileNameFinal.Caption:= ASoundFinal;
+  FileNameWarn.Caption:= ASoundWarn;
+  FileNameInit.Caption:= ASoundInit;
 end;
 
 procedure TFrameConfig.SaveSettings(APropStorage: TXMLPropStorage);
@@ -99,33 +109,33 @@ begin
   APropStorage.DoEraseSections(APropStorage.RootNodePath + '/Config');
 
   path:= 'Config/';
-  if (TimerInterval <> DefaultTimerInterval) then
-    APropStorage.WriteInteger(path + 'TimerInterval', TimerInterval);
+  if (ATimerInterval <> DefaultTimerInterval) then
+    APropStorage.WriteInteger(path + ParamTimerInterval, ATimerInterval);
 
-  if (SoundStart <> DefaultSoundStart) then
-    APropStorage.WriteString(path + 'SoundStart', SoundStart);
+  if (ASoundStart <> DefaultSoundStart) then
+    APropStorage.WriteString(path + ParamSoundStart, ASoundStart);
 
-  if (SoundEnd <> DefaultSoundEnd) then
-    APropStorage.WriteString(path + 'SoundEnd', SoundEnd);
+  if (ASoundEnding <> DefaultSoundEnding) then
+    APropStorage.WriteString(path + ParamSoundEnding, ASoundEnding);
 
-  if (SoundFinal <> DefaultSoundFinal) then
-    APropStorage.WriteString(path + 'SoundFinal', SoundFinal);
+  if (ASoundFinal <> DefaultSoundFinal) then
+    APropStorage.WriteString(path + ParamSoundFinal, ASoundFinal);
 
-  if (SoundWarn <> DefaultSoundWarn) then
-    APropStorage.WriteString(path + 'SoundWarn', SoundWarn);
+  if (ASoundWarn <> DefaultSoundWarn) then
+    APropStorage.WriteString(path + ParamSoundWarn, ASoundWarn);
 
-  if (SoundInit <> DefaultSoundInit) then
-    APropStorage.WriteString(path + 'SoundInit', SoundInit);
+  if (ASoundInit <> DefaultSoundInit) then
+    APropStorage.WriteString(path + ParamSoundInit, ASoundInit);
 end;
 
 procedure TFrameConfig.ButtonCancelClick(Sender: TObject);
 begin
-  EditTimerInterval.Value:= TimerInterval;
-  FileNameStart.Caption:= SoundStart;
-  FileNameEnd.Caption:= SoundEnd;
-  FileNameFinal.Caption:= SoundFinal;
-  FileNameWarn.Caption:= SoundWarn;
-  FileNameInit.Caption:= SoundInit;
+  EditTimerInterval.Value:= ATimerInterval;
+  FileNameStart.Caption:= ASoundStart;
+  FileNameEnd.Caption:= ASoundEnding;
+  FileNameFinal.Caption:= ASoundFinal;
+  FileNameWarn.Caption:= ASoundWarn;
+  FileNameInit.Caption:= ASoundInit;
 
   if Assigned(FReturnEvent) then
     FReturnEvent(self);
@@ -139,15 +149,15 @@ end;
 
 procedure TFrameConfig.ButtonDefaultClick(Sender: TObject);
 begin
-  TimerInterval:= DefaultTimerInterval;
-  SoundStart:= DefaultSoundStart;
-  SoundEnd:= DefaultSoundEnd;
-  SoundFinal:= DefaultSoundFinal;
-  SoundWarn:= DefaultSoundWarn;
-  SoundInit:= DefaultSoundInit;
+  ATimerInterval:= DefaultTimerInterval;
+  ASoundStart:= DefaultSoundStart;
+  ASoundEnding:= DefaultSoundEnding;
+  ASoundFinal:= DefaultSoundFinal;
+  ASoundWarn:= DefaultSoundWarn;
+  ASoundInit:= DefaultSoundInit;
   EditTimerInterval.Value:= DefaultTimerInterval;
   FileNameStart.Caption:= DefaultSoundStart;
-  FileNameEnd.Caption:= DefaultSoundEnd;
+  FileNameEnd.Caption:= DefaultSoundEnding;
   FileNameFinal.Caption:= DefaultSoundFinal;
   FileNameWarn.Caption:= DefaultSoundWarn;
   FileNameInit.Caption:= DefaultSoundInit;
@@ -155,12 +165,12 @@ end;
 
 procedure TFrameConfig.ButtonOkClick(Sender: TObject);
 begin
-  TimerInterval:= EditTimerInterval.Value;
-  SoundStart:= FileNameStart.Caption;
-  SoundEnd:= FileNameEnd.Caption;
-  SoundFinal:= FileNameFinal.Caption;
-  SoundWarn:= FileNameWarn.Caption;
-  SoundInit:= FileNameInit.Caption;
+  ATimerInterval:= EditTimerInterval.Value;
+  ASoundStart:= FileNameStart.Caption;
+  ASoundEnding:= FileNameEnd.Caption;
+  ASoundFinal:= FileNameFinal.Caption;
+  ASoundWarn:= FileNameWarn.Caption;
+  ASoundInit:= FileNameInit.Caption;
 
   if Assigned(FReturnEvent) then
     FReturnEvent(self);
@@ -182,6 +192,24 @@ begin
   end;
 
   PlaySound.Execute;
+end;
+
+function Sound(value: TSoundType): String;
+begin
+  case value of
+    TSoundType.Start: Result:= ASoundStart;
+    TSoundType.Ending:   Result:= ASoundEnding;
+    TSoundType.Final: Result:= ASoundFinal;
+    TSoundType.Warn:  Result:= ASoundWarn;
+    TSoundType.Init:  Result:= ASoundInit;
+  else
+    Result:= ASoundInit;
+  end;
+end;
+
+function TimerInterval: Integer;
+begin
+  Result:= ATimerInterval;
 end;
 
 end.

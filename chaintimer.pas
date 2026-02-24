@@ -6,14 +6,15 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, StdCtrls, ExtCtrls, Graphics, ProgressBar,
-  uplaysound;
+  Config, uplaysound;
 
 type
 
   { TFrameTimer }
 
   TTimePeriod = record
-    Name, FinalSound: String;
+    Name: String;
+    FinalSound: TSoundType;
     TimeMs, WarningTimeMs: Comp;
     Warning: Boolean;
     Color: TColor;
@@ -46,7 +47,7 @@ type
     FStartTimeMs, FStartPauseMs, FLastTimeMsRemaining, FPeriodTimeMs,
       FWarningTimeMs, FFullTimeMs: Comp;
     FWarning: Boolean;
-    FFinalSound: String;
+    FFinalSound: TSoundType;
     FSignalColor: TColor;
     procedure ResetTimer;
     procedure Pause;
@@ -63,9 +64,6 @@ type
   end;
 
 implementation
-
-uses
-  Config;
 
 {$R *.lfm}
 
@@ -98,7 +96,7 @@ begin
   TimeCounter.Enabled:= True;
   ButtonPause.Enabled:= True;
   ButtonPause.Caption:= 'Pause';
-  PlaySound.SoundFile:= SoundInit;
+  PlaySound.SoundFile:= Sound(TSoundType.Init);
   PlaySound.Execute;
 end;
 
@@ -136,13 +134,13 @@ begin
   { play warning and initial signals }
   if (FWarning AND IsTime(FWarningTimeMs)) then
   begin
-    PlaySound.SoundFile:= SoundWarn;
+    PlaySound.SoundFile:= Sound(TSoundType.Warn);
     PlaySound.Execute;
   end
   else
   if (IsTime(initTime) OR IsTime(initTime * 2) OR IsTime(initTime * 3)) then
   begin
-    PlaySound.SoundFile:= SoundInit;
+    PlaySound.SoundFile:= Sound(TSoundType.Init);
     PlaySound.Execute;
   end;
 
@@ -186,7 +184,7 @@ begin
   else
   begin
     ShowTime(0);
-    PlaySound.SoundFile:= FFinalSound;
+    PlaySound.SoundFile:= Sound(FFinalSound);
     PlaySound.Execute;
     Period:= Period + 1;
   end;
