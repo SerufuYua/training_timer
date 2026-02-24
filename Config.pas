@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Spin, EditBtn,
-  Buttons, XMLPropStorage, uplaysound;
+  Buttons, XMLPropStorage, Graphics, uplaysound;
 
 type
 
@@ -57,6 +57,20 @@ type
 
   function Sound(value: TSoundType): String;
   function TimerInterval: Integer;
+
+  const
+    DefaultName = 'New Set';
+    DefaultRounds = 2;
+    DefaultRoundTimeMs = 90000;
+    DefaultRestTimeMs = 60000;
+    DefaultPrepareTimeMs = 30000;
+    DefaultWarningTimeMs = 10000;
+    DefaultWarning = True;
+    DefaultFinalSound = Ord(TSoundType.Start);
+    DefaultColorStr = '';
+    DefaultColorPrepare = clLime;
+    DefaultColorRest = clYellow;
+    DefaultColorRound = clRed;
 
 implementation
 

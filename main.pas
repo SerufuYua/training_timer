@@ -111,6 +111,7 @@ begin
   PropStorage.WriteString('WindowState', GetEnumName(TypeInfo(TWindowState), Ord(WindowState)));
 
   FrameSettingsUse.SaveSettings(PropStorage);
+  FrameSettingsProUse.SaveSettings(PropStorage);
   FrameConfigUse.SaveSettings(PropStorage);
 end;
 
@@ -123,6 +124,7 @@ begin
   WindowState:= TWindowState(GetEnumValue(TypeInfo(TWindowState), PropStorage.ReadString('WindowState', GetEnumName(TypeInfo(TWindowState), Ord(TWindowState.wsNormal)))));
 
   FrameSettingsUse.LoadSettings(PropStorage);
+  FrameSettingsProUse.LoadSettings(PropStorage);
   FrameConfigUse.LoadSettings(PropStorage);
 end;
 

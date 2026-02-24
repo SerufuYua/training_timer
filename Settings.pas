@@ -112,6 +112,9 @@ type
 
   TSettingsSimpleList = Array of TSettingsSimple;
 
+const
+  SettingsStor = 'SettingsSimple';
+
 var
   SettingsSimpleList: TSettingsSimpleList;
 
@@ -132,7 +135,7 @@ var
   i, num: Integer;
   path: String;
 begin
-  num:= APropStorage.ReadInteger('Settings/SetCount', 0);
+  num:= APropStorage.ReadInteger(SettingsStor + '/CountSets', 0);
 
   if (num = 0) then
   begin
@@ -154,7 +157,7 @@ begin
 
     for i:= 0 to (num - 1) do
     begin
-      path:= 'Settings/Set' + IntToStr(i) + '/';
+      path:= SettingsStor + '/Set' + IntToStr(i) + '/';
       SettingsSimpleList[i].Name:= APropStorage.ReadString(path + 'Name', 'Set ' + IntToStr(i + 1));
       SettingsSimpleList[i].Rounds:= APropStorage.ReadInteger(path + 'Rounds', DefaultRounds);
       SettingsSimpleList[i].RoundTimeMs:= APropStorage.ReadInteger(path + 'RoundTimeMs', DefaultRoundTimeMs);
@@ -165,7 +168,7 @@ begin
     end;
 
     UpdateSettingsBox;
-    SetIndex:= APropStorage.ReadInteger('Settings/SetNum', 0);
+    SetIndex:= APropStorage.ReadInteger(SettingsStor + '/NumSet', 0);
   end;
 end;
 
@@ -174,14 +177,14 @@ var
   i, num: Integer;
   path: String;
 begin
-  APropStorage.DoEraseSections(APropStorage.RootNodePath + '/Settings');
+  APropStorage.DoEraseSections(APropStorage.RootNodePath + '/' + SettingsStor);
 
   num:= Length(SettingsSimpleList);
-  APropStorage.WriteInteger('Settings/SetCount', num);
+  APropStorage.WriteInteger(SettingsStor + '/CountSets', num);
 
   for i:= 0 to (num - 1) do
   begin
-    path:= 'Settings/Set' + IntToStr(i) + '/';
+    path:= SettingsStor + '/Set' + IntToStr(i) + '/';
     APropStorage.WriteString(path + 'Name', SettingsSimpleList[i].Name);
 
     if (SettingsSimpleList[i].Rounds <> DefaultRounds) then
@@ -203,7 +206,7 @@ begin
       APropStorage.WriteBoolean(path + 'Warning', SettingsSimpleList[i].Warning);
   end;
 
-  APropStorage.WriteInteger('Settings/SetNum', SetIndex);
+  APropStorage.WriteInteger(SettingsStor + '/NumSet', SetIndex);
 end;
 
 procedure TFrameSettings.EditSettingChange(Sender: TObject);
@@ -362,7 +365,7 @@ begin
   periods[0].TimeMs:= EditPrepareTimeS.Value * 1000;
   periods[0].WarningTimeMs:= EditWarningTimeS.Value * 1000;
   periods[0].Warning:= CheckWarning.Checked;
-  periods[0].Color:= clLime;
+  periods[0].Color:= DefaultColorPrepare;
   periods[0].FinalSound:= TSoundType.Start;
 
   lastPeriod:= EditRounds.Value * 2 - 1;
@@ -376,14 +379,14 @@ begin
     begin
       periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
       periods[i].TimeMs:= EditRestTimeS.Value * 1000;
-      periods[i].Color:= clYellow;
+      periods[i].Color:= DefaultColorRest;
       periods[i].FinalSound:= TSoundType.Start;
     end
     else
     begin
       periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
       periods[i].TimeMs:= EditRoundTimeS.Value * 1000;
-      periods[i].Color:= clRed;
+      periods[i].Color:= DefaultColorRound;
       if (i = lastPeriod) then
         periods[i].FinalSound:= TSoundType.Final
       else
@@ -403,9 +406,7 @@ begin
   BoxSettings.Clear;
 
   for i:= 0 to (Length(SettingsSimpleList) - 1) do
-  begin
     BoxSettings.Items.Add(SettingsSimpleList[i].Name);
-  end;
 end;
 
 procedure TFrameSettings.ShowStatistic;

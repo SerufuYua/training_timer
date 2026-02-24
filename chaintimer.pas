@@ -64,15 +64,6 @@ type
     property StopEvent: TNotifyEvent write FStopEvent;
   end;
 
-const
-  DefaultName = 'New Set';
-  DefaultRounds = 2;
-  DefaultRoundTimeMs = 90000;
-  DefaultRestTimeMs = 60000;
-  DefaultPrepareTimeMs = 30000;
-  DefaultWarningTimeMs = 10000;
-  DefaultWarning = True;
-
 implementation
 
 {$R *.lfm}
