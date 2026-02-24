@@ -66,11 +66,11 @@ type
     DefaultPrepareTimeMs = 30000;
     DefaultWarningTimeMs = 10000;
     DefaultWarning = True;
-    DefaultFinalSound = Ord(TSoundType.Start);
-    DefaultColorStr = '';
+    DefaultFinalSound = TSoundType.Start;
     DefaultColorPrepare = clLime;
     DefaultColorRest = clYellow;
     DefaultColorRound = clRed;
+    DefaultColorStr = 'clLime';
 
 implementation
 

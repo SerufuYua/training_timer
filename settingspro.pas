@@ -198,7 +198,7 @@ begin
         SettingsProList[i].Periods[j].TimeMs:= APropStorage.ReadInteger(pathPeriod + 'TimeMs', DefaultRoundTimeMs);
         SettingsProList[i].Periods[j].WarningTimeMs:= APropStorage.ReadInteger(pathPeriod + 'WarningTimeMs', DefaultWarningTimeMs);
         SettingsProList[i].Periods[j].Warning:= APropStorage.ReadBoolean(pathPeriod + 'Warning', DefaultWarning);
-        SettingsProList[i].Periods[j].FinalSound:= TSoundType(APropStorage.ReadInteger(pathPeriod + 'FinalSound', 0));
+        SettingsProList[i].Periods[j].FinalSound:= TSoundType(APropStorage.ReadInteger(pathPeriod + 'FinalSound', Ord(DefaultFinalSound)));
         SettingsProList[i].Periods[j].Color:= StringToColor(APropStorage.ReadString(pathPeriod + 'Color', DefaultColorStr));
       end;
     end;
@@ -209,40 +209,45 @@ begin
 end;
 
 procedure TFrameSettingsPro.SaveSettings(APropStorage: TXMLPropStorage);
-{var
-  i, num: Integer;
-  path: String;}
+var
+  i, j, countSets, countPeriods: Integer;
+  path, pathPeriod: String;
 begin
-{  APropStorage.DoEraseSections(APropStorage.RootNodePath + '/Settings');
+  APropStorage.DoEraseSections(APropStorage.RootNodePath + '/' + SettingsStor);
 
-  num:= Length(SettingsSimpleList);
-  APropStorage.WriteInteger('Settings/SetCount', num);
+  countSets:= Length(SettingsProList);
+  APropStorage.WriteInteger(SettingsStor + '/CountSets', countSets);
 
-  for i:= 0 to (num - 1) do
+  for i:= 0 to (countSets - 1) do
   begin
-    path:= 'Settings/Set' + IntToStr(i) + '/';
-    APropStorage.WriteString(path + 'Name', SettingsSimpleList[i].Name);
+    path:= SettingsStor + '/Set' + IntToStr(i) + '/';
+    APropStorage.WriteString(path + 'Name', SettingsProList[i].Name);
 
-    if (SettingsSimpleList[i].Rounds <> DefaultRounds) then
-      APropStorage.WriteInteger(path + 'Rounds', SettingsSimpleList[i].Rounds);
+    countPeriods:= Length(SettingsProList[i].Periods);
+    for j:= 0 to (countPeriods - 1) do
+    begin
+      pathPeriod:= path + 'Period' + IntToStr(j) + '/';
 
-    if (SettingsSimpleList[i].RoundTimeMs <> DefaultRoundTimeMs) then
-      APropStorage.WriteInteger(path + 'RoundTimeMs', SettingsSimpleList[i].RoundTimeMs);
+      APropStorage.WriteString(pathPeriod + 'Name', SettingsProList[i].Periods[j].Name);
 
-    if (SettingsSimpleList[i].RestTimeMs <> DefaultRestTimeMs) then
-      APropStorage.WriteInteger(path + 'RestTimeMs', SettingsSimpleList[i].RestTimeMs);
+      if (SettingsProList[i].Periods[j].TimeMs <> DefaultRoundTimeMs) then
+        APropStorage.WriteInteger(pathPeriod + 'TimeMs', SettingsProList[i].Periods[j].TimeMs);
 
-    if (SettingsSimpleList[i].PrepareTimeMs <> DefaultPrepareTimeMs) then
-      APropStorage.WriteInteger(path + 'PrepareTimeMs', SettingsSimpleList[i].PrepareTimeMs);
+      if (SettingsProList[i].Periods[j].WarningTimeMs <> DefaultWarningTimeMs) then
+        APropStorage.WriteInteger(pathPeriod + 'WarningTimeMs', SettingsProList[i].Periods[j].WarningTimeMs);
 
-    if (SettingsSimpleList[i].WarningTimeMs <> DefaultWarningTimeMs) then
-      APropStorage.WriteInteger(path + 'WarningTimeMs', SettingsSimpleList[i].WarningTimeMs);
+      if (SettingsProList[i].Periods[j].Warning <> DefaultWarning) then
+        APropStorage.WriteBoolean(pathPeriod + 'Warning', SettingsProList[i].Periods[j].Warning);
 
-    if (SettingsSimpleList[i].Warning <> DefaultWarning) then
-      APropStorage.WriteBoolean(path + 'Warning', SettingsSimpleList[i].Warning);
+      if (SettingsProList[i].Periods[j].FinalSound <> DefaultFinalSound) then
+        APropStorage.WriteInteger(pathPeriod + 'FinalSound', Ord(SettingsProList[i].Periods[j].FinalSound));
+
+      if (SettingsProList[i].Periods[j].Color <> StringToColor(DefaultColorStr)) then
+        APropStorage.WriteString(pathPeriod + 'Color', ColorToString(SettingsProList[i].Periods[j].Color));
+    end;
   end;
 
-  APropStorage.WriteInteger('Settings/SetNum', SetIndex);       }
+  APropStorage.WriteInteger(SettingsStor + '/SetNum', SetIndex);
 end;
 
 procedure TFrameSettingsPro.ButtonAboutClick(Sender: TObject);
