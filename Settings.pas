@@ -115,15 +115,6 @@ type
 var
   SettingsSimpleList: TSettingsSimpleList;
 
-const
-  DefaultName = 'New Set';
-  DefaultRounds = 2;
-  DefaultRoundTimeMs = 90000;
-  DefaultRestTimeMs = 60000;
-  DefaultPrepareTimeMs = 30000;
-  DefaultWarningTimeMs = 10000;
-  DefaultWarning = True;
-
 {$R *.lfm}
 
 constructor TFrameSettings.Create(TheOwner: TComponent);

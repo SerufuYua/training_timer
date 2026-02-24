@@ -365,6 +365,9 @@ object FrameSettingsPro: TFrameSettingsPro
           Height = 22
           Top = 98
           Width = 132
+          DefaultColorColor = clLime
+          NoneColorColor = clWhite
+          Selected = clLime
           ItemHeight = 16
           TabOrder = 6
         end

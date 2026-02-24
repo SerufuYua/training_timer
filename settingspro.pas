@@ -5,7 +5,7 @@ unit SettingsPro;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Buttons, Spin,
+  Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
   ColorBox, EditTime, ChainTimer;
 
 type
@@ -63,6 +63,7 @@ type
     FStartEvent: TStartEvent;
     FSimpleEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
   public
+    constructor Create(TheOwner: TComponent); override;
     property StartEvent: TStartEvent write FStartEvent;
     property SimpleEvent: TNotifyEvent write FSimpleEvent;
     property ConfigEvent: TNotifyEvent write FConfigEvent;
@@ -71,9 +72,38 @@ type
 
 implementation
 
+uses
+  Graphics, TypInfo, Config;
+
+type
+  TSettingsPro = record
+    Name: String;
+    Period: TTimePeriod;
+  end;
+
+  TSettingsProList = Array of TSettingsPro;
+
+var
+  SettingsProList: TSettingsProList;
+
 {$R *.lfm}
 
 { TFrameSettingsPro }
+
+constructor TFrameSettingsPro.Create(TheOwner: TComponent);
+var
+  i: Integer;
+begin
+  inherited Create(TheOwner);
+
+  ComboSound.Clear;
+  for i:= Ord(Low(TSoundType)) to Ord(High(TSoundType)) do
+    ComboSound.Items.Add(GetEnumName(TypeInfo(TSoundType), Ord(i)));
+  ComboSound.ItemIndex:= 0;
+
+//  EditPeriodTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+//  EditWarningTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+end;
 
 procedure TFrameSettingsPro.ButtonAboutClick(Sender: TObject);
 begin
