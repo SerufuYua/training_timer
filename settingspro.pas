@@ -55,6 +55,7 @@ type
     PanelSettingsCompose: TPanel;
     PanelSettingsCompose1: TPanel;
     PanelSettingsNameSet: TPanel;
+    procedure BoxSettingsChange(Sender: TObject);
     procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonConfigClick(Sender: TObject);
     procedure ButtonSimpleClick(Sender: TObject);
@@ -63,6 +64,7 @@ type
     FStartEvent: TStartEvent;
     FSimpleEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
     procedure UpdateSettingsBox;
+    procedure UpdateSetsList;
     procedure ShowStatistic;
     function MakeDefaultPeriods: TPeriodsList;
     procedure WriteSetIndex(AValue: Integer);
@@ -245,6 +247,15 @@ begin
     FAboutEvent(self);
 end;
 
+procedure TFrameSettingsPro.BoxSettingsChange(Sender: TObject);
+begin
+  if (SetIndex < 0) then Exit;
+
+  EditName.Caption:= SettingsProList[SetIndex].Name;
+  UpdateSetsList;
+  ShowStatistic;
+end;
+
 procedure TFrameSettingsPro.ButtonConfigClick(Sender: TObject);
 begin
   if Assigned(FConfigEvent) then
@@ -272,6 +283,16 @@ begin
     BoxSettings.Items.Add(SettingsProList[i].Name);
 end;
 
+procedure TFrameSettingsPro.UpdateSetsList;
+var
+  i: Integer;
+begin
+  ListPeriods.Clear;
+
+  for i:= 0 to (Length(SettingsProList[SetIndex].Periods) - 1) do
+    ListPeriods.Items.Add(SettingsProList[SetIndex].Periods[i].Name);
+end;
+
 procedure TFrameSettingsPro.ShowStatistic;
 var
   min, sec, i: Integer;
@@ -289,7 +310,7 @@ end;
 procedure TFrameSettingsPro.WriteSetIndex(AValue: Integer);
 begin
   BoxSettings.ItemIndex:= AValue;
-//  BoxSettingsChange(nil);
+  BoxSettingsChange(nil);
 end;
 
 function TFrameSettingsPro.ReadSetIndex: Integer;
