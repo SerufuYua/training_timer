@@ -22,6 +22,7 @@ type
     ButtonRemoveSet: TButton;
     ButtonStart: TButton;
     ButtonAbout: TButton;
+    CheckWarning: TCheckBox;
     EditMin: TSpinEdit;
     EditMin1: TSpinEdit;
     EditMin2: TSpinEdit;
@@ -52,7 +53,12 @@ type
     LabelStatistic: TLabel;
     LabelStatisticTime: TLabel;
     LabelWarningTime: TLabel;
+    PanelDummy1: TPanel;
     PanelButtons: TPanel;
+    PanelDummy2: TPanel;
+    PanelDummy3: TPanel;
+    PanelDummy4: TPanel;
+    PanelDummy5: TPanel;
     PanelMin: TPanel;
     PanelMin1: TPanel;
     PanelMin2: TPanel;
@@ -98,6 +104,7 @@ type
     Name: String;
     Rounds: Integer;
     RoundTimeMs, RestTimeMs, PrepareTimeMs, WarningTimeMs: Integer;
+    Warning: Boolean;
   end;
 
   TSettingsSimpleList = Array of TSettingsSimple;
@@ -112,6 +119,7 @@ const
   DefaultRestTimeMs = 60000;
   DefaultPrepareTimeMs = 30000;
   DefaultWarningTimeMs = 10000;
+  DefaultWarning = True;
 
 {$R *.lfm}
 
@@ -141,6 +149,7 @@ begin
     SettingsSimpleList[0].RestTimeMs:= DefaultRestTimeMs;
     SettingsSimpleList[0].PrepareTimeMs:= DefaultPrepareTimeMs;
     SettingsSimpleList[0].WarningTimeMs:= DefaultWarningTimeMs;
+    SettingsSimpleList[0].Warning:= DefaultWarning;
 
     UpdateSettingsBox;
     SetIndex:= 0;
@@ -158,6 +167,7 @@ begin
       SettingsSimpleList[i].RestTimeMs:= APropStorage.ReadInteger(path + 'RestTimeMs', DefaultRestTimeMs);
       SettingsSimpleList[i].PrepareTimeMs:= APropStorage.ReadInteger(path + 'PrepareTimeMs', DefaultPrepareTimeMs);
       SettingsSimpleList[i].WarningTimeMs:= APropStorage.ReadInteger(path + 'WarningTimeMs', DefaultWarningTimeMs);
+      SettingsSimpleList[i].Warning:= APropStorage.ReadBoolean(path + 'Warning', DefaultWarning);
     end;
 
     UpdateSettingsBox;
@@ -194,6 +204,9 @@ begin
 
     if (SettingsSimpleList[i].WarningTimeMs <> DefaultWarningTimeMs) then
       APropStorage.WriteInteger(path + 'WarningTimeMs', SettingsSimpleList[i].WarningTimeMs);
+
+    if (SettingsSimpleList[i].Warning <> DefaultWarning) then
+      APropStorage.WriteBoolean(path + 'Warning', SettingsSimpleList[i].Warning);
   end;
 
   APropStorage.WriteInteger('Settings/SetNum', SetIndex);
@@ -205,6 +218,7 @@ var
   editStr: TEdit;
   editNum: TSpinEdit;
   editTime: TFrameEditTime;
+  editWarn: TCheckBox;
 begin
   if ((NOT (Sender is TComponent)) OR (SetIndex < 0)) then Exit;
 
@@ -243,6 +257,13 @@ begin
       editTime:= component as TFrameEditTime;
       SettingsSimpleList[SetIndex].WarningTimeMs:= editTime.Value * 1000;
     end;
+    'CheckWarning':
+    begin
+      editWarn:= component as TCheckBox;
+      SettingsSimpleList[SetIndex].Warning:= editWarn.Checked;
+      LabelWarningTime.Enabled:= editWarn.Checked;
+      EditWarningTimeS.Enabled:= editWarn.Checked;
+    end;
   end;
 
   ShowStatistic;
@@ -258,6 +279,9 @@ begin
   EditRestTimeS.Value:= SettingsSimpleList[SetIndex].RestTimeMs div 1000;
   EditPrepareTimeS.Value:= SettingsSimpleList[SetIndex].PrepareTimeMs div 1000;
   EditWarningTimeS.Value:= SettingsSimpleList[SetIndex].WarningTimeMs div 1000;
+  CheckWarning.Checked:= SettingsSimpleList[SetIndex].Warning;
+  LabelWarningTime.Enabled:= CheckWarning.Checked;
+  EditWarningTimeS.Enabled:= CheckWarning.Checked;
 
   ShowStatistic;
 end;
@@ -294,6 +318,7 @@ begin
       SettingsSimpleList[idx].RestTimeMs:= DefaultRestTimeMs;
       SettingsSimpleList[idx].PrepareTimeMs:= DefaultPrepareTimeMs;
       SettingsSimpleList[idx].WarningTimeMs:= DefaultWarningTimeMs;
+      SettingsSimpleList[idx].Warning:= DefaultWarning;
 
       UpdateSettingsBox;
       SetIndex:= idx;
@@ -329,14 +354,14 @@ var
  i, lastPeriod: Integer;
  periods: TPeriodsList;
 begin
-  periods:= [];
-
   { prepare periods list }
+  periods:= [];
   SetLength(periods, EditRounds.Value * 2);
 
   periods[0].Name:= 'Prepare';
   periods[0].TimeMs:= EditPrepareTimeS.Value * 1000;
   periods[0].WarningTimeMs:= EditWarningTimeS.Value * 1000;
+  periods[0].Warning:= CheckWarning.Checked;
   periods[0].Color:= clLime;
   periods[0].FinalSound:= SoundStart;
 
@@ -344,11 +369,13 @@ begin
 
   for i:= 1 to lastPeriod do
   begin
+    periods[i].WarningTimeMs:= EditWarningTimeS.Value * 1000;
+    periods[0].Warning:= CheckWarning.Checked;
+
     if ((i mod 2) = 0) then
     begin
       periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
       periods[i].TimeMs:= EditRestTimeS.Value * 1000;
-      periods[i].WarningTimeMs:= EditWarningTimeS.Value * 1000;
       periods[i].Color:= clYellow;
       periods[i].FinalSound:= SoundStart;
     end
@@ -356,7 +383,6 @@ begin
     begin
       periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
       periods[i].TimeMs:= EditRoundTimeS.Value * 1000;
-      periods[i].WarningTimeMs:= EditWarningTimeS.Value * 1000;
       periods[i].Color:= clRed;
       if (i = lastPeriod) then
         periods[i].FinalSound:= SoundFinal

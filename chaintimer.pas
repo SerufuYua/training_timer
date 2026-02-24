@@ -15,6 +15,7 @@ type
   TTimePeriod = record
     Name, FinalSound: String;
     TimeMs, WarningTimeMs: Comp;
+    Warning: Boolean;
     Color: TColor;
   end;
 
@@ -44,6 +45,7 @@ type
     FPeriod: Integer;
     FStartTimeMs, FStartPauseMs, FLastTimeMsRemaining, FPeriodTimeMs,
       FWarningTimeMs, FFullTimeMs: Comp;
+    FWarning: Boolean;
     FFinalSound: String;
     FSignalColor: TColor;
     procedure ResetTimer;
@@ -132,7 +134,7 @@ begin
   TimeMsRemaining:= FPeriodTimeMs - TimeMsElapsed;
 
   { play warning and initial signals }
-  if IsTime(FWarningTimeMs) then
+  if (FWarning AND IsTime(FWarningTimeMs)) then
   begin
     PlaySound.SoundFile:= SoundWarn;
     PlaySound.Execute;
@@ -160,15 +162,18 @@ begin
   end;
 
   { color blink warning signal }
-  if IsTime(FWarningTimeMs) then
+  if FWarning then
   begin
-    FrameProgressUse.ProgressColor:= clGray;
-  end
-  else
-  if ((FWarningTimeMs > initTime) AND
-      (IsTime(FWarningTimeMs - (initTime div 2)))) then
-  begin
-    FrameProgressUse.ProgressColor:= FSignalColor;
+    if IsTime(FWarningTimeMs) then
+    begin
+      FrameProgressUse.ProgressColor:= clGray;
+    end
+    else
+    if ((FWarningTimeMs > initTime) AND
+        (IsTime(FWarningTimeMs - (initTime div 2)))) then
+    begin
+      FrameProgressUse.ProgressColor:= FSignalColor;
+    end;
   end;
 
   { count time and change period }
@@ -246,6 +251,7 @@ begin
     FSignalColor:= FPeriods[AValue].Color;
     FrameProgressUse.ProgressColor:= FSignalColor;
     FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
+    FWarning:= FPeriods[AValue].Warning;
     FPeriodTimeMs:= FPeriodTimeMs + FPeriods[AValue].TimeMs;
     FrameProgressUse.MaxProgress:= Round(FPeriods[AValue].TimeMs);
     FrameProgressUse.MinProgress:= 0;
