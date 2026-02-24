@@ -65,6 +65,7 @@ type
     procedure ButtonSimpleClick(Sender: TObject);
     procedure ButtonSetControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
+    procedure EditSettingChange(Sender: TObject);
   protected
     FStartEvent: TStartEvent;
     FSimpleEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
@@ -119,8 +120,8 @@ begin
     ComboSound.Items.Add(GetEnumName(TypeInfo(TSoundType), Ord(i)));
   ComboSound.ItemIndex:= 0;
 
-//  EditPeriodTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
-//  EditWarningTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditPeriodTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditWarningTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
 end;
 
 function TFrameSettingsPro.MakeDefaultPeriods: TPeriodsList;
@@ -190,11 +191,11 @@ begin
       path:= SettingsStor + '/Set' + IntToStr(i) + '/';
       SettingsProList[i].Name:= APropStorage.ReadString(path + 'Name', 'Set ' + IntToStr(i + 1));
 
-      countPeriods:= APropStorage.ReadInteger(path + 'CountPeriods', DefaultRounds);
+      countPeriods:= APropStorage.ReadInteger(path + 'CountPeriods', 0);
       SetLength(SettingsProList[i].Periods, countPeriods);
       for j:= 0 to (countPeriods - 1) do
       begin
-        pathPeriod:= path + '/Period' + IntToStr(j) + '/';
+        pathPeriod:= path + 'Period' + IntToStr(j) + '/';
         SettingsProList[i].Periods[j].Name:= APropStorage.ReadString(pathPeriod + 'Name', 'Period ' + IntToStr(j + 1));
         SettingsProList[i].Periods[j].TimeMs:= APropStorage.ReadInteger(pathPeriod + 'TimeMs', DefaultRoundTimeMs);
         SettingsProList[i].Periods[j].WarningTimeMs:= APropStorage.ReadInteger(pathPeriod + 'WarningTimeMs', DefaultWarningTimeMs);
@@ -225,6 +226,7 @@ begin
     APropStorage.WriteString(path + 'Name', SettingsProList[i].Name);
 
     countPeriods:= Length(SettingsProList[i].Periods);
+    APropStorage.WriteInteger(path + 'CountPeriods', countPeriods);
     for j:= 0 to (countPeriods - 1) do
     begin
       pathPeriod:= path + 'Period' + IntToStr(j) + '/';
@@ -248,13 +250,53 @@ begin
     end;
   end;
 
-  APropStorage.WriteInteger(SettingsStor + '/SetNum', SetIndex);
+  APropStorage.WriteInteger(SettingsStor + '/NumSet', SetIndex);
 end;
 
 procedure TFrameSettingsPro.ButtonAboutClick(Sender: TObject);
 begin
   if Assigned(FAboutEvent) then
     FAboutEvent(self);
+end;
+
+procedure TFrameSettingsPro.EditSettingChange(Sender: TObject);
+var
+  component: TComponent;
+  editStr: TEdit;
+//  editTime: TFrameEditTime;
+//  editWarn: TCheckBox;
+begin
+  if ((NOT (Sender is TComponent)) OR (SetIndex < 0)) then Exit;
+
+  component:= Sender as TComponent;
+
+  case component.Name of
+    'EditNameSet':
+    begin
+      editStr:= component as TEdit;
+      SettingsProList[SetIndex].Name:= editStr.Caption;
+      BoxSettings.Items[SetIndex]:= editStr.Caption;
+    end;
+    'EditPeriodTimeS':
+    begin
+//      editTime:= component as TFrameEditTime;
+//      SettingsProList[SetIndex].RoundTimeMs:= editTime.Value * 1000;
+    end;
+    'EditWarningTimeS':
+    begin
+//      editTime:= component as TFrameEditTime;
+//      SettingsSimpleList[SetIndex].WarningTimeMs:= editTime.Value * 1000;
+    end;
+    'CheckWarning':
+    begin
+//      editWarn:= component as TCheckBox;
+//      SettingsSimpleList[SetIndex].Warning:= editWarn.Checked;
+//      LabelWarningTime.Enabled:= editWarn.Checked;
+//      EditWarningTimeS.Enabled:= editWarn.Checked;
+    end;
+  end;
+
+  ShowStatistic;
 end;
 
 procedure TFrameSettingsPro.BoxSettingsChange(Sender: TObject);
@@ -355,7 +397,7 @@ var
 begin
   sec:= 0;
   for i:= 0 to (Length(SettingsProList[SetIndex].Periods) - 1) do
-    sec:= sec + SettingsProList[SetIndex].Periods[i].TimeMs;
+    sec:= sec + SettingsProList[SetIndex].Periods[i].TimeMs div 1000;
 
   min:= sec div 60;
   sec:= sec - (min * 60);

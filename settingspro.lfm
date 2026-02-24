@@ -148,6 +148,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Width = 158
         TabOrder = 0
         Text = 'EditNameSet'
+        OnChange = EditSettingChange
       end
       object LabelStatistic: TLabel
         Left = 4

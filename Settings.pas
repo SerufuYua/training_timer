@@ -227,7 +227,6 @@ begin
       editStr:= component as TEdit;
       SettingsSimpleList[SetIndex].Name:= editStr.Caption;
       BoxSettings.Items[SetIndex]:= editStr.Caption;
-      SettingsSimpleList[SetIndex].Name:= editStr.Caption;
     end;
     'EditRounds':
     begin
