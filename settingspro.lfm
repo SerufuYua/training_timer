@@ -128,7 +128,7 @@ object FrameSettingsPro: TFrameSettingsPro
       ClientHeight = 50
       ClientWidth = 320
       TabOrder = 1
-      object LabelName: TLabel
+      object LabelNameSet: TLabel
         Left = 4
         Height = 23
         Top = 4
@@ -137,13 +137,13 @@ object FrameSettingsPro: TFrameSettingsPro
         Caption = 'Set name'
         Layout = tlCenter
       end
-      object EditName: TEdit
+      object EditNameSet: TEdit
         Left = 158
         Height = 23
         Top = 4
         Width = 158
         TabOrder = 0
-        Text = 'EditName'
+        Text = 'EditNameSet'
       end
       object LabelStatistic: TLabel
         Left = 4
@@ -166,7 +166,7 @@ object FrameSettingsPro: TFrameSettingsPro
   end
   object PanelPeriods: TPanel
     Left = 0
-    Height = 252
+    Height = 221
     Top = 83
     Width = 320
     Align = alClient
@@ -176,12 +176,12 @@ object FrameSettingsPro: TFrameSettingsPro
     ChildSizing.HorizontalSpacing = 4
     ChildSizing.VerticalSpacing = 4
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ClientHeight = 252
+    ClientHeight = 221
     ClientWidth = 320
     TabOrder = 2
     object ListPeriods: TListBox
       Left = 4
-      Height = 244
+      Height = 213
       Top = 4
       Width = 266
       Align = alClient
@@ -190,7 +190,7 @@ object FrameSettingsPro: TFrameSettingsPro
     end
     object PanelPeriodControl: TPanel
       Left = 274
-      Height = 244
+      Height = 213
       Top = 4
       Width = 42
       Align = alRight
@@ -201,7 +201,7 @@ object FrameSettingsPro: TFrameSettingsPro
       ChildSizing.HorizontalSpacing = 4
       ChildSizing.VerticalSpacing = 4
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 244
+      ClientHeight = 213
       ClientWidth = 42
       TabOrder = 0
       object ButtonAdd: TButton
@@ -240,30 +240,30 @@ object FrameSettingsPro: TFrameSettingsPro
   end
   object PanelControl: TPanel
     Left = 0
-    Height = 188
-    Top = 335
+    Height = 219
+    Top = 304
     Width = 320
     Align = alBottom
     AutoSize = True
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ClientHeight = 188
+    ClientHeight = 219
     ClientWidth = 320
     TabOrder = 1
     object PanelSettingsCompose: TPanel
       Left = 0
-      Height = 125
+      Height = 156
       Top = 0
       Width = 320
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 125
+      ClientHeight = 156
       ClientWidth = 320
       TabOrder = 0
       object PanelSettings: TPanel
         Left = 0
-        Height = 125
+        Height = 156
         Top = 0
         Width = 240
         Align = alLeft
@@ -276,10 +276,10 @@ object FrameSettingsPro: TFrameSettingsPro
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 3
-        ClientHeight = 125
+        ClientHeight = 156
         ClientWidth = 240
         TabOrder = 0
-        object LabelPeriodTime: TLabel
+        object LabelNamePeriod: TLabel
           Left = 5
           Height = 23
           Top = 5
@@ -287,10 +287,34 @@ object FrameSettingsPro: TFrameSettingsPro
           Caption = 'Period time'
           Layout = tlCenter
         end
-        inline EditPeriodTimeS: TFrameEditTime
+        object EditNamePeriod: TEdit
           Left = 81
           Height = 23
           Top = 5
+          Width = 132
+          TabOrder = 7
+          Text = 'EditNamePeriod'
+        end
+        object PanelDummy7: TPanel
+          Left = 217
+          Height = 23
+          Top = 5
+          Width = 18
+          BevelOuter = bvNone
+          TabOrder = 8
+        end
+        object LabelPeriodTime: TLabel
+          Left = 5
+          Height = 23
+          Top = 36
+          Width = 72
+          Caption = 'Period time'
+          Layout = tlCenter
+        end
+        inline EditPeriodTimeS: TFrameEditTime
+          Left = 81
+          Height = 23
+          Top = 36
           Width = 132
           ClientHeight = 23
           ClientWidth = 132
@@ -298,7 +322,7 @@ object FrameSettingsPro: TFrameSettingsPro
         object PanelDummy5: TPanel
           Left = 217
           Height = 23
-          Top = 5
+          Top = 36
           Width = 18
           BevelOuter = bvNone
           TabOrder = 2
@@ -306,7 +330,7 @@ object FrameSettingsPro: TFrameSettingsPro
         object LabelWarningTime: TLabel
           Left = 5
           Height = 23
-          Top = 36
+          Top = 67
           Width = 72
           Caption = 'Warning time'
           Layout = tlCenter
@@ -314,7 +338,7 @@ object FrameSettingsPro: TFrameSettingsPro
         inline EditWarningTimeS: TFrameEditTime
           Left = 81
           Height = 23
-          Top = 36
+          Top = 67
           Width = 132
           ClientHeight = 23
           ClientWidth = 132
@@ -323,14 +347,14 @@ object FrameSettingsPro: TFrameSettingsPro
         object CheckWarning: TCheckBox
           Left = 217
           Height = 23
-          Top = 36
+          Top = 67
           Width = 18
           TabOrder = 3
         end
         object LabelSoud: TLabel
           Left = 5
           Height = 23
-          Top = 67
+          Top = 98
           Width = 72
           Caption = 'Sound'
           Layout = tlCenter
@@ -338,7 +362,7 @@ object FrameSettingsPro: TFrameSettingsPro
         object ComboSound: TComboBox
           Left = 81
           Height = 23
-          Top = 67
+          Top = 98
           Width = 132
           ItemHeight = 15
           ReadOnly = True
@@ -348,7 +372,7 @@ object FrameSettingsPro: TFrameSettingsPro
         object PanelDummy6: TPanel
           Left = 217
           Height = 23
-          Top = 67
+          Top = 98
           Width = 18
           BevelOuter = bvNone
           TabOrder = 5
@@ -356,7 +380,7 @@ object FrameSettingsPro: TFrameSettingsPro
         object LabelColor: TLabel
           Left = 5
           Height = 22
-          Top = 98
+          Top = 129
           Width = 72
           Caption = 'Color'
           Layout = tlCenter
@@ -364,7 +388,7 @@ object FrameSettingsPro: TFrameSettingsPro
         object ColorBox: TColorBox
           Left = 81
           Height = 22
-          Top = 98
+          Top = 129
           Width = 132
           DefaultColorColor = clLime
           NoneColorColor = clWhite
@@ -377,7 +401,7 @@ object FrameSettingsPro: TFrameSettingsPro
     object PanelButtons: TPanel
       Left = 0
       Height = 63
-      Top = 125
+      Top = 156
       Width = 320
       AutoSize = True
       BevelOuter = bvNone
@@ -484,5 +508,14 @@ object FrameSettingsPro: TFrameSettingsPro
         OnClick = ButtonStartClick
       end
     end
+  end
+  object LabelName1: TLabel
+    Left = 4
+    Height = 15
+    Top = 4
+    Width = 49
+    Alignment = taRightJustify
+    Caption = 'Set name'
+    Layout = tlCenter
   end
 end

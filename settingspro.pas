@@ -29,18 +29,22 @@ type
     CheckWarning: TCheckBox;
     ColorBox: TColorBox;
     ComboSound: TComboBox;
-    EditName: TEdit;
+    EditNameSet: TEdit;
+    EditNamePeriod: TEdit;
     EditPeriodTimeS: TFrameEditTime;
     EditWarningTimeS: TFrameEditTime;
-    LabelName: TLabel;
+    LabelNameSet: TLabel;
+    LabelName1: TLabel;
     LabelPeriodTime: TLabel;
     LabelColor: TLabel;
+    LabelNamePeriod: TLabel;
     LabelStatistic: TLabel;
     LabelStatisticTime: TLabel;
     LabelWarningTime: TLabel;
     LabelSoud: TLabel;
     ListPeriods: TListBox;
     PanelDummy6: TPanel;
+    PanelDummy7: TPanel;
     PanelPeriodControl: TPanel;
     PanelPeriods: TPanel;
     PanelControl: TPanel;
@@ -251,7 +255,7 @@ procedure TFrameSettingsPro.BoxSettingsChange(Sender: TObject);
 begin
   if (SetIndex < 0) then Exit;
 
-  EditName.Caption:= SettingsProList[SetIndex].Name;
+  EditNameSet.Caption:= SettingsProList[SetIndex].Name;
   UpdateSetsList;
   ShowStatistic;
 end;
