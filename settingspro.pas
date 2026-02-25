@@ -31,8 +31,8 @@ type
     ComboSound: TComboBox;
     EditNameSet: TEdit;
     EditNamePeriod: TEdit;
-    EditPeriodTimeS: TFrameEditTime;
-    EditWarningTimeS: TFrameEditTime;
+    EditPeriodTime: TFrameEditTime;
+    EditWarningTime: TFrameEditTime;
     LabelNameSet: TLabel;
     LabelName1: TLabel;
     LabelPeriodTime: TLabel;
@@ -124,8 +124,8 @@ begin
     ComboSound.Items.Add(GetEnumName(TypeInfo(TSoundType), Ord(i)));
   ComboSound.ItemIndex:= 0;
 
-  EditPeriodTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
-  EditWarningTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditPeriodTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditWarningTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
 end;
 
 function TFrameSettingsPro.MakeDefaultPeriods: TPeriodsList;
@@ -302,7 +302,7 @@ begin
       editWarn:= component as TCheckBox;
       SettingsSimpleList[IndexSet].Warning:= editWarn.Checked;
       LabelWarningTime.Enabled:= editWarn.Checked;
-      EditWarningTimeS.Enabled:= editWarn.Checked;
+      EditWarningTime.Enabled:= editWarn.Checked;
     end;}
   end;
 
@@ -315,8 +315,8 @@ begin
   if ((IndexSet < 0) OR (IndexPeriod < 0)) then Exit;
 
   EditNamePeriod.Caption:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
-  EditPeriodTimeS.Value:= SettingsProList[IndexSet].Periods[IndexPeriod].TimeMs div 1000;
-  EditWarningTimeS.Value:= SettingsProList[IndexSet].Periods[IndexPeriod].WarningTimeMs div 1000;
+  EditPeriodTime.ValueSec:= SettingsProList[IndexSet].Periods[IndexPeriod].TimeMs div 1000;
+  EditWarningTime.ValueSec:= SettingsProList[IndexSet].Periods[IndexPeriod].WarningTimeMs div 1000;
   CheckWarning.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Warning;
   ComboSound.ItemIndex:= Ord(SettingsProList[IndexSet].Periods[IndexPeriod].FinalSound);
   ColorBox.Selected:= SettingsProList[IndexSet].Periods[IndexPeriod].Color;

@@ -318,7 +318,7 @@ object FrameSettingsPro: TFrameSettingsPro
           Caption = 'Period time'
           Layout = tlCenter
         end
-        inline EditPeriodTimeS: TFrameEditTime
+        inline EditPeriodTime: TFrameEditTime
           Left = 81
           Height = 23
           Top = 36
@@ -342,7 +342,7 @@ object FrameSettingsPro: TFrameSettingsPro
           Caption = 'Warning time'
           Layout = tlCenter
         end
-        inline EditWarningTimeS: TFrameEditTime
+        inline EditWarningTime: TFrameEditTime
           Left = 81
           Height = 23
           Top = 67

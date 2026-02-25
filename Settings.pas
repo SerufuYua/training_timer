@@ -27,15 +27,15 @@ type
     EditMin2: TSpinEdit;
     EditMin3: TSpinEdit;
     EditName: TEdit;
-    EditPrepareTimeS: TFrameEditTime;
-    EditRestTimeS: TFrameEditTime;
+    EditPrepareTime: TFrameEditTime;
+    EditRestTime: TFrameEditTime;
     EditRounds: TSpinEdit;
-    EditRoundTimeS: TFrameEditTime;
+    EditRoundTime: TFrameEditTime;
     EditSec: TSpinEdit;
     EditSec1: TSpinEdit;
     EditSec2: TSpinEdit;
     EditSec3: TSpinEdit;
-    EditWarningTimeS: TFrameEditTime;
+    EditWarningTime: TFrameEditTime;
     LabelMin: TLabel;
     LabelMin1: TLabel;
     LabelMin2: TLabel;
@@ -124,10 +124,10 @@ constructor TFrameSettings.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  EditRoundTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
-  EditRestTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
-  EditPrepareTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
-  EditWarningTimeS.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditRoundTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditRestTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditPrepareTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+  EditWarningTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
 end;
 
 procedure TFrameSettings.LoadSettings(APropStorage: TXMLPropStorage);
@@ -236,29 +236,29 @@ begin
     'EditRoundTimeS':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[IndexSet].RoundTimeMs:= editTime.Value * 1000;
+      SettingsSimpleList[IndexSet].RoundTimeMs:= editTime.ValueSec * 1000;
     end;
     'EditRestTimeS':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[IndexSet].RestTimeMs:= editTime.Value * 1000;
+      SettingsSimpleList[IndexSet].RestTimeMs:= editTime.ValueSec * 1000;
     end;
     'EditPrepareTimeS':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[IndexSet].PrepareTimeMs:= editTime.Value * 1000;
+      SettingsSimpleList[IndexSet].PrepareTimeMs:= editTime.ValueSec * 1000;
     end;
     'EditWarningTimeS':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[IndexSet].WarningTimeMs:= editTime.Value * 1000;
+      SettingsSimpleList[IndexSet].WarningTimeMs:= editTime.ValueSec * 1000;
     end;
     'CheckWarning':
     begin
       editWarn:= component as TCheckBox;
       SettingsSimpleList[IndexSet].Warning:= editWarn.Checked;
       LabelWarningTime.Enabled:= editWarn.Checked;
-      EditWarningTimeS.Enabled:= editWarn.Checked;
+      EditWarningTime.Enabled:= editWarn.Checked;
     end;
   end;
 
@@ -271,13 +271,13 @@ begin
 
   EditName.Caption:= SettingsSimpleList[IndexSet].Name;
   EditRounds.Value:= SettingsSimpleList[IndexSet].Rounds;
-  EditRoundTimeS.Value:= SettingsSimpleList[IndexSet].RoundTimeMs div 1000;
-  EditRestTimeS.Value:= SettingsSimpleList[IndexSet].RestTimeMs div 1000;
-  EditPrepareTimeS.Value:= SettingsSimpleList[IndexSet].PrepareTimeMs div 1000;
-  EditWarningTimeS.Value:= SettingsSimpleList[IndexSet].WarningTimeMs div 1000;
+  EditRoundTime.ValueSec:= SettingsSimpleList[IndexSet].RoundTimeMs div 1000;
+  EditRestTime.ValueSec:= SettingsSimpleList[IndexSet].RestTimeMs div 1000;
+  EditPrepareTime.ValueSec:= SettingsSimpleList[IndexSet].PrepareTimeMs div 1000;
+  EditWarningTime.ValueSec:= SettingsSimpleList[IndexSet].WarningTimeMs div 1000;
   CheckWarning.Checked:= SettingsSimpleList[IndexSet].Warning;
   LabelWarningTime.Enabled:= CheckWarning.Checked;
-  EditWarningTimeS.Enabled:= CheckWarning.Checked;
+  EditWarningTime.Enabled:= CheckWarning.Checked;
 
   ShowStatistic;
 end;
@@ -361,8 +361,8 @@ begin
   SetLength(periods, EditRounds.Value * 2);
 
   periods[0].Name:= 'Prepare';
-  periods[0].TimeMs:= EditPrepareTimeS.Value * 1000;
-  periods[0].WarningTimeMs:= EditWarningTimeS.Value * 1000;
+  periods[0].TimeMs:= EditPrepareTime.ValueSec * 1000;
+  periods[0].WarningTimeMs:= EditWarningTime.ValueSec * 1000;
   periods[0].Warning:= CheckWarning.Checked;
   periods[0].Color:= DefaultColorPrepare;
   periods[0].FinalSound:= TSoundType.Start;
@@ -371,20 +371,20 @@ begin
 
   for i:= 1 to lastPeriod do
   begin
-    periods[i].WarningTimeMs:= EditWarningTimeS.Value * 1000;
+    periods[i].WarningTimeMs:= EditWarningTime.ValueSec * 1000;
     periods[0].Warning:= CheckWarning.Checked;
 
     if ((i mod 2) = 0) then
     begin
       periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
-      periods[i].TimeMs:= EditRestTimeS.Value * 1000;
+      periods[i].TimeMs:= EditRestTime.ValueSec * 1000;
       periods[i].Color:= DefaultColorRest;
       periods[i].FinalSound:= TSoundType.Start;
     end
     else
     begin
       periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
-      periods[i].TimeMs:= EditRoundTimeS.Value * 1000;
+      periods[i].TimeMs:= EditRoundTime.ValueSec * 1000;
       periods[i].Color:= DefaultColorRound;
       if (i = lastPeriod) then
         periods[i].FinalSound:= TSoundType.Final
@@ -412,9 +412,9 @@ procedure TFrameSettings.ShowStatistic;
 var
   min, sec: Integer;
 begin
-  sec:= EditPrepareTimeS.Value +
-        EditRestTimeS.Value * (EditRounds.Value - 1) +
-        EditRoundTimeS.Value * EditRounds.Value;
+  sec:= EditPrepareTime.ValueSec +
+        EditRestTime.ValueSec * (EditRounds.Value - 1) +
+        EditRoundTime.ValueSec * EditRounds.Value;
   min:= sec div 60;
   sec:= sec - (min * 60);
 

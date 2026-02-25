@@ -24,7 +24,7 @@ type
     procedure WriteValue(AValue: Integer);
     function ReadValue: Integer;
   public
-    property Value: Integer read ReadValue write WriteValue;
+    property ValueSec: Integer read ReadValue write WriteValue;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   end;
 

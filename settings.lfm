@@ -178,7 +178,7 @@ object FrameSettings: TFrameSettings
         Caption = 'Round time'
         Layout = tlCenter
       end
-      inline EditRoundTimeS: TFrameEditTime
+      inline EditRoundTime: TFrameEditTime
         Left = 81
         Height = 23
         Top = 67
@@ -203,7 +203,7 @@ object FrameSettings: TFrameSettings
         Caption = 'Rest time'
         Layout = tlCenter
       end
-      inline EditRestTimeS: TFrameEditTime
+      inline EditRestTime: TFrameEditTime
         Left = 81
         Height = 23
         Top = 98
@@ -228,7 +228,7 @@ object FrameSettings: TFrameSettings
         Caption = 'Prepare time'
         Layout = tlCenter
       end
-      inline EditPrepareTimeS: TFrameEditTime
+      inline EditPrepareTime: TFrameEditTime
         Left = 81
         Height = 23
         Top = 129
@@ -253,7 +253,7 @@ object FrameSettings: TFrameSettings
         Caption = 'Warning time'
         Layout = tlCenter
       end
-      inline EditWarningTimeS: TFrameEditTime
+      inline EditWarningTime: TFrameEditTime
         Left = 81
         Height = 23
         Top = 160
