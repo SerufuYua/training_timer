@@ -64,6 +64,7 @@ type
     procedure ButtonConfigClick(Sender: TObject);
     procedure ButtonSimpleClick(Sender: TObject);
     procedure ButtonSetControlClick(Sender: TObject);
+    procedure ButtonPeriodControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
     procedure ListPeriodsSelectionChange(Sender: TObject; User: boolean);
@@ -180,7 +181,7 @@ begin
   if (countSets = 0) then
   begin
     SetLength(SettingsProList, 1);
-    SettingsProList[0].Name:= DefaultName;
+    SettingsProList[0].Name:= DefaultSetName;
     SettingsProList[0].Periods:= MakeDefaultPeriods;
 
     UpdateBoxSettings;
@@ -363,27 +364,23 @@ var
 begin
   if (NOT (Sender is TComponent)) then Exit;
 
+  idx:= IndexSet;
   component:= Sender as TComponent;
-
   case component.Name of
     'ButtonAddSet':
     begin
       SetLength(SettingsProList, (Length(SettingsProList) + 1));
       idx:= High(SettingsProList);
-      SettingsProList[idx].Name:= DefaultName;
+      SettingsProList[idx].Name:= DefaultSetName;
       SettingsProList[idx].Periods:= MakeDefaultPeriods;
-
-      UpdateBoxSettings;
-      IndexSet:= idx;
     end;
     'ButtonRemoveSet':
     begin
       if (Length(SettingsProList) > 1) then
       begin
-        idx:= IndexSet;
         BoxSettings.Items.Delete(idx);
         Delete(SettingsProList, idx, 1);
-        IndexSet:= 0;
+        idx:= 0;
       end;
     end;
     'ButtonCopySet':
@@ -394,12 +391,71 @@ begin
         idx:= High(SettingsProList);
         SettingsProList[idx]:= SettingsProList[IndexSet];
         SettingsProList[idx].Name:= SettingsProList[idx].Name + ' Copy';
-
-        UpdateBoxSettings;
-        IndexSet:= idx;
       end;
     end;
   end;
+
+  UpdateBoxSettings;
+  IndexSet:= idx;
+end;
+
+procedure TFrameSettingsPro.ButtonPeriodControlClick(Sender: TObject);
+var
+  component: TComponent;
+  idx: Integer;
+  buff: TTimePeriod;
+begin
+  if (NOT (Sender is TComponent)) then Exit;
+
+  idx:= IndexPeriod;
+  component:= Sender as TComponent;
+  case component.Name of
+    'ButtonAdd':
+    begin
+      SetLength(SettingsProList[IndexSet].Periods, (Length(SettingsProList[IndexSet].Periods) + 1));
+      idx:= High(SettingsProList[IndexSet].Periods);
+      SettingsProList[IndexSet].Periods[idx].Name:= DefaultPeriodName;
+      SettingsProList[IndexSet].Periods[idx].FinalSound:= DefaultFinalSound;
+      SettingsProList[IndexSet].Periods[idx].TimeMs:= DefaultRoundTimeMs;
+      SettingsProList[IndexSet].Periods[idx].WarningTimeMs:= DefaultWarningTimeMs;
+      SettingsProList[IndexSet].Periods[idx].Warning:= DefaultWarning;
+      SettingsProList[IndexSet].Periods[idx].Color:= DefaultColorPrepare;
+    end;
+    'ButtonRemove':
+    begin
+      if (Length(SettingsProList[IndexSet].Periods) > 0) then
+      begin
+        ListPeriods.Items.Delete(idx);
+        Delete(SettingsProList[IndexSet].Periods, idx, 1);
+        if (idx >= Length(SettingsProList[IndexSet].Periods)) then
+          idx:= idx - 1;
+      end;
+    end;
+    'ButtonUp':
+    begin
+      if (idx > 0) then
+      begin
+        buff:= SettingsProList[IndexSet].Periods[idx];
+        SettingsProList[IndexSet].Periods[idx]:= SettingsProList[IndexSet].Periods[idx - 1];
+        SettingsProList[IndexSet].Periods[idx - 1]:= buff;
+        idx:= idx - 1;
+      end;
+    end;
+    'ButtonDown':
+    begin
+      if (idx < (Length(SettingsProList[IndexSet].Periods) - 1)) then
+      begin
+        buff:= SettingsProList[IndexSet].Periods[idx];
+        SettingsProList[IndexSet].Periods[idx]:= SettingsProList[IndexSet].Periods[idx + 1];
+        SettingsProList[IndexSet].Periods[idx + 1]:= buff;
+        idx:= idx + 1;
+      end;
+    end;
+  end;
+
+  UpdateListPeriods;
+  IndexPeriod:= idx;
+  ShowStatistic;
 end;
 
 procedure TFrameSettingsPro.ButtonStartClick(Sender: TObject);

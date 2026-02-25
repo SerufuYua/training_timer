@@ -59,7 +59,8 @@ type
   function TimerInterval: Integer;
 
   const
-    DefaultName = 'New Set';
+    DefaultSetName = 'New Set';
+    DefaultPeriodName = 'New Period';
     DefaultRounds = 2;
     DefaultRoundTimeMs = 90000;
     DefaultRestTimeMs = 60000;

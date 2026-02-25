@@ -217,6 +217,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Width = 34
         Caption = '+'
         TabOrder = 0
+        OnClick = ButtonPeriodControlClick
       end
       object ButtonRemove: TButton
         Left = 4
@@ -225,6 +226,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Width = 34
         Caption = '-'
         TabOrder = 1
+        OnClick = ButtonPeriodControlClick
       end
       object ButtonUp: TButton
         Left = 4
@@ -233,6 +235,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Width = 34
         Caption = '^'
         TabOrder = 2
+        OnClick = ButtonPeriodControlClick
       end
       object ButtonDown: TButton
         Left = 4
@@ -241,6 +244,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Width = 34
         Caption = 'v'
         TabOrder = 3
+        OnClick = ButtonPeriodControlClick
       end
     end
   end

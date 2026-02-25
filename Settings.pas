@@ -140,7 +140,7 @@ begin
   if (num = 0) then
   begin
     SetLength(SettingsSimpleList, 1);
-    SettingsSimpleList[0].Name:= DefaultName;
+    SettingsSimpleList[0].Name:= DefaultSetName;
     SettingsSimpleList[0].Rounds:= DefaultRounds;
     SettingsSimpleList[0].RoundTimeMs:= DefaultRoundTimeMs;
     SettingsSimpleList[0].RestTimeMs:= DefaultRestTimeMs;
@@ -307,32 +307,28 @@ var
 begin
   if (NOT (Sender is TComponent)) then Exit;
 
+  idx:= IndexSet;
   component:= Sender as TComponent;
-
   case component.Name of
     'ButtonAddSet':
     begin
       SetLength(SettingsSimpleList, (Length(SettingsSimpleList) + 1));
       idx:= High(SettingsSimpleList);
-      SettingsSimpleList[idx].Name:= DefaultName;
+      SettingsSimpleList[idx].Name:= DefaultSetName;
       SettingsSimpleList[idx].Rounds:= DefaultRounds;
       SettingsSimpleList[idx].RoundTimeMs:= DefaultRoundTimeMs;
       SettingsSimpleList[idx].RestTimeMs:= DefaultRestTimeMs;
       SettingsSimpleList[idx].PrepareTimeMs:= DefaultPrepareTimeMs;
       SettingsSimpleList[idx].WarningTimeMs:= DefaultWarningTimeMs;
       SettingsSimpleList[idx].Warning:= DefaultWarning;
-
-      UpdateBoxSettings;
-      IndexSet:= idx;
     end;
     'ButtonRemoveSet':
     begin
       if (Length(SettingsSimpleList) > 1) then
       begin
-        idx:= IndexSet;
         BoxSettings.Items.Delete(idx);
         Delete(SettingsSimpleList, idx, 1);
-        IndexSet:= 0;
+        idx:= 0;
       end;
     end;
     'ButtonCopySet':
@@ -343,12 +339,12 @@ begin
         idx:= High(SettingsSimpleList);
         SettingsSimpleList[idx]:= SettingsSimpleList[IndexSet];
         SettingsSimpleList[idx].Name:= SettingsSimpleList[idx].Name + ' Copy';
-
-        UpdateBoxSettings;
-        IndexSet:= idx;
       end;
     end;
   end;
+
+  UpdateBoxSettings;
+  IndexSet:= idx;
 end;
 
 procedure TFrameSettings.ButtonStartClick(Sender: TObject);
