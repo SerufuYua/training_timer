@@ -300,6 +300,7 @@ object FrameSettingsPro: TFrameSettingsPro
           Width = 132
           TabOrder = 7
           Text = 'EditNamePeriod'
+          OnChange = EditSettingChange
         end
         object PanelDummy7: TPanel
           Left = 217

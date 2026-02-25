@@ -281,23 +281,29 @@ begin
       SettingsProList[IndexSet].Name:= editStr.Caption;
       BoxSettings.Items[IndexSet]:= editStr.Caption;
     end;
-    'EditPeriodTimeS':
+    'EditNamePeriod':
     begin
-//      editTime:= component as TFrameEditTime;
-//      SettingsProList[IndexSet].RoundTimeMs:= editTime.Value * 1000;
+      editStr:= component as TEdit;
+      SettingsProList[IndexSet].Periods[IndexPeriod].Name:= editStr.Caption;
+      ListPeriods.Items[IndexPeriod]:= editStr.Caption;
+    end;
+{    'EditPeriodTimeS':
+    begin
+      editTime:= component as TFrameEditTime;
+      SettingsProList[IndexSet].RoundTimeMs:= editTime.Value * 1000;
     end;
     'EditWarningTimeS':
     begin
-//      editTime:= component as TFrameEditTime;
-//      SettingsSimpleList[IndexSet].WarningTimeMs:= editTime.Value * 1000;
+      editTime:= component as TFrameEditTime;
+      SettingsSimpleList[IndexSet].WarningTimeMs:= editTime.Value * 1000;
     end;
     'CheckWarning':
     begin
-//      editWarn:= component as TCheckBox;
-//      SettingsSimpleList[IndexSet].Warning:= editWarn.Checked;
-//      LabelWarningTime.Enabled:= editWarn.Checked;
-//      EditWarningTimeS.Enabled:= editWarn.Checked;
-    end;
+      editWarn:= component as TCheckBox;
+      SettingsSimpleList[IndexSet].Warning:= editWarn.Checked;
+      LabelWarningTime.Enabled:= editWarn.Checked;
+      EditWarningTimeS.Enabled:= editWarn.Checked;
+    end;}
   end;
 
   ShowStatistic;
@@ -424,8 +430,11 @@ end;
 
 procedure TFrameSettingsPro.WriteIndexSet(AValue: Integer);
 begin
-  BoxSettings.ItemIndex:= AValue;
-  BoxSettingsSelect(nil);
+  if ((BoxSettings.Items.Count > 0) AND (AValue < BoxSettings.Items.Count)) then
+  begin
+    BoxSettings.ItemIndex:= AValue;
+    BoxSettingsSelect(nil);
+  end;
 end;
 
 function TFrameSettingsPro.ReadIndexSet: Integer;
@@ -435,12 +444,13 @@ end;
 
 procedure TFrameSettingsPro.WriteIndexPeriod(AValue: Integer);
 begin
-  ListPeriods.ItemIndex:= AValue;
+  if ((ListPeriods.Items.Count > 0) AND (AValue < ListPeriods.Items.Count)) then
+    ListPeriods.ItemIndex:= AValue;
 end;
 
 function TFrameSettingsPro.ReadIndexPeriod: Integer;
 begin
-  Result:= ListPeriods.ItemIndex;
+  Result:= ListPeriods.ItemIndex
 end;
 
 end.
