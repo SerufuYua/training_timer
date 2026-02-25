@@ -7,6 +7,9 @@ interface
 uses
   Classes, SysUtils;
 
+type
+  TMyStrs = Array of String;
+
 function TimeToShortStr(ASeconds: Integer): String;
 function TimeToFullStr(ASeconds: Integer): String;
 

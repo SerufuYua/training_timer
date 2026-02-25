@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
-  ColorBox, XMLPropStorage, EditTime, ChainTimer;
+  ColorBox, XMLPropStorage, Menus, EditTime, ChainTimer, Settings;
 
 type
 
@@ -34,7 +34,6 @@ type
     EditPeriodTime: TFrameEditTime;
     EditWarningTime: TFrameEditTime;
     LabelNameSet: TLabel;
-    LabelName1: TLabel;
     LabelPeriodTime: TLabel;
     LabelColor: TLabel;
     LabelNamePeriod: TLabel;
@@ -59,6 +58,7 @@ type
     PanelSettingsCompose: TPanel;
     PanelSettingsCompose1: TPanel;
     PanelSettingsNameSet: TPanel;
+    ImportMenu: TPopupMenu;
     procedure BoxSettingsSelect(Sender: TObject);
     procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonConfigClick(Sender: TObject);
@@ -68,13 +68,16 @@ type
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
     procedure ListPeriodsSelectionChange(Sender: TObject; User: boolean);
+    procedure ImportMenuClick(Sender: TObject);
   protected
     FStartEvent: TStartEvent;
     FSimpleEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
+    FSimpleListSets: TListSetsCall;
+    FSimpleGetSet: TGetSetCall;
     procedure UpdateBoxSettings;
     procedure UpdateListPeriods;
     procedure ShowStatistic;
-    function MakeDefaultPeriods: TPeriodsList;
+    function MakeDefaultPeriods: TPeriodsSettings;
     procedure WriteIndexSet(AValue: Integer);
     function ReadIndexSet: Integer;
     procedure WriteIndexPeriod(AValue: Integer);
@@ -89,6 +92,8 @@ type
     property SimpleEvent: TNotifyEvent write FSimpleEvent;
     property ConfigEvent: TNotifyEvent write FConfigEvent;
     property AboutEvent: TNotifyEvent write FAboutEvent;
+    property SimpleListSets: TListSetsCall write FSimpleListSets;
+    property SimpleGetSet: TGetSetCall write FSimpleGetSet;
   end;
 
 implementation
@@ -96,19 +101,11 @@ implementation
 uses
   Graphics, TypInfo, Config, MyCommon;
 
-type
-  TSettingsPro = record
-    Name: String;
-    Periods: TPeriodsList;
-  end;
-
-  TSettingsProList = Array of TSettingsPro;
-
 const
   SettingsStor = 'SettingsPro';
 
 var
-  SettingsProList: TSettingsProList;
+  SettingsProList: TPeriodsSettingsList;
 
 {$R *.lfm}
 
@@ -129,46 +126,47 @@ begin
   EditWarningTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
 end;
 
-function TFrameSettingsPro.MakeDefaultPeriods: TPeriodsList;
+function TFrameSettingsPro.MakeDefaultPeriods: TPeriodsSettings;
 var
   i: Integer;
 const
   lastPeriod = DefaultRounds * 2 - 1;
 begin
-    { prepare periods list }
-    Result:= [];
-    SetLength(Result, DefaultRounds * 2);
+  { prepare periods list }
+  Result.Name:= DefaultSetName;
+  Result.Periods:= [];
+  SetLength(Result.Periods, DefaultRounds * 2);
 
-    Result[0].Name:= 'Prepare';
-    Result[0].TimeMs:= DefaultPrepareTimeMs;
-    Result[0].WarningTimeMs:= DefaultWarningTimeMs;
-    Result[0].Warning:= DefaultWarning;
-    Result[0].Color:= DefaultColorPrepare;
-    Result[0].FinalSound:= TSoundType.Start;
+  Result.Periods[0].Name:= 'Prepare';
+  Result.Periods[0].TimeMs:= DefaultPrepareTimeMs;
+  Result.Periods[0].WarningTimeMs:= DefaultWarningTimeMs;
+  Result.Periods[0].Warning:= DefaultWarning;
+  Result.Periods[0].Color:= DefaultColorPrepare;
+  Result.Periods[0].FinalSound:= TSoundType.Start;
 
-    for i:= 1 to lastPeriod do
+  for i:= 1 to lastPeriod do
+  begin
+    Result.Periods[i].WarningTimeMs:= DefaultWarningTimeMs;
+    Result.Periods[i].Warning:= DefaultWarning;
+
+    if ((i mod 2) = 0) then
     begin
-      Result[i].WarningTimeMs:= DefaultWarningTimeMs;
-      Result[i].Warning:= DefaultWarning;
-
-      if ((i mod 2) = 0) then
-      begin
-        Result[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
-        Result[i].TimeMs:= DefaultRestTimeMs;
-        Result[i].Color:= DefaultColorRest;
-        Result[i].FinalSound:= TSoundType.Start;
-      end
+      Result.Periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
+      Result.Periods[i].TimeMs:= DefaultRestTimeMs;
+      Result.Periods[i].Color:= DefaultColorRest;
+      Result.Periods[i].FinalSound:= TSoundType.Start;
+    end
+    else
+    begin
+      Result.Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
+      Result.Periods[i].TimeMs:= DefaultRoundTimeMs;
+      Result.Periods[i].Color:= clRed;
+      if (i = lastPeriod) then
+        Result.Periods[i].FinalSound:= TSoundType.Final
       else
-      begin
-        Result[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
-        Result[i].TimeMs:= DefaultRoundTimeMs;
-        Result[i].Color:= clRed;
-        if (i = lastPeriod) then
-          Result[i].FinalSound:= TSoundType.Final
-        else
-          Result[i].FinalSound:= TSoundType.Ending;
-      end;
+        Result.Periods[i].FinalSound:= TSoundType.Ending;
     end;
+  end;
 end;
 
 procedure TFrameSettingsPro.LoadSettings(APropStorage: TXMLPropStorage);
@@ -181,8 +179,7 @@ begin
   if (countSets = 0) then
   begin
     SetLength(SettingsProList, 1);
-    SettingsProList[0].Name:= DefaultSetName;
-    SettingsProList[0].Periods:= MakeDefaultPeriods;
+    SettingsProList[0]:= MakeDefaultPeriods;
 
     UpdateBoxSettings;
     IndexSet:= 0;
@@ -336,6 +333,24 @@ begin
   PanelPeriodSettings.Enabled:= True;
 end;
 
+procedure TFrameSettingsPro.ImportMenuClick(Sender: TObject);
+var
+  idx: Integer;
+  item: TMenuItem;
+begin
+  if (NOT (Sender is TMenuItem)) then Exit;
+  item:= Sender as TMenuItem;
+
+  if Assigned(FSimpleGetSet) then
+  begin
+    SetLength(SettingsProList, (Length(SettingsProList) + 1));
+    idx:= High(SettingsProList);
+    SettingsProList[idx]:= FSimpleGetSet(item.Caption);
+    UpdateBoxSettings;
+    IndexSet:= idx;
+  end;
+end;
+
 procedure TFrameSettingsPro.BoxSettingsSelect(Sender: TObject);
 begin
   if (IndexSet < 0) then Exit;
@@ -360,7 +375,9 @@ end;
 procedure TFrameSettingsPro.ButtonSetControlClick(Sender: TObject);
 var
   component: TComponent;
-  idx: Integer;
+  idx, i: Integer;
+  item: TMenuItem;
+  sets: TMyStrs;
 begin
   if (NOT (Sender is TComponent)) then Exit;
 
@@ -371,8 +388,7 @@ begin
     begin
       SetLength(SettingsProList, (Length(SettingsProList) + 1));
       idx:= High(SettingsProList);
-      SettingsProList[idx].Name:= DefaultSetName;
-      SettingsProList[idx].Periods:= MakeDefaultPeriods;
+      SettingsProList[idx]:= MakeDefaultPeriods;
     end;
     'ButtonRemoveSet':
     begin
@@ -391,6 +407,22 @@ begin
         idx:= High(SettingsProList);
         SettingsProList[idx]:= SettingsProList[IndexSet];
         SettingsProList[idx].Name:= SettingsProList[idx].Name + ' Copy';
+      end;
+    end;
+    'ButtonImportSet':
+    begin
+      if Assigned(FSimpleListSets) then
+      begin
+        ImportMenu.Items.Clear;
+        sets:= FSimpleListSets();
+        for i:= 0 to (Length(sets) - 1) do
+        begin
+          item:= TMenuItem.Create(ImportMenu);
+          item.Caption:= sets[i];
+          item.OnClick:= {$ifdef FPC}@{$endif}ImportMenuClick;
+          ImportMenu.Items.Add(item);
+        end;
+        ImportMenu.PopUp;
       end;
     end;
   end;

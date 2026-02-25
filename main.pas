@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls,
   XMLPropStorage, Buttons, Generics.Collections,
-  ChainTimer, Settings, Config, About, SettingsPro;
+  ChainTimer, Settings, SettingsPro, Config, About;
 
 type
 
@@ -35,7 +35,7 @@ type
     FTabStack: TTabStack;
     procedure SaveSettings;
     procedure LoadSettings;
-    procedure StartEvent(ASetName: String; APeriods: TPeriodsList);
+    procedure StartEvent(APeriods: TPeriodsSettings);
     procedure ReturnEvent(Sender: TObject);
     procedure SettingsEvent(Sender: TObject);
     procedure SettingsProEvent(Sender: TObject);
@@ -74,6 +74,8 @@ begin
   FrameSettingsProUse.ConfigEvent:= {$ifdef FPC}@{$endif}ConfigEvent;
   FrameSettingsProUse.AboutEvent:= {$ifdef FPC}@{$endif}AboutEvent;
   FrameSettingsProUse.SimpleEvent:= {$ifdef FPC}@{$endif}SettingsEvent;
+  FrameSettingsProUse.SimpleListSets:= {$ifdef FPC}@{$endif}FrameSettingsUse.ListSets;
+  FrameSettingsProUse.SimpleGetSet:= {$ifdef FPC}@{$endif}FrameSettingsUse.GetSet;
 
   with TVersionInfo.Create do
   begin
@@ -128,9 +130,9 @@ begin
   FrameConfigUse.LoadSettings(PropStorage);
 end;
 
-procedure TFormTTimer.StartEvent(ASetName: String; APeriods: TPeriodsList);
+procedure TFormTTimer.StartEvent(APeriods: TPeriodsSettings);
 begin
-  FrameTimerUse.Start(ASetName, APeriods);
+  FrameTimerUse.Start(APeriods);
   ActiveTab:= TabTraining;
 end;
 

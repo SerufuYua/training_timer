@@ -10,8 +10,6 @@ uses
 
 type
 
-  { TFrameTimer }
-
   TTimePeriod = record
     Name: String;
     FinalSound: TSoundType;
@@ -21,7 +19,17 @@ type
   end;
 
   TPeriodsList = Array of TTimePeriod;
-  TStartEvent = procedure(ASetName: String; APeriods: TPeriodsList) of object;
+
+  TPeriodsSettings = record
+    Name: String;
+    Periods: TPeriodsList;
+  end;
+
+  TPeriodsSettingsList = Array of TPeriodsSettings;
+
+  TStartEvent = procedure(APeriods: TPeriodsSettings) of object;
+
+  { TFrameTimer }
 
   TFrameTimer = class(TFrame)
     ButtonRestart: TButton;
@@ -59,7 +67,7 @@ type
     function TimeMs: Comp;
   public
     procedure UpdateTime;
-    procedure Start(ASetName: String; APeriods: TPeriodsList);
+    procedure Start(APeriods: TPeriodsSettings);
     property Period: Integer read FPeriod write WritePeriod;
     property StopEvent: TNotifyEvent write FStopEvent;
   end;
@@ -73,14 +81,14 @@ uses
 
 { TFrameTimer }
 
-procedure TFrameTimer.Start(ASetName: String; APeriods: TPeriodsList);
+procedure TFrameTimer.Start(APeriods: TPeriodsSettings);
 var
   i: Integer;
 begin
   TimeCounter.Interval:= TimerInterval;
   TimeCounter.Enabled:= False;
-  LabelSet.Caption:= ASetName;
-  FPeriods:= APeriods;
+  LabelSet.Caption:= APeriods.Name;
+  FPeriods:= APeriods.Periods;
 
   FFullTimeMs:= 0;
   for i:= Low(FPeriods) to High(FPeriods) do

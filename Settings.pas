@@ -6,9 +6,12 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Buttons, Spin,
-  EditTime, XMLPropStorage, ChainTimer;
+  EditTime, XMLPropStorage, ChainTimer, MyCommon;
 
 type
+
+  TListSetsCall = function: TMyStrs of object;
+  TGetSetCall = function(AName: String): TPeriodsSettings of object;
 
   { TFrameSettings }
 
@@ -84,12 +87,15 @@ type
     FProEvent, FConfigEvent, FAboutEvent: TNotifyEvent;
     procedure UpdateBoxSettings;
     procedure ShowStatistic;
+    function MakePeriods(index: Integer): TPeriodsSettings;
     procedure WriteIndexSet(AValue: Integer);
     function ReadIndexSet: Integer;
   public
     constructor Create(TheOwner: TComponent); override;
     procedure LoadSettings(APropStorage: TXMLPropStorage);
     procedure SaveSettings(APropStorage: TXMLPropStorage);
+    function ListSets: TMyStrs;
+    function GetSet(AName: String): TPeriodsSettings;
     property IndexSet: Integer read ReadIndexSet write WriteIndexSet;
     property StartEvent: TStartEvent write FStartEvent;
     property ProEvent: TNotifyEvent write FProEvent;
@@ -100,7 +106,7 @@ type
 implementation
 
 uses
-  Graphics, Config, MyCommon;
+  Graphics, Config;
 
 type
   TSettingsSimple = record
@@ -128,6 +134,49 @@ begin
   EditRestTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
   EditPrepareTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
   EditWarningTime.OnChange:= {$ifdef FPC}@{$endif}EditSettingChange;
+end;
+
+function TFrameSettings.MakePeriods(index: Integer): TPeriodsSettings;
+var
+ i, lastPeriod: Integer;
+begin
+  { prepare Result list }
+  Result.Name:= SettingsSimpleList[index].Name;
+  Result.Periods:= [];
+  SetLength(Result.Periods, EditRounds.Value * 2);
+
+  Result.Periods[0].Name:= 'Prepare';
+  Result.Periods[0].TimeMs:= SettingsSimpleList[index].PrepareTimeMs;
+  Result.Periods[0].WarningTimeMs:= SettingsSimpleList[index].WarningTimeMs;
+  Result.Periods[0].Warning:= SettingsSimpleList[index].Warning;
+  Result.Periods[0].Color:= DefaultColorPrepare;
+  Result.Periods[0].FinalSound:= TSoundType.Start;
+
+  lastPeriod:= SettingsSimpleList[index].Rounds * 2 - 1;
+
+  for i:= 1 to lastPeriod do
+  begin
+    Result.Periods[i].WarningTimeMs:= SettingsSimpleList[index].WarningTimeMs;
+    Result.Periods[i].Warning:= SettingsSimpleList[index].Warning;
+
+    if ((i mod 2) = 0) then
+    begin
+      Result.Periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
+      Result.Periods[i].TimeMs:= SettingsSimpleList[index].RestTimeMs;
+      Result.Periods[i].Color:= DefaultColorRest;
+      Result.Periods[i].FinalSound:= TSoundType.Start;
+    end
+    else
+    begin
+      Result.Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
+      Result.Periods[i].TimeMs:= SettingsSimpleList[index].RoundTimeMs;
+      Result.Periods[i].Color:= DefaultColorRound;
+      if (i = lastPeriod) then
+        Result.Periods[i].FinalSound:= TSoundType.Final
+      else
+        Result.Periods[i].FinalSound:= TSoundType.Ending;
+    end;
+  end;
 end;
 
 procedure TFrameSettings.LoadSettings(APropStorage: TXMLPropStorage);
@@ -207,6 +256,34 @@ begin
   end;
 
   APropStorage.WriteInteger(SettingsStor + '/NumSet', IndexSet);
+end;
+
+function TFrameSettings.ListSets: TMyStrs;
+var
+  l, i: Integer;
+begin
+  Result:= [];
+
+  l:= Length(SettingsSimpleList);
+  SetLength(Result, l);
+
+  for i:= 0 to (l - 1) do
+    Result[i]:= SettingsSimpleList[i].Name;
+end;
+
+function TFrameSettings.GetSet(AName: String): TPeriodsSettings;
+var
+  i: Integer;
+begin
+  for i:= 0 to (Length(SettingsSimpleList) - 1) do
+  begin
+    if (SettingsSimpleList[i].Name = AName) then
+    begin
+      Result.Name:= SettingsSimpleList[i].Name;
+      Result:= MakePeriods(i);
+      Exit;
+    end;
+  end;
 end;
 
 procedure TFrameSettings.EditSettingChange(Sender: TObject);
@@ -348,50 +425,12 @@ begin
 end;
 
 procedure TFrameSettings.ButtonStartClick(Sender: TObject);
-var
- i, lastPeriod: Integer;
- periods: TPeriodsList;
 begin
-  { prepare periods list }
-  periods:= [];
-  SetLength(periods, EditRounds.Value * 2);
-
-  periods[0].Name:= 'Prepare';
-  periods[0].TimeMs:= EditPrepareTime.ValueSec * 1000;
-  periods[0].WarningTimeMs:= EditWarningTime.ValueSec * 1000;
-  periods[0].Warning:= CheckWarning.Checked;
-  periods[0].Color:= DefaultColorPrepare;
-  periods[0].FinalSound:= TSoundType.Start;
-
-  lastPeriod:= EditRounds.Value * 2 - 1;
-
-  for i:= 1 to lastPeriod do
-  begin
-    periods[i].WarningTimeMs:= EditWarningTime.ValueSec * 1000;
-    periods[0].Warning:= CheckWarning.Checked;
-
-    if ((i mod 2) = 0) then
-    begin
-      periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
-      periods[i].TimeMs:= EditRestTime.ValueSec * 1000;
-      periods[i].Color:= DefaultColorRest;
-      periods[i].FinalSound:= TSoundType.Start;
-    end
-    else
-    begin
-      periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(EditRounds.Value);
-      periods[i].TimeMs:= EditRoundTime.ValueSec * 1000;
-      periods[i].Color:= DefaultColorRound;
-      if (i = lastPeriod) then
-        periods[i].FinalSound:= TSoundType.Final
-      else
-        periods[i].FinalSound:= TSoundType.Ending;
-    end;
-  end;
-
   { start timer }
   if Assigned(FStartEvent) then
-    FStartEvent(EditName.Caption, periods);
+  begin
+    FStartEvent(MakePeriods(IndexSet));
+  end;
 end;
 
 procedure TFrameSettings.UpdateBoxSettings;
