@@ -11,7 +11,7 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, main, ChainTimer, EditTime, Settings, Config, About, ProgressBar,
-  SettingsPro;
+  SettingsPro, MyCommon;
 
 {$R *.res}
 

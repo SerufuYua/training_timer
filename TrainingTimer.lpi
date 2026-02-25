@@ -141,6 +141,11 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="SettingsPro"/>
       </Unit>
+      <Unit>
+        <Filename Value="mycommon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MyCommon"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

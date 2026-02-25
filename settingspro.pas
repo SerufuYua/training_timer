@@ -94,7 +94,7 @@ type
 implementation
 
 uses
-  Graphics, TypInfo, Config;
+  Graphics, TypInfo, Config, MyCommon;
 
 type
   TSettingsPro = record
@@ -487,16 +487,13 @@ end;
 
 procedure TFrameSettingsPro.ShowStatistic;
 var
-  min, sec, i: Integer;
+  sec, i: Integer;
 begin
   sec:= 0;
   for i:= 0 to (Length(SettingsProList[IndexSet].Periods) - 1) do
     sec:= sec + SettingsProList[IndexSet].Periods[i].TimeMs div 1000;
 
-  min:= sec div 60;
-  sec:= sec - (min * 60);
-
-  LabelStatisticTime.Caption:= IntToStr(min) + ' m  ' + IntToStr(sec) + ' s';
+  LabelStatisticTime.Caption:= TimeToFullStr(sec);
 end;
 
 procedure TFrameSettingsPro.WriteIndexSet(AValue: Integer);

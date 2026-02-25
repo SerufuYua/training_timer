@@ -66,6 +66,9 @@ type
 
 implementation
 
+uses
+  MyCommon;
+
 {$R *.lfm}
 
 { TFrameTimer }
@@ -221,23 +224,13 @@ begin
 end;
 
 procedure TFrameTimer.ShowTime(ATimeMs: Integer);
-var
-  min, sec: Integer;
 begin
-  sec:= (ATimeMs + 1) div 1000;
-  min:= sec div 60;
-  sec:= sec - (min * 60);
-  FrameProgressUse.Text:= IntToStr(min) + ':' + IntToStr(sec);
+  FrameProgressUse.Text:= TimeToShortStr((ATimeMs + 1) div 1000);
 end;
 
 procedure TFrameTimer.ShowFullTime(ATimeMs: Integer);
-var
-  min, sec: Integer;
 begin
-  sec:= (ATimeMs + 1) div 1000;
-  min:= sec div 60;
-  sec:= sec - (min * 60);
-  LabelFullTime.Caption:= IntToStr(min) + ':' + IntToStr(sec);
+  LabelFullTime.Caption:= TimeToShortStr((ATimeMs + 1) div 1000);
 end;
 
 procedure TFrameTimer.WritePeriod(AValue: Integer);

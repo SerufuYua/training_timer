@@ -100,7 +100,7 @@ type
 implementation
 
 uses
-  Graphics, Config;
+  Graphics, Config, MyCommon;
 
 type
   TSettingsSimple = record
@@ -406,15 +406,13 @@ end;
 
 procedure TFrameSettings.ShowStatistic;
 var
-  min, sec: Integer;
+  sec: Integer;
 begin
   sec:= EditPrepareTime.ValueSec +
         EditRestTime.ValueSec * (EditRounds.Value - 1) +
         EditRoundTime.ValueSec * EditRounds.Value;
-  min:= sec div 60;
-  sec:= sec - (min * 60);
 
-  LabelStatisticTime.Caption:= IntToStr(min) + ' m  ' + IntToStr(sec) + ' s';
+  LabelStatisticTime.Caption:= TimeToFullStr(sec);
 end;
 
 procedure TFrameSettings.WriteIndexSet(AValue: Integer);
