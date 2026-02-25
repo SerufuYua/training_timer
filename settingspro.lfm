@@ -356,6 +356,7 @@ object FrameSettingsPro: TFrameSettingsPro
           Top = 67
           Width = 18
           TabOrder = 3
+          OnChange = EditSettingChange
         end
         object LabelSoud: TLabel
           Left = 5
@@ -374,6 +375,7 @@ object FrameSettingsPro: TFrameSettingsPro
           ReadOnly = True
           TabOrder = 4
           Text = 'ComboSound'
+          OnChange = EditSettingChange
         end
         object PanelDummy6: TPanel
           Left = 217
@@ -401,6 +403,7 @@ object FrameSettingsPro: TFrameSettingsPro
           Selected = clLime
           ItemHeight = 16
           TabOrder = 6
+          OnChange = EditSettingChange
         end
       end
     end

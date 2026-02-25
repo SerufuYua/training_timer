@@ -267,8 +267,10 @@ procedure TFrameSettingsPro.EditSettingChange(Sender: TObject);
 var
   component: TComponent;
   editStr: TEdit;
-//  editTime: TFrameEditTime;
-//  editWarn: TCheckBox;
+  editTime: TFrameEditTime;
+  editCheck: TCheckBox;
+  editBox: TComboBox;
+  editColor: TColorBox;
 begin
   if ((NOT (Sender is TComponent)) OR (IndexSet < 0)) then Exit;
 
@@ -287,23 +289,33 @@ begin
       SettingsProList[IndexSet].Periods[IndexPeriod].Name:= editStr.Caption;
       ListPeriods.Items[IndexPeriod]:= editStr.Caption;
     end;
-{    'EditPeriodTimeS':
+    'EditPeriodTime':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsProList[IndexSet].RoundTimeMs:= editTime.Value * 1000;
+      SettingsProList[IndexSet].Periods[IndexPeriod].TimeMs:= editTime.ValueSec * 1000;
     end;
-    'EditWarningTimeS':
+    'EditWarningTime':
     begin
       editTime:= component as TFrameEditTime;
-      SettingsSimpleList[IndexSet].WarningTimeMs:= editTime.Value * 1000;
+      SettingsProList[IndexSet].Periods[IndexPeriod].WarningTimeMs:= editTime.ValueSec * 1000;
     end;
     'CheckWarning':
     begin
-      editWarn:= component as TCheckBox;
-      SettingsSimpleList[IndexSet].Warning:= editWarn.Checked;
-      LabelWarningTime.Enabled:= editWarn.Checked;
-      EditWarningTime.Enabled:= editWarn.Checked;
-    end;}
+      editCheck:= component as TCheckBox;
+      SettingsProList[IndexSet].Periods[IndexPeriod].Warning:= editCheck.Checked;
+      LabelWarningTime.Enabled:= editCheck.Checked;
+      EditWarningTime.Enabled:= editCheck.Checked;
+    end;
+    'ComboSound':
+    begin
+      editBox:= component as TComboBox;
+      SettingsProList[IndexSet].Periods[IndexPeriod].FinalSound:= TSoundType(editBox.ItemIndex);
+    end;
+    'ColorBox':
+    begin
+      editColor:= component as TColorBox;
+      SettingsProList[IndexSet].Periods[IndexPeriod].Color:= editColor.Selected;
+    end;
   end;
 
   ShowStatistic;

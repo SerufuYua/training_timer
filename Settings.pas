@@ -215,7 +215,7 @@ var
   editStr: TEdit;
   editNum: TSpinEdit;
   editTime: TFrameEditTime;
-  editWarn: TCheckBox;
+  editCheck: TCheckBox;
 begin
   if ((NOT (Sender is TComponent)) OR (IndexSet < 0)) then Exit;
 
@@ -233,32 +233,32 @@ begin
       editNum:= component as TSpinEdit;
       SettingsSimpleList[IndexSet].Rounds:= editNum.Value;
     end;
-    'EditRoundTimeS':
+    'EditRoundTime':
     begin
       editTime:= component as TFrameEditTime;
       SettingsSimpleList[IndexSet].RoundTimeMs:= editTime.ValueSec * 1000;
     end;
-    'EditRestTimeS':
+    'EditRestTime':
     begin
       editTime:= component as TFrameEditTime;
       SettingsSimpleList[IndexSet].RestTimeMs:= editTime.ValueSec * 1000;
     end;
-    'EditPrepareTimeS':
+    'EditPrepareTime':
     begin
       editTime:= component as TFrameEditTime;
       SettingsSimpleList[IndexSet].PrepareTimeMs:= editTime.ValueSec * 1000;
     end;
-    'EditWarningTimeS':
+    'EditWarningTime':
     begin
       editTime:= component as TFrameEditTime;
       SettingsSimpleList[IndexSet].WarningTimeMs:= editTime.ValueSec * 1000;
     end;
     'CheckWarning':
     begin
-      editWarn:= component as TCheckBox;
-      SettingsSimpleList[IndexSet].Warning:= editWarn.Checked;
-      LabelWarningTime.Enabled:= editWarn.Checked;
-      EditWarningTime.Enabled:= editWarn.Checked;
+      editCheck:= component as TCheckBox;
+      SettingsSimpleList[IndexSet].Warning:= editCheck.Checked;
+      LabelWarningTime.Enabled:= editCheck.Checked;
+      EditWarningTime.Enabled:= editCheck.Checked;
     end;
   end;
 
