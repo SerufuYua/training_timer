@@ -55,7 +55,7 @@ type
     PanelEmply4: TPanel;
     PanelSelectSets: TPanel;
     PanelSetsControl: TPanel;
-    PanelSettings: TPanel;
+    PanelPeriodSettings: TPanel;
     PanelSettingsCompose: TPanel;
     PanelSettingsCompose1: TPanel;
     PanelSettingsNameSet: TPanel;
@@ -320,6 +320,7 @@ begin
   CheckWarning.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Warning;
   ComboSound.ItemIndex:= Ord(SettingsProList[IndexSet].Periods[IndexPeriod].FinalSound);
   ColorBox.Selected:= SettingsProList[IndexSet].Periods[IndexPeriod].Color;
+  PanelPeriodSettings.Enabled:= True;
 end;
 
 procedure TFrameSettingsPro.BoxSettingsSelect(Sender: TObject);
@@ -412,6 +413,8 @@ begin
 
   for i:= 0 to (Length(SettingsProList[IndexSet].Periods) - 1) do
     ListPeriods.Items.Add(SettingsProList[IndexSet].Periods[i].Name);
+
+  PanelPeriodSettings.Enabled:= False;
 end;
 
 procedure TFrameSettingsPro.ShowStatistic;

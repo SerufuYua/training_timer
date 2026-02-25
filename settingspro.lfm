@@ -267,7 +267,7 @@ object FrameSettingsPro: TFrameSettingsPro
       ClientHeight = 156
       ClientWidth = 320
       TabOrder = 0
-      object PanelSettings: TPanel
+      object PanelPeriodSettings: TPanel
         Left = 0
         Height = 156
         Top = 0
@@ -299,7 +299,6 @@ object FrameSettingsPro: TFrameSettingsPro
           Top = 5
           Width = 132
           TabOrder = 7
-          Text = 'EditNamePeriod'
           OnChange = EditSettingChange
         end
         object PanelDummy7: TPanel
