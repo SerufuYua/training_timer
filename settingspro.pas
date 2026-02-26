@@ -492,7 +492,11 @@ end;
 
 procedure TFrameSettingsPro.ButtonStartClick(Sender: TObject);
 begin
-
+  { start timer }
+  if Assigned(FStartEvent) then
+  begin
+    FStartEvent(SettingsProList[IndexSet]);
+  end;
 end;
 
 procedure TFrameSettingsPro.UpdateBoxSettings;
