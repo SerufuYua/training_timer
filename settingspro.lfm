@@ -26,7 +26,7 @@ object FrameSettingsPro: TFrameSettingsPro
       Left = 0
       Height = 33
       Top = 0
-      Width = 412
+      Width = 320
       AutoSize = True
       BevelOuter = bvNone
       ChildSizing.LeftRightSpacing = 4
@@ -34,13 +34,13 @@ object FrameSettingsPro: TFrameSettingsPro
       ChildSizing.HorizontalSpacing = 4
       ChildSizing.VerticalSpacing = 4
       ClientHeight = 33
-      ClientWidth = 412
+      ClientWidth = 320
       TabOrder = 0
       object BoxSettings: TComboBox
         Left = 4
         Height = 23
         Top = 4
-        Width = 100
+        Width = 180
         Align = alClient
         ItemHeight = 15
         ReadOnly = True
@@ -49,24 +49,24 @@ object FrameSettingsPro: TFrameSettingsPro
         OnSelect = BoxSettingsSelect
       end
       object PanelSetsControl: TPanel
-        Left = 108
+        Left = 188
         Height = 25
         Top = 4
-        Width = 300
+        Width = 128
         Align = alRight
         AutoSize = True
         BevelOuter = bvNone
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 4
         ClientHeight = 25
-        ClientWidth = 300
+        ClientWidth = 128
         TabOrder = 1
         object ButtonAddSet: TButton
           Left = 0
           Height = 25
           Hint = 'Add new Set'
           Top = 0
-          Width = 75
+          Width = 34
           AutoSize = True
           Caption = '+'
           ParentShowHint = False
@@ -75,11 +75,11 @@ object FrameSettingsPro: TFrameSettingsPro
           OnClick = ButtonSetControlClick
         end
         object ButtonRemoveSet: TButton
-          Left = 75
+          Left = 34
           Height = 25
           Hint = 'Remove current Set'
           Top = 0
-          Width = 75
+          Width = 31
           AutoSize = True
           Caption = '-'
           ParentShowHint = False
@@ -88,11 +88,11 @@ object FrameSettingsPro: TFrameSettingsPro
           OnClick = ButtonSetControlClick
         end
         object ButtonCopySet: TButton
-          Left = 150
+          Left = 65
           Height = 25
           Hint = 'Copy current Set'
           Top = 0
-          Width = 75
+          Width = 34
           AutoSize = True
           Caption = 'C'
           ParentShowHint = False
@@ -101,11 +101,11 @@ object FrameSettingsPro: TFrameSettingsPro
           OnClick = ButtonSetControlClick
         end
         object ButtonImportSet: TButton
-          Left = 225
+          Left = 99
           Height = 25
           Hint = 'Import Smiple Set'
           Top = 0
-          Width = 75
+          Width = 29
           AutoSize = True
           Caption = 'I'
           ParentShowHint = False
@@ -119,7 +119,7 @@ object FrameSettingsPro: TFrameSettingsPro
       Left = 0
       Height = 50
       Top = 33
-      Width = 412
+      Width = 320
       AutoSize = True
       BevelOuter = bvNone
       ChildSizing.LeftRightSpacing = 4
@@ -130,22 +130,22 @@ object FrameSettingsPro: TFrameSettingsPro
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 50
-      ClientWidth = 412
+      ClientWidth = 320
       TabOrder = 1
       object LabelNameSet: TLabel
         Left = 4
         Height = 23
         Top = 4
-        Width = 188
+        Width = 142
         Alignment = taRightJustify
         Caption = 'Set name'
         Layout = tlCenter
       end
       object EditNameSet: TEdit
-        Left = 204
+        Left = 158
         Height = 23
         Top = 4
-        Width = 204
+        Width = 158
         TabOrder = 0
         Text = 'EditNameSet'
         OnChange = EditSettingChange
@@ -154,16 +154,16 @@ object FrameSettingsPro: TFrameSettingsPro
         Left = 4
         Height = 15
         Top = 31
-        Width = 188
+        Width = 142
         Alignment = taRightJustify
         Caption = 'Overall time'
         Layout = tlCenter
       end
       object LabelStatisticTime: TLabel
-        Left = 204
+        Left = 158
         Height = 15
         Top = 31
-        Width = 204
+        Width = 158
         Caption = '0 m  0 s'
         Layout = tlCenter
       end
@@ -171,7 +171,7 @@ object FrameSettingsPro: TFrameSettingsPro
   end
   object PanelPeriods: TPanel
     Left = 0
-    Height = 217
+    Height = 221
     Top = 83
     Width = 320
     Align = alClient
@@ -181,24 +181,24 @@ object FrameSettingsPro: TFrameSettingsPro
     ChildSizing.HorizontalSpacing = 4
     ChildSizing.VerticalSpacing = 4
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ClientHeight = 217
+    ClientHeight = 221
     ClientWidth = 320
     TabOrder = 2
     object ListPeriods: TListBox
       Left = 4
-      Height = 209
+      Height = 213
       Top = 4
-      Width = 225
+      Width = 266
       Align = alClient
       ItemHeight = 0
       TabOrder = 1
       OnSelectionChange = ListPeriodsSelectionChange
     end
     object PanelPeriodControl: TPanel
-      Left = 233
-      Height = 209
+      Left = 274
+      Height = 213
       Top = 4
-      Width = 83
+      Width = 42
       Align = alRight
       AutoSize = True
       BevelOuter = bvNone
@@ -207,14 +207,14 @@ object FrameSettingsPro: TFrameSettingsPro
       ChildSizing.HorizontalSpacing = 4
       ChildSizing.VerticalSpacing = 4
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 209
-      ClientWidth = 83
+      ClientHeight = 213
+      ClientWidth = 42
       TabOrder = 0
       object ButtonAdd: TButton
         Left = 4
         Height = 25
         Top = 4
-        Width = 75
+        Width = 34
         Caption = '+'
         TabOrder = 0
         OnClick = ButtonPeriodControlClick
@@ -223,7 +223,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Left = 4
         Height = 25
         Top = 33
-        Width = 75
+        Width = 34
         Caption = '-'
         TabOrder = 1
         OnClick = ButtonPeriodControlClick
@@ -232,7 +232,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Left = 4
         Height = 25
         Top = 62
-        Width = 75
+        Width = 34
         Caption = '^'
         TabOrder = 2
         OnClick = ButtonPeriodControlClick
@@ -241,7 +241,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Left = 4
         Height = 25
         Top = 91
-        Width = 75
+        Width = 34
         Caption = 'v'
         TabOrder = 3
         OnClick = ButtonPeriodControlClick
@@ -250,15 +250,15 @@ object FrameSettingsPro: TFrameSettingsPro
   end
   object PanelControl: TPanel
     Left = 0
-    Height = 223
-    Top = 300
+    Height = 219
+    Top = 304
     Width = 320
     Align = alBottom
     AutoSize = True
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ClientHeight = 223
+    ClientHeight = 219
     ClientWidth = 320
     TabOrder = 1
     object PanelSettingsCompose: TPanel
@@ -275,7 +275,7 @@ object FrameSettingsPro: TFrameSettingsPro
         Left = 0
         Height = 156
         Top = 0
-        Width = 312
+        Width = 254
         Align = alLeft
         AutoSize = True
         BevelOuter = bvSpace
@@ -287,7 +287,7 @@ object FrameSettingsPro: TFrameSettingsPro
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 3
         ClientHeight = 156
-        ClientWidth = 312
+        ClientWidth = 254
         TabOrder = 0
         object LabelNamePeriod: TLabel
           Left = 5
@@ -302,16 +302,16 @@ object FrameSettingsPro: TFrameSettingsPro
           Height = 23
           Top = 5
           Width = 132
-          TabOrder = 7
+          TabOrder = 6
           OnChange = EditSettingChange
         end
         object PanelDummy7: TPanel
           Left = 217
           Height = 23
           Top = 5
-          Width = 90
+          Width = 32
           BevelOuter = bvNone
-          TabOrder = 8
+          TabOrder = 7
         end
         object LabelPeriodTime: TLabel
           Left = 5
@@ -333,7 +333,7 @@ object FrameSettingsPro: TFrameSettingsPro
           Left = 217
           Height = 23
           Top = 36
-          Width = 90
+          Width = 32
           BevelOuter = bvNone
           TabOrder = 2
         end
@@ -358,7 +358,7 @@ object FrameSettingsPro: TFrameSettingsPro
           Left = 217
           Height = 23
           Top = 67
-          Width = 90
+          Width = 32
           TabOrder = 3
           OnChange = EditSettingChange
         end
@@ -381,13 +381,37 @@ object FrameSettingsPro: TFrameSettingsPro
           Text = 'ComboSound'
           OnChange = EditSettingChange
         end
-        object PanelDummy6: TPanel
+        object ButtonPlayTest: TBitBtn
           Left = 217
           Height = 23
           Top = 98
-          Width = 90
-          BevelOuter = bvNone
-          TabOrder = 5
+          Width = 32
+          AutoSize = True
+          Constraints.MaxWidth = 32
+          Glyph.Data = {
+            76020000424D760200000000000036000000280000000C0000000C0000000100
+            2000000000004002000064000000640000000000000000000000000000000101
+            0100010101000101010000000000000000000000000000000000000000050505
+            0540020202C40000006000000000000000000000000000000000000000000000
+            0000000000010000001224242476696969DE5E5E5EF408080861000000080000
+            00110000001200000012000000120000000C09090933474747AEA0A0A0F7E4E4
+            E4FF9C9C9CF61212126101010154373737C75B5B5BCE5B5B5BCE454545CC0606
+            068D555555D4CACACAFDF9F9F9FFFBFBFBFF9F9F9FF612121261101010679393
+            93F7E9E9E9FFEAEAEAFFB5B5B5FF222222B4828282EFF8F8F8FFFFFFFFFFFCFC
+            FCFF9F9F9FF612121261121212679F9F9FF7FBFBFBFFFEFEFEFFC4C4C4FF2525
+            25B4838383EFF8F8F8FFFFFFFFFFFCFCFCFF9F9F9FF612121261121212679F9F
+            9FF7FCFCFCFFFEFEFEFFC4C4C4FF252525B4848484EFF8F8F8FFFFFFFFFFFCFC
+            FCFF9F9F9FF6121212610F0F0F67929292F7E8E8E8FFEBEBEBFFB5B5B5FF2323
+            23B4808080EFF6F6F6FFFFFFFFFFFCFCFCFF9F9F9FF612121261010101533434
+            34C9595959CF5B5B5BCF474747CD0707078C4E4E4ED3C4C4C4FFF8F8F8FFFBFB
+            FBFF9F9F9FF61212126100000007000000120000001300000013000000130000
+            000C09090935434343AE9F9F9FF6E5E5E5FF9D9D9DF612121261000000000000
+            00000000000000000000000000000000000000000001010101122424246A6E6E
+            6EDC676767F50A0A0A6100000000000000000000000001010100000000000000
+            000000000000000000000000000408080842070707C30000005F
+          }
+          TabOrder = 8
+          OnClick = EditSettingChange
         end
         object LabelColor: TLabel
           Left = 5
@@ -406,14 +430,14 @@ object FrameSettingsPro: TFrameSettingsPro
           NoneColorColor = clWhite
           Selected = clLime
           ItemHeight = 16
-          TabOrder = 6
+          TabOrder = 5
           OnChange = EditSettingChange
         end
       end
     end
     object PanelButtons: TPanel
       Left = 0
-      Height = 67
+      Height = 63
       Top = 156
       Width = 320
       AutoSize = True
@@ -425,7 +449,7 @@ object FrameSettingsPro: TFrameSettingsPro
       ChildSizing.EnlargeHorizontal = crsSameSize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 3
-      ClientHeight = 67
+      ClientHeight = 63
       ClientWidth = 320
       TabOrder = 1
       object PanelEmply3: TPanel
@@ -456,7 +480,7 @@ object FrameSettingsPro: TFrameSettingsPro
       end
       object ButtonConfig: TBitBtn
         Left = 4
-        Height = 30
+        Height = 26
         Top = 33
         Width = 101
         AutoSize = True
@@ -502,7 +526,7 @@ object FrameSettingsPro: TFrameSettingsPro
       end
       object ButtonAbout: TButton
         Left = 109
-        Height = 30
+        Height = 26
         Top = 33
         Width = 102
         AutoSize = True
@@ -512,7 +536,7 @@ object FrameSettingsPro: TFrameSettingsPro
       end
       object ButtonStart: TButton
         Left = 215
-        Height = 30
+        Height = 26
         Top = 33
         Width = 101
         AutoSize = True
@@ -525,5 +549,24 @@ object FrameSettingsPro: TFrameSettingsPro
   object ImportMenu: TPopupMenu
     Left = 257
     Top = 320
+  end
+  object PlaySound: Tplaysound
+    About.Description.Strings = (
+      'Plays WAVE sounds in Windows or Linux'#13#10'Public methods: Execute and StopSound'
+    )
+    About.Title = 'About PlaySound'
+    About.Height = 400
+    About.Width = 400
+    About.Font.Color = clNavy
+    About.Font.Height = -13
+    About.BackGroundColor = clCream
+    About.Version = '0.0.10'
+    About.Authorname = 'Gordon Bamber'
+    About.Organisation = 'Public Domain'
+    About.AuthorEmail = 'minesadorada@charcodelvalle.com'
+    About.ComponentName = 'PlaySound'
+    About.LicenseType = abModifiedGPL
+    Left = 274
+    Top = 387
   end
 end

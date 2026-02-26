@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
-  ColorBox, XMLPropStorage, Menus, EditTime, ChainTimer, Settings;
+  ColorBox, XMLPropStorage, Menus, EditTime, ChainTimer, Settings, uplaysound;
 
 type
 
@@ -17,6 +17,7 @@ type
     ButtonAdd: TButton;
     ButtonAbout: TButton;
     ButtonDown: TButton;
+    ButtonPlayTest: TBitBtn;
     ButtonUp: TButton;
     ButtonRemove: TButton;
     ButtonAddSet: TButton;
@@ -42,7 +43,6 @@ type
     LabelWarningTime: TLabel;
     LabelSoud: TLabel;
     ListPeriods: TListBox;
-    PanelDummy6: TPanel;
     PanelDummy7: TPanel;
     PanelPeriodControl: TPanel;
     PanelPeriods: TPanel;
@@ -59,6 +59,7 @@ type
     PanelSettingsCompose1: TPanel;
     PanelSettingsNameSet: TPanel;
     ImportMenu: TPopupMenu;
+    PlaySound: Tplaysound;
     procedure BoxSettingsSelect(Sender: TObject);
     procedure ButtonAboutClick(Sender: TObject);
     procedure ButtonConfigClick(Sender: TObject);
@@ -313,6 +314,11 @@ begin
     begin
       editColor:= component as TColorBox;
       SettingsProList[IndexSet].Periods[IndexPeriod].Color:= editColor.Selected;
+    end;
+    'ButtonPlayTest':
+    begin
+      PlaySound.SoundFile:= Sound(TSoundType(ComboSound.ItemIndex));
+      PlaySound.Execute;
     end;
   end;
 
