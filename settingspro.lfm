@@ -213,36 +213,48 @@ object FrameSettingsPro: TFrameSettingsPro
       object ButtonAdd: TButton
         Left = 4
         Height = 25
+        Hint = 'Add new Period'
         Top = 4
         Width = 34
         Caption = '+'
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 0
         OnClick = ButtonPeriodControlClick
       end
       object ButtonRemove: TButton
         Left = 4
         Height = 25
+        Hint = 'Remove current Period'
         Top = 33
         Width = 34
         Caption = '-'
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 1
         OnClick = ButtonPeriodControlClick
       end
       object ButtonUp: TButton
         Left = 4
         Height = 25
+        Hint = 'Move Period earlier'
         Top = 62
         Width = 34
         Caption = '^'
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 2
         OnClick = ButtonPeriodControlClick
       end
       object ButtonDown: TButton
         Left = 4
         Height = 25
+        Hint = 'Move Period later'
         Top = 91
         Width = 34
         Caption = 'v'
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 3
         OnClick = ButtonPeriodControlClick
       end
