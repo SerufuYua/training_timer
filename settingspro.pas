@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
-  ColorBox, XMLPropStorage, Menus, EditTime, ChainTimer, Settings, uplaysound;
+  ColorBox, XMLPropStorage, Menus, EditTime, ChainTimer, Settings, uplaysound, Types;
 
 type
 
@@ -68,6 +68,8 @@ type
     procedure ButtonPeriodControlClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure EditSettingChange(Sender: TObject);
+    procedure ListPeriodsDrawItem(Control: TWinControl; Index: Integer;
+      ARect: TRect; State: TOwnerDrawState);
     procedure ListPeriodsSelectionChange(Sender: TObject; User: boolean);
     procedure ImportMenuClick(Sender: TObject);
   protected
@@ -323,6 +325,86 @@ begin
   end;
 
   ShowStatistic;
+end;
+
+procedure TFrameSettingsPro.ListPeriodsDrawItem(Control: TWinControl;
+  Index: Integer; ARect: TRect; State: TOwnerDrawState);
+var
+  Canv: TCanvas;
+  List: TCustomListBox;
+  BoxR, CircleR: TRect;
+  LeftText, RightText: Integer;
+  TextS: TSize;
+  TimeText: String;
+  RoundRad, TextX, TextY: Integer;
+const
+  spacing = 12;
+begin
+  List:= (Control as TCustomListBox);
+  Canv:= (Control as TCustomListBox).Canvas;
+
+  { background }
+  Canv.Pen.Width:= 0;
+  Canv.Pen.Style:= psSolid;
+  if List.Selected[Index] then
+  begin
+    Canv.Pen.Color:= clHighlight;
+    Canv.Brush.Color:= clHighlight;
+  end
+  else
+  begin
+    Canv.Pen.Color:= clWindow;
+    Canv.Brush.Color:= clWindow;
+  end;
+  Canv.Rectangle(ARect);
+
+  Canv.Pen.Width:= 2;
+  Canv.Pen.Style:= psDot;
+  Canv.Pen.Color:= clLtGray;
+  Canv.Line(ARect.Left, ARect.Bottom - 1, ARect.Right, ARect.Bottom - 1);
+
+  { cicle - enabled/disabled }
+  Canv.Pen.Color:= clLtGray;
+  Canv.Pen.Width:= 1;
+  Canv.Pen.Style:= psSolid;
+  Canv.Brush.Color:= clWhite;
+  CircleR:= aRect;
+  CircleR.Right:= aRect.Height;
+  CircleR.Left:= CircleR.Left + 1;
+  CircleR.Right:= CircleR.Right - 1;
+  CircleR.Top:= CircleR.Top + 1;
+  CircleR.Bottom:= CircleR.Bottom - 1;
+  Canv.Ellipse(CircleR);
+
+  { period color }
+  Canv.Brush.Color:= SettingsProList[IndexSet].Periods[Index].Color;
+  BoxR:= aRect;
+  BoxR.Left:= CircleR.Right + spacing;
+  BoxR.Right:= BoxR.Left + aRect.Height * 3;
+  BoxR.Top:= BoxR.Top + 1;
+  BoxR.Bottom:= BoxR.Bottom - 1;
+  RoundRad:= ARect.Height div 3;
+  Canv.RoundRect(BoxR, RoundRad, RoundRad);
+
+  { time }
+  TimeText:= TimeToShortStr(SettingsProList[IndexSet].Periods[Index].TimeMs div 1000);
+  Canv.Brush.Style := bsClear; { Transparent text background }
+  Canv.Font.Color:= clMenuText;
+  TextS:= Canv.TextExtent('00:00:00');
+  RightText:= BoxR.Right + TextS.Width + spacing;
+  TextS:= Canv.TextExtent(TimeText);
+  LeftText:= RightText - TextS.Width;
+  TextX:= LeftText;
+  TextY:= aRect.Top + (aRect.Height - TextS.Height) div 2;
+  Canv.TextOut(TextX, TextY, TimeText);
+
+  { title }
+  Canv.Brush.Style := bsClear; { Transparent text background }
+  Canv.Font.Color:= clMenuText;
+  TextS:= Canv.TextExtent(List.Items[Index]);
+  TextX:= RightText + spacing;
+  TextY:= aRect.Top + (aRect.Height - TextS.Height) div 2;
+  Canv.TextOut(TextX, TextY, List.Items[Index]);
 end;
 
 procedure TFrameSettingsPro.ListPeriodsSelectionChange(Sender: TObject;

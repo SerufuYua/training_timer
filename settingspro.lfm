@@ -191,7 +191,9 @@ object FrameSettingsPro: TFrameSettingsPro
       Width = 266
       Align = alClient
       ItemHeight = 0
+      Style = lbOwnerDrawFixed
       TabOrder = 1
+      OnDrawItem = ListPeriodsDrawItem
       OnSelectionChange = ListPeriodsSelectionChange
     end
     object PanelPeriodControl: TPanel

@@ -22,7 +22,7 @@ begin
   sec:= ASeconds;
   min:= sec div 60;
   sec:= sec - (min * 60);
-  Result:= IntToStr(min) + ':' + IntToStr(sec);
+  Result:= Format('%.2d:%.2d', [min, sec]);
 end;
 
 function TimeToFullStr(ASeconds: Integer): String;
@@ -32,7 +32,7 @@ begin
   sec:= ASeconds;
   min:= sec div 60;
   sec:= sec - (min * 60);
-  Result:= IntToStr(min) + ' m  ' + IntToStr(sec) + ' s';
+  Result:= Format('%dm %ds', [min, sec]);
 end;
 
 end.
