@@ -288,12 +288,13 @@ begin
     begin
       editStr:= component as TEdit;
       SettingsProList[IndexSet].Periods[IndexPeriod].Name:= editStr.Caption;
-      ListPeriods.Items[IndexPeriod]:= editStr.Caption;
+      ListPeriods.Items[IndexPeriod]:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
     end;
     'EditPeriodTime':
     begin
       editTime:= component as TFrameEditTime;
       SettingsProList[IndexSet].Periods[IndexPeriod].TimeMs:= editTime.ValueSec * 1000;
+      ListPeriods.Items[IndexPeriod]:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
     end;
     'EditWarningTime':
     begin
@@ -316,6 +317,7 @@ begin
     begin
       editColor:= component as TColorBox;
       SettingsProList[IndexSet].Periods[IndexPeriod].Color:= editColor.Selected;
+      ListPeriods.Items[IndexPeriod]:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
     end;
     'ButtonPlayTest':
     begin
@@ -404,7 +406,7 @@ begin
   TextS:= Canv.TextExtent(List.Items[Index]);
   TextX:= RightText + spacing;
   TextY:= aRect.Top + (aRect.Height - TextS.Height) div 2;
-  Canv.TextOut(TextX, TextY, List.Items[Index]);
+  Canv.TextOut(TextX, TextY, SettingsProList[IndexSet].Periods[Index].Name);
 end;
 
 procedure TFrameSettingsPro.ListPeriodsSelectionChange(Sender: TObject;
