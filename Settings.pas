@@ -146,6 +146,7 @@ begin
   SetLength(Result.Periods, EditRounds.Value * 2);
 
   Result.Periods[0].Name:= 'Prepare';
+  Result.Periods[0].Enable:= True;
   Result.Periods[0].TimeMs:= SettingsSimpleList[index].PrepareTimeMs;
   Result.Periods[0].WarningTimeMs:= SettingsSimpleList[index].WarningTimeMs;
   Result.Periods[0].Warning:= SettingsSimpleList[index].Warning;
@@ -156,6 +157,7 @@ begin
 
   for i:= 1 to lastPeriod do
   begin
+    Result.Periods[i].Enable:= True;
     Result.Periods[i].WarningTimeMs:= SettingsSimpleList[index].WarningTimeMs;
     Result.Periods[i].Warning:= SettingsSimpleList[index].Warning;
 

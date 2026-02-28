@@ -67,6 +67,7 @@ type
     DefaultPrepareTimeMs = 30000;
     DefaultWarningTimeMs = 10000;
     DefaultWarning = True;
+    DefaultEnable = True;
     DefaultFinalSound = TSoundType.Start;
     DefaultColorPrepare = clLime;
     DefaultColorRest = clYellow;

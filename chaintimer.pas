@@ -14,7 +14,7 @@ type
     Name: String;
     FinalSound: TSoundType;
     TimeMs, WarningTimeMs: Comp;
-    Warning: Boolean;
+    Warning, Enable: Boolean;
     Color: TColor;
   end;
 

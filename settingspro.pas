@@ -28,12 +28,14 @@ type
     ButtonStart: TButton;
     ButtonSimple: TButton;
     CheckWarning: TCheckBox;
+    CheckEnable: TCheckBox;
     ColorBox: TColorBox;
     ComboSound: TComboBox;
     EditNameSet: TEdit;
     EditNamePeriod: TEdit;
     EditPeriodTime: TFrameEditTime;
     EditWarningTime: TFrameEditTime;
+    LabelEnable: TLabel;
     LabelNameSet: TLabel;
     LabelPeriodTime: TLabel;
     LabelColor: TLabel;
@@ -44,6 +46,7 @@ type
     LabelSoud: TLabel;
     ListPeriods: TListBox;
     PanelDummy7: TPanel;
+    PanelDummy8: TPanel;
     PanelPeriodControl: TPanel;
     PanelPeriods: TPanel;
     PanelControl: TPanel;
@@ -141,6 +144,7 @@ begin
   SetLength(Result.Periods, DefaultRounds * 2);
 
   Result.Periods[0].Name:= 'Prepare';
+  Result.Periods[0].Enable:= True;
   Result.Periods[0].TimeMs:= DefaultPrepareTimeMs;
   Result.Periods[0].WarningTimeMs:= DefaultWarningTimeMs;
   Result.Periods[0].Warning:= DefaultWarning;
@@ -149,6 +153,7 @@ begin
 
   for i:= 1 to lastPeriod do
   begin
+    Result.Periods[i].Enable:= True;
     Result.Periods[i].WarningTimeMs:= DefaultWarningTimeMs;
     Result.Periods[i].Warning:= DefaultWarning;
 
@@ -202,6 +207,7 @@ begin
       begin
         pathPeriod:= path + 'Period' + IntToStr(j) + '/';
         SettingsProList[i].Periods[j].Name:= APropStorage.ReadString(pathPeriod + 'Name', 'Period ' + IntToStr(j + 1));
+        SettingsProList[i].Periods[j].Enable:= APropStorage.ReadBoolean(pathPeriod + 'Enable', DefaultEnable);
         SettingsProList[i].Periods[j].TimeMs:= APropStorage.ReadInteger(pathPeriod + 'TimeMs', DefaultRoundTimeMs);
         SettingsProList[i].Periods[j].WarningTimeMs:= APropStorage.ReadInteger(pathPeriod + 'WarningTimeMs', DefaultWarningTimeMs);
         SettingsProList[i].Periods[j].Warning:= APropStorage.ReadBoolean(pathPeriod + 'Warning', DefaultWarning);
@@ -237,6 +243,9 @@ begin
       pathPeriod:= path + 'Period' + IntToStr(j) + '/';
 
       APropStorage.WriteString(pathPeriod + 'Name', SettingsProList[i].Periods[j].Name);
+
+      if (SettingsProList[i].Periods[j].Enable <> DefaultEnable) then
+        APropStorage.WriteBoolean(pathPeriod + 'Enable', SettingsProList[i].Periods[j].Enable);
 
       if (SettingsProList[i].Periods[j].TimeMs <> DefaultRoundTimeMs) then
         APropStorage.WriteInteger(pathPeriod + 'TimeMs', SettingsProList[i].Periods[j].TimeMs);
@@ -278,6 +287,12 @@ begin
   component:= Sender as TComponent;
 
   case component.Name of
+    'CheckEnable':
+    begin
+      editCheck:= component as TCheckBox;
+      SettingsProList[IndexSet].Periods[IndexPeriod].Enable:= editCheck.Checked;
+      ListPeriods.Items[IndexPeriod]:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
+    end;
     'EditNameSet':
     begin
       editStr:= component as TEdit;
@@ -338,7 +353,7 @@ var
   LeftText, RightText: Integer;
   TextS: TSize;
   TimeText: String;
-  RoundRad, TextX, TextY: Integer;
+  RoundRad, TextX, TextY, LineW: Integer;
 const
   spacing = 12;
 begin
@@ -360,6 +375,7 @@ begin
   end;
   Canv.Rectangle(ARect);
 
+  { underline }
   Canv.Pen.Width:= 2;
   Canv.Pen.Style:= psDot;
   Canv.Pen.Color:= clLtGray;
@@ -378,7 +394,41 @@ begin
   CircleR.Bottom:= CircleR.Bottom - 1;
   Canv.Ellipse(CircleR);
 
+  if SettingsProList[IndexSet].Periods[Index].Enable then
+  begin
+    LineW:= 3;
+    Canv.Pen.Color:= clGreen;
+    Canv.Pen.Width:= LineW;
+    Canv.Pen.Style:= psSolid;
+    Canv.Line(CircleR.Left + LineW div 2, (CircleR.Top + CircleR.Bottom) div 2,
+              (CircleR.Right - CircleR.Left) div 2, CircleR.Bottom - LineW div 2);
+    Canv.Line((CircleR.Right - CircleR.Left) div 2, CircleR.Bottom - LineW div 2,
+              CircleR.Right - LineW div 2, CircleR.Top + LineW div 2);
+
+    Canv.Pen.Color:= clLime;
+    Canv.Pen.Width:= LineW - 2;
+    Canv.Pen.Style:= psSolid;
+    Canv.Line(CircleR.Left + LineW div 2, (CircleR.Top + CircleR.Bottom) div 2,
+              (CircleR.Right - CircleR.Left) div 2, CircleR.Bottom - LineW div 2);
+    Canv.Line((CircleR.Right - CircleR.Left) div 2, CircleR.Bottom - LineW div 2,
+              CircleR.Right - LineW div 2, CircleR.Top + LineW div 2);
+  end
+  else
+  begin
+    LineW:= 2;
+    Canv.Pen.Color:= clRed;
+    Canv.Pen.Width:= LineW;
+    Canv.Pen.Style:= psSolid;
+    Canv.Line(CircleR.Left + LineW div 2, CircleR.Top + LineW div 2,
+              CircleR.Right - LineW div 2, CircleR.Bottom - LineW div 2);
+    Canv.Line(CircleR.Left + LineW div 2, CircleR.Bottom - LineW div 2,
+              CircleR.Right - LineW div 2, CircleR.Top + LineW div 2);
+  end;
+
   { period color }
+  Canv.Pen.Color:= clLtGray;
+  Canv.Pen.Width:= 1;
+  Canv.Pen.Style:= psSolid;
   Canv.Brush.Color:= SettingsProList[IndexSet].Periods[Index].Color;
   BoxR:= aRect;
   BoxR.Left:= CircleR.Right + spacing;
@@ -415,6 +465,7 @@ begin
   if ((IndexSet < 0) OR (IndexPeriod < 0)) then Exit;
 
   EditNamePeriod.Caption:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
+  CheckEnable.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Enable;
   EditPeriodTime.ValueSec:= SettingsProList[IndexSet].Periods[IndexPeriod].TimeMs div 1000;
   EditWarningTime.ValueSec:= SettingsProList[IndexSet].Periods[IndexPeriod].WarningTimeMs div 1000;
   CheckWarning.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Warning;
@@ -537,6 +588,7 @@ begin
       SetLength(SettingsProList[IndexSet].Periods, (Length(SettingsProList[IndexSet].Periods) + 1));
       idx:= High(SettingsProList[IndexSet].Periods);
       SettingsProList[IndexSet].Periods[idx].Name:= DefaultPeriodName;
+      SettingsProList[IndexSet].Periods[idx].Enable:= DefaultEnable;
       SettingsProList[IndexSet].Periods[idx].FinalSound:= DefaultFinalSound;
       SettingsProList[IndexSet].Periods[idx].TimeMs:= DefaultRoundTimeMs;
       SettingsProList[IndexSet].Periods[idx].WarningTimeMs:= DefaultWarningTimeMs;
