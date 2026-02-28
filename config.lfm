@@ -39,7 +39,10 @@ object FrameConfig: TFrameConfig
       Height = 23
       Top = 4
       Width = 139
+      MaxValue = 1000
+      MinValue = 10
       TabOrder = 0
+      Value = 100
     end
     object PanelEmpty: TPanel
       Left = 284
