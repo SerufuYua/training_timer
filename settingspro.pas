@@ -669,7 +669,8 @@ var
 begin
   sec:= 0;
   for i:= 0 to (Length(SettingsProList[IndexSet].Periods) - 1) do
-    sec:= sec + SettingsProList[IndexSet].Periods[i].TimeMs div 1000;
+    if SettingsProList[IndexSet].Periods[i].Enable then
+      sec:= sec + SettingsProList[IndexSet].Periods[i].TimeMs div 1000;
 
   LabelStatisticTime.Caption:= TimeToFullStr(sec);
 end;

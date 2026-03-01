@@ -63,12 +63,12 @@ type
     procedure Continue;
     procedure ShowTime(ATimeMs: Integer);
     procedure ShowFullTime(ATimeMs: Integer);
-    procedure WritePeriod(AValue: Integer);
     function TimeMs: Comp;
   public
     procedure UpdateTime;
     procedure Start(APeriods: TPeriodsSettings);
-    property Period: Integer read FPeriod write WritePeriod;
+    procedure SetupPeriod(AIndex: Integer);
+    procedure NextPeriod;
     property StopEvent: TNotifyEvent write FStopEvent;
   end;
 
@@ -92,9 +92,8 @@ begin
 
   FFullTimeMs:= 0;
   for i:= Low(FPeriods) to High(FPeriods) do
-  begin
-    FFullTimeMs:= FFullTimeMs + FPeriods[i].TimeMs;
-  end;
+    if FPeriods[i].Enable then
+      FFullTimeMs:= FFullTimeMs + FPeriods[i].TimeMs;
 
   { enable timer }
   ResetTimer;
@@ -104,12 +103,12 @@ procedure TFrameTimer.ResetTimer;
 begin
   FPeriodTimeMs:= 0;
   FStartTimeMs:= TimeMs;
-  Period:= 0;
-  TimeCounter.Enabled:= True;
+  SetupPeriod(0);
   ButtonPause.Enabled:= True;
   ButtonPause.Caption:= 'Pause';
   PlaySound.SoundFile:= Sound(TSoundType.Init);
   PlaySound.Execute;
+  TimeCounter.Enabled:= True;
 end;
 
 procedure TFrameTimer.Pause;
@@ -198,12 +197,11 @@ begin
     ShowTime(0);
     PlaySound.SoundFile:= Sound(FFinalSound);
     PlaySound.Execute;
-    Period:= Period + 1;
+    NextPeriod;
   end;
 
   { remember Time Remaining }
   FLastTimeMsRemaining:= TimeMsRemaining;
-
 end;
 
 procedure TFrameTimer.ButtonPauseClick(Sender: TObject);
@@ -241,25 +239,48 @@ begin
   LabelFullTime.Caption:= TimeToShortStr((ATimeMs + 1) div 1000);
 end;
 
-procedure TFrameTimer.WritePeriod(AValue: Integer);
+procedure TFrameTimer.SetupPeriod(AIndex: Integer);
 begin
-  if (AValue < Length(FPeriods)) then
+  FPeriod:= AIndex;
+  ShowTime(Round(FPeriods[FPeriod].TimeMs));
+  LabelPeriod.Caption:= FPeriods[FPeriod].Name;
+  FSignalColor:= FPeriods[FPeriod].Color;
+  FrameProgressUse.ProgressColor:= FSignalColor;
+  FWarningTimeMs:= FPeriods[FPeriod].WarningTimeMs;
+  FWarning:= FPeriods[FPeriod].Warning;
+  FPeriodTimeMs:= FPeriodTimeMs + FPeriods[FPeriod].TimeMs;
+  FrameProgressUse.MaxProgress:= Round(FPeriods[FPeriod].TimeMs);
+  FrameProgressUse.MinProgress:= 0;
+  FrameProgressUse.Progress:= 0;
+  FFinalSound:= FPeriods[FPeriod].FinalSound;
+end;
+
+procedure TFrameTimer.NextPeriod;
+var
+  i: Integer;
+  found: Boolean;
+begin
+  found:= False;
+
+  { check for Last Period }
+  if (FPeriod < High(FPeriods)) then
   begin
-    FPeriod:= AValue;
-    ShowTime(Round(FPeriods[AValue].TimeMs));
-    LabelPeriod.Caption:= FPeriods[AValue].Name;
-    FSignalColor:= FPeriods[AValue].Color;
-    FrameProgressUse.ProgressColor:= FSignalColor;
-    FWarningTimeMs:= FPeriods[AValue].WarningTimeMs;
-    FWarning:= FPeriods[AValue].Warning;
-    FPeriodTimeMs:= FPeriodTimeMs + FPeriods[AValue].TimeMs;
-    FrameProgressUse.MaxProgress:= Round(FPeriods[AValue].TimeMs);
-    FrameProgressUse.MinProgress:= 0;
-    FrameProgressUse.Progress:= 0;
-    FFinalSound:= FPeriods[AValue].FinalSound;
-  end
-  else
+    { find next enbled Period Index }
+    for i:= (FPeriod + 1) to High(FPeriods) do
+      if FPeriods[i].Enable then
+      begin
+        found:= True;
+        Break;
+      end;
+
+    { setup Next Period }
+    if found then
+      SetupPeriod(i);
+  end;
+
+  if (NOT found) then
   begin
+    { got Last Period - stop counter }
     TimeCounter.Enabled:= False;
     FrameProgressUse.ProgressColor:= clBlack;
     ButtonPause.Enabled:= False;
