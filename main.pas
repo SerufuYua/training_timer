@@ -12,6 +12,7 @@ uses
 type
 
   TTabStack = {$ifdef FPC}specialize{$endif} TObjectStack<TTabSheet>;
+  TSettings = (sSimple, sPro);
 
   { TFormTTimer }
 
@@ -33,6 +34,7 @@ type
     procedure PropStorageSaveProperties(Sender: TObject);
   protected
     FTabStack: TTabStack;
+    FSettings: TSettings;
     procedure SaveSettings;
     procedure LoadSettings;
     procedure StartEvent(APeriods: TPeriodsSettings);
@@ -112,6 +114,8 @@ begin
   PropStorage.WriteInteger('Top', Top);
   PropStorage.WriteString('WindowState', GetEnumName(TypeInfo(TWindowState), Ord(WindowState)));
 
+  PropStorage.WriteString('Settings', GetEnumName(TypeInfo(TSettings), Ord(FSettings)));
+
   FrameSettingsUse.SaveSettings(PropStorage);
   FrameSettingsProUse.SaveSettings(PropStorage);
   FrameConfigUse.SaveSettings(PropStorage);
@@ -124,6 +128,12 @@ begin
   Left:= PropStorage.ReadInteger('Left', self.GetDefaultHeight);
   Top:= PropStorage.ReadInteger('Top', self.GetDefaultHeight);
   WindowState:= TWindowState(GetEnumValue(TypeInfo(TWindowState), PropStorage.ReadString('WindowState', GetEnumName(TypeInfo(TWindowState), Ord(TWindowState.wsNormal)))));
+
+  FSettings:= TSettings(GetEnumValue(TypeInfo(TSettings), PropStorage.ReadString('Settings', GetEnumName(TypeInfo(TSettings), Ord(TSettings.sSimple)))));
+  case FSettings of
+    sSimple: ActiveTab:= TabSettings;
+    sPro:    ActiveTab:= TabSettingsPro;
+  end;
 
   FrameSettingsUse.LoadSettings(PropStorage);
   FrameSettingsProUse.LoadSettings(PropStorage);
@@ -173,6 +183,11 @@ procedure TFormTTimer.WriteActiveTab(const AValue: TTabSheet);
 begin
   FTabStack.Push(ControlPageTimer.ActivePage);
   ControlPageTimer.ActivePage:= AValue;
+
+  case AValue.Name of
+    'TabSettings':    FSettings:= sSimple;
+    'TabSettingsPro': FSettings:= sPro;
+  end;
 end;
 
 end.
