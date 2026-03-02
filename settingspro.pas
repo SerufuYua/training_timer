@@ -556,7 +556,7 @@ begin
       begin
         ImportMenu.Items.Clear;
         sets:= FSimpleListSets();
-        for i:= 0 to (Length(sets) - 1) do
+        for i:= 0 to High(sets) do
         begin
           item:= TMenuItem.Create(ImportMenu);
           item.Caption:= sets[i];
@@ -617,7 +617,7 @@ begin
     end;
     'ButtonDown':
     begin
-      if (idx < (Length(SettingsProList[IndexSet].Periods) - 1)) then
+      if (idx < High(SettingsProList[IndexSet].Periods)) then
       begin
         buff:= SettingsProList[IndexSet].Periods[idx];
         SettingsProList[IndexSet].Periods[idx]:= SettingsProList[IndexSet].Periods[idx + 1];
@@ -647,7 +647,7 @@ var
 begin
   BoxSettings.Clear;
 
-  for i:= 0 to (Length(SettingsProList) - 1) do
+  for i:= 0 to High(SettingsProList) do
     BoxSettings.Items.Add(SettingsProList[i].Name);
 end;
 
@@ -657,7 +657,7 @@ var
 begin
   ListPeriods.Clear;
 
-  for i:= 0 to (Length(SettingsProList[IndexSet].Periods) - 1) do
+  for i:= 0 to High(SettingsProList[IndexSet].Periods) do
     ListPeriods.Items.Add(SettingsProList[IndexSet].Periods[i].Name);
 
   PanelPeriodSettings.Enabled:= False;
@@ -668,7 +668,7 @@ var
   sec, i: Integer;
 begin
   sec:= 0;
-  for i:= 0 to (Length(SettingsProList[IndexSet].Periods) - 1) do
+  for i:= 0 to High(SettingsProList[IndexSet].Periods) do
     if SettingsProList[IndexSet].Periods[i].Enable then
       sec:= sec + SettingsProList[IndexSet].Periods[i].TimeMs div 1000;
 

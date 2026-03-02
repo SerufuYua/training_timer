@@ -277,7 +277,7 @@ function TFrameSettings.GetSet(AName: String): TPeriodsSettings;
 var
   i: Integer;
 begin
-  for i:= 0 to (Length(SettingsSimpleList) - 1) do
+  for i:= 0 to High(SettingsSimpleList) do
   begin
     if (SettingsSimpleList[i].Name = AName) then
     begin
@@ -441,7 +441,7 @@ var
 begin
   BoxSettings.Clear;
 
-  for i:= 0 to (Length(SettingsSimpleList) - 1) do
+  for i:= 0 to High(SettingsSimpleList) do
     BoxSettings.Items.Add(SettingsSimpleList[i].Name);
 end;
 
