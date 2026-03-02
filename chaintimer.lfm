@@ -36,6 +36,7 @@ object FrameTimer: TFrameTimer
       BevelOuter = bvNone
       ChildSizing.VerticalSpacing = 4
       ChildSizing.EnlargeHorizontal = crsSameSize
+      ChildSizing.ShrinkHorizontal = crsSameSize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ClientHeight = 104
       ClientWidth = 310
@@ -46,10 +47,12 @@ object FrameTimer: TFrameTimer
         Top = 0
         Width = 310
         Alignment = taCenter
+        AutoSize = False
         Caption = 'Set Name'
         Font.Height = -24
         Layout = tlCenter
         ParentFont = False
+        WordWrap = True
       end
       object LabelPeriod: TLabel
         Left = 0
@@ -57,16 +60,19 @@ object FrameTimer: TFrameTimer
         Top = 36
         Width = 310
         Alignment = taCenter
+        AutoSize = False
         Caption = 'Period Name'
         Font.Height = -24
         Layout = tlCenter
         ParentFont = False
+        WordWrap = True
       end
       object LabelFullTime: TLabel
         Left = 0
         Height = 32
         Top = 72
         Width = 310
+        AutoSize = False
         Caption = 'LabelFullTime'
         Font.Height = -24
         Layout = tlCenter
