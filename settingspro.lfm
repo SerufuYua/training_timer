@@ -467,6 +467,7 @@ object FrameSettingsPro: TFrameSettingsPro
           DefaultColorColor = clLime
           NoneColorColor = clWhite
           Selected = clLime
+          Style = [cbStandardColors, cbExtendedColors, cbCustomColor, cbPrettyNames, cbCustomColors]
           ItemHeight = 16
           TabOrder = 5
           OnChange = EditSettingChange
