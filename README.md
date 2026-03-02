@@ -1,6 +1,7 @@
-# Training Timer
+# Training Timer Pro
 
-![screen 01](./data/screenshots/screen_01.png) ![screen 02](./data/screenshots/screen_02.png) ![screen 03](./data/screenshots/screen_03.png)
+![screen 01](./data/screenshots/screen_01.png) ![screen 02](./data/screenshots/screen_02.png)
+![screen 03](./data/screenshots/screen_03.png) ![screen 04](./data/screenshots/screen_04.png)
 
 This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more.
 
@@ -18,7 +19,15 @@ Use [Lazarus](https://www.lazarus-ide.org/) to compile.<br>
 Open in Lazarus `TrainingTimer.lpi` file and compile / run from Lazarus.<br>
 Make sure to first register [PlaySoundPackage Lazarus packages](https://packages.lazarus-ide.org).
 
-## Versions
+## History
+
+### Version 1.3
+
+Profesional settings
+
+### Version 1.2.1
+
+Bug fixes and optimization.
 
 ### Version 1.2.1
 
