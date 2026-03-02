@@ -5,7 +5,7 @@
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="Training Timer"/>
+      <Title Value="Training Timer Pro"/>
       <Scaled Value="True"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -18,9 +18,8 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="2"/>
-      <RevisionNr Value="1"/>
-      <StringTable Comments="This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more." ProductName="Training Timer" ProductVersion="1.2.1"/>
+      <MinorVersionNr Value="3"/>
+      <StringTable Comments="This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more." ProductName="Training Timer Pro" ProductVersion="1.3.0"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Debug" Default="True"/>
