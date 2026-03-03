@@ -260,6 +260,7 @@ var
   i: Integer;
   found: Boolean;
 begin
+  i:= 0;
   found:= False;
 
   { check for Last Period }

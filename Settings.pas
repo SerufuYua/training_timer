@@ -281,11 +281,12 @@ begin
   begin
     if (SettingsSimpleList[i].Name = AName) then
     begin
-      Result.Name:= SettingsSimpleList[i].Name;
       Result:= MakePeriods(i);
       Exit;
     end;
   end;
+  Result.Name:= '';
+  Result.Periods:= [];
 end;
 
 procedure TFrameSettings.EditSettingChange(Sender: TObject);

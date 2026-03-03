@@ -357,6 +357,8 @@ var
 const
   spacing = 12;
 begin
+  State:= State; { shut up warning: Parameter not used }
+
   List:= (Control as TCustomListBox);
   Canv:= (Control as TCustomListBox).Canvas;
 
@@ -462,6 +464,7 @@ end;
 procedure TFrameSettingsPro.ListPeriodsSelectionChange(Sender: TObject;
   User: boolean);
 begin
+  User:= User; { shut up warning: Parameter not used }
   if ((IndexSet < 0) OR (IndexPeriod < 0)) then Exit;
 
   EditNamePeriod.Caption:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
