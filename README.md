@@ -21,17 +21,17 @@ Make sure to first register [PlaySoundPackage Lazarus packages](https://packages
 
 ## History
 
+### Version 1.3.1
+
+Bug fixes and refactoring
+
 ### Version 1.3
 
 Profesional settings
 
 ### Version 1.2.1
 
-Bug fixes and optimization.
-
-### Version 1.2.1
-
-Bug fixes and optimization.
+Bug fixes and optimization
 
 ### Version 1.2
 
