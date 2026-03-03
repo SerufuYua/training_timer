@@ -13,7 +13,7 @@ type
   TTimePeriod = record
     Name: String;
     FinalSound: TSoundType;
-    TimeMs, WarningTimeMs: Comp;
+    TimeMs, WarningTimeMs: Integer;
     Warning, Enable: Boolean;
     Color: TColor;
   end;
