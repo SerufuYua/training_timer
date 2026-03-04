@@ -463,9 +463,25 @@ end;
 
 procedure TFrameSettingsPro.ListPeriodsSelectionChange(Sender: TObject;
   User: boolean);
+var
+  List: TListBox;
+  p: TPoint;
+  h: Integer;
 begin
   User:= User; { shut up warning: Parameter not used }
   if ((IndexSet < 0) OR (IndexPeriod < 0)) then Exit;
+
+  { switch enable flag if clicked to left side of list }
+  if (Sender is TListBox) then
+  begin
+    List:= Sender as TListBox;
+
+    p:= List.ScreenToClient(Mouse.CursorPos);
+    h:= List.ItemRect(IndexSet).Height;
+
+    if (p.X < h) then
+      SettingsProList[IndexSet].Periods[IndexPeriod].Enable:= NOT SettingsProList[IndexSet].Periods[IndexPeriod].Enable;
+  end;
 
   EditNamePeriod.Caption:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
   CheckEnable.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Enable;
