@@ -28,11 +28,86 @@ object FrameAbout: TFrameAbout
     ClientHeight = 207
     ClientWidth = 320
     TabOrder = 0
-    object MemoAbout: TMemo
-      Left = 70
-      Height = 172
+    object PanelVerInfo: TPanel
+      Left = 4
+      Height = 72
       Top = 4
-      Width = 246
+      Width = 312
+      Align = alTop
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 72
+      ClientWidth = 312
+      TabOrder = 0
+      object LabelTitle: TLabel
+        Left = 0
+        Height = 15
+        Top = 0
+        Width = 58
+        Caption = 'LabelTitle'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object LabelDummy1: TLabel
+        Left = 62
+        Height = 15
+        Top = 0
+        Width = 95
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object LabelVerion: TLabel
+        Left = 0
+        Height = 15
+        Top = 19
+        Width = 58
+        Caption = 'Version'
+      end
+      object LabelVersionValue: TLabel
+        Left = 62
+        Height = 15
+        Top = 19
+        Width = 95
+        Caption = 'LabelVersionValue'
+      end
+      object LabelLazarus: TLabel
+        Left = 0
+        Height = 15
+        Top = 38
+        Width = 58
+        Caption = 'Lazarus'
+      end
+      object LabelLazarusValue: TLabel
+        Left = 62
+        Height = 15
+        Top = 38
+        Width = 95
+        Caption = 'LabelLazarusValue'
+      end
+      object LabelFPC: TLabel
+        Left = 0
+        Height = 15
+        Top = 57
+        Width = 58
+        Caption = 'Free Pascal'
+      end
+      object LabelFPCvalue: TLabel
+        Left = 62
+        Height = 15
+        Top = 57
+        Width = 95
+        Caption = 'LabelFPCvalue'
+      end
+    end
+    object MemoAbout: TMemo
+      Left = 4
+      Height = 96
+      Top = 80
+      Width = 312
       Align = alClient
       Lines.Strings = (
         'Developer: Serufu Yua (@serufu_yua)'
@@ -46,51 +121,6 @@ object FrameAbout: TFrameAbout
       ScrollBars = ssAutoVertical
       TabOrder = 2
     end
-    object PanelVerInfo: TPanel
-      Left = 4
-      Height = 172
-      Top = 4
-      Width = 54
-      Align = alLeft
-      AutoSize = True
-      BevelOuter = bvNone
-      ChildSizing.HorizontalSpacing = 4
-      ChildSizing.VerticalSpacing = 4
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 172
-      ClientWidth = 54
-      TabOrder = 0
-      object LabelTitle: TLabel
-        Left = 0
-        Height = 15
-        Top = 0
-        Width = 54
-        Caption = 'LabelTitle'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object LabelVer: TLabel
-        Left = 0
-        Height = 15
-        Top = 19
-        Width = 54
-        Caption = 'LabelVer'
-      end
-      object LabelLaz: TLabel
-        Left = 0
-        Height = 15
-        Top = 38
-        Width = 54
-        Caption = 'LabelLaz'
-      end
-      object LabelFPC: TLabel
-        Left = 0
-        Height = 15
-        Top = 57
-        Width = 54
-        Caption = 'LabelFPC'
-      end
-    end
     object PanelWebUrl: TPanel
       Left = 4
       Height = 23
@@ -103,6 +133,8 @@ object FrameAbout: TFrameAbout
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 4
       ChildSizing.VerticalSpacing = 4
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
       ClientHeight = 23
       ClientWidth = 312
       TabOrder = 1
@@ -111,15 +143,13 @@ object FrameAbout: TFrameAbout
         Height = 15
         Top = 4
         Width = 27
-        Align = alLeft
         Caption = 'Web:'
       end
       object LabelUrl: TLabel
         Left = 35
         Height = 15
         Top = 4
-        Width = 273
-        Align = alClient
+        Width = 240
         Caption = 'https://github.com/SerufuYua/training_timer'
         OnClick = LabelUrlClick
         OnMouseEnter = LabelUrlMouseEnter

@@ -14,10 +14,14 @@ type
   TFrameAbout = class(TFrame)
     ButtonOk: TButton;
     LabelFPC: TLabel;
-    LabelLaz: TLabel;
+    LabelFPCvalue: TLabel;
+    LabelLazarus: TLabel;
+    LabelLazarusValue: TLabel;
     LabelTitle: TLabel;
-    LabelVer: TLabel;
+    LabelDummy1: TLabel;
+    LabelVerion: TLabel;
     LabelUrl: TLabel;
+    LabelVersionValue: TLabel;
     LabelWeb: TLabel;
     MemoAbout: TMemo;
     PanelVerInfo: TPanel;
@@ -56,12 +60,12 @@ begin
   begin
     Load(HINSTANCE);
     LabelTitle.Caption:= StringFileInfo.Items[0].Values['ProductName'];
-    LabelVer.Caption:= 'Version ' + StringFileInfo.Items[0].Values['FileVersion'];
+    LabelVersionValue.Caption:= StringFileInfo.Items[0].Values['FileVersion'];
     Free;
   end;
 
-  LabelLaz.Caption:= 'Lazarus ' + lcl_version;
-  LabelFPC.Caption:= 'Free Pascal ' + {$I %FPCVERSION%};
+  LabelLazarusValue.Caption:= lcl_version;
+  LabelFPCvalue.Caption:= {$I %FPCVERSION%};
 
   LabelUrl.Font.Color:= FMouseLeave;
 end;
