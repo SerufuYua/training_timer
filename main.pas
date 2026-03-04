@@ -83,7 +83,7 @@ begin
   begin
     Load(HINSTANCE);
     Caption:= StringFileInfo.Items[0].Values['ProductName'] + ' ' +
-              StringFileInfo.Items[0].Values['FileVersion'];
+              StringFileInfo.Items[0].Values['ProductVersion'];
     Free;
   end;
 
