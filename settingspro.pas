@@ -442,10 +442,15 @@ begin
   RoundRad:= ARect.Height div 3;
   Canv.RoundRect(BoxR, RoundRad, RoundRad);
 
+  { text color }
+  if List.Selected[Index] then
+    Canv.Font.Color:= clHighlightText
+  else
+    Canv.Font.Color:= clMenuText;
+
   { time }
   TimeText:= TimeToShortStr(SettingsProList[IndexSet].Periods[Index].TimeMs div 1000);
   Canv.Brush.Style := bsClear; { Transparent text background }
-  Canv.Font.Color:= clMenuText;
   TextS:= Canv.TextExtent('00:00:00');
   RightText:= BoxR.Right + TextS.Width + spacing;
   TextS:= Canv.TextExtent(TimeText);
@@ -456,7 +461,6 @@ begin
 
   { title }
   Canv.Brush.Style := bsClear; { Transparent text background }
-  Canv.Font.Color:= clMenuText;
   TextS:= Canv.TextExtent(List.Items[Index]);
   TextX:= RightText + spacing;
   TextY:= aRect.Top + (aRect.Height - TextS.Height) div 2;
