@@ -194,6 +194,7 @@ object FrameSettingsPro: TFrameSettingsPro
       Style = lbOwnerDrawFixed
       TabOrder = 1
       OnDrawItem = ListPeriodsDrawItem
+      OnKeyPress = ListPeriodsKeyPress
       OnSelectionChange = ListPeriodsSelectionChange
     end
     object PanelPeriodControl: TPanel

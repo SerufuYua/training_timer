@@ -73,6 +73,7 @@ type
     procedure EditSettingChange(Sender: TObject);
     procedure ListPeriodsDrawItem(Control: TWinControl; Index: Integer;
       ARect: TRect; State: TOwnerDrawState);
+    procedure ListPeriodsKeyPress(Sender: TObject; var Key: char);
     procedure ListPeriodsSelectionChange(Sender: TObject; User: boolean);
     procedure ImportMenuClick(Sender: TObject);
   protected
@@ -82,6 +83,7 @@ type
     FSimpleGetSet: TGetSetCall;
     procedure UpdateBoxSettings;
     procedure UpdateListPeriods;
+    procedure UpdateParametersPeriod;
     procedure ShowStatistic;
     function MakeDefaultPeriods: TPeriodsSettings;
     procedure WriteIndexSet(AValue: Integer);
@@ -461,6 +463,16 @@ begin
   Canv.TextOut(TextX, TextY, SettingsProList[IndexSet].Periods[Index].Name);
 end;
 
+procedure TFrameSettingsPro.ListPeriodsKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = ' ') then
+  begin
+    SettingsProList[IndexSet].Periods[IndexPeriod].Enable:= NOT SettingsProList[IndexSet].Periods[IndexPeriod].Enable;
+    ListPeriods.Items[IndexPeriod]:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
+    UpdateParametersPeriod;
+  end;
+end;
+
 procedure TFrameSettingsPro.ListPeriodsSelectionChange(Sender: TObject;
   User: boolean);
 var
@@ -483,14 +495,7 @@ begin
       SettingsProList[IndexSet].Periods[IndexPeriod].Enable:= NOT SettingsProList[IndexSet].Periods[IndexPeriod].Enable;
   end;
 
-  EditNamePeriod.Caption:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
-  CheckEnable.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Enable;
-  EditPeriodTime.ValueSec:= SettingsProList[IndexSet].Periods[IndexPeriod].TimeMs div 1000;
-  EditWarningTime.ValueSec:= SettingsProList[IndexSet].Periods[IndexPeriod].WarningTimeMs div 1000;
-  CheckWarning.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Warning;
-  ComboSound.ItemIndex:= Ord(SettingsProList[IndexSet].Periods[IndexPeriod].FinalSound);
-  ColorBox.Selected:= SettingsProList[IndexSet].Periods[IndexPeriod].Color;
-  PanelPeriodSettings.Enabled:= True;
+  UpdateParametersPeriod;
 end;
 
 procedure TFrameSettingsPro.ImportMenuClick(Sender: TObject);
@@ -680,6 +685,18 @@ begin
     ListPeriods.Items.Add(SettingsProList[IndexSet].Periods[i].Name);
 
   PanelPeriodSettings.Enabled:= False;
+end;
+
+procedure TFrameSettingsPro.UpdateParametersPeriod;
+begin
+  EditNamePeriod.Caption:= SettingsProList[IndexSet].Periods[IndexPeriod].Name;
+  CheckEnable.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Enable;
+  EditPeriodTime.ValueSec:= SettingsProList[IndexSet].Periods[IndexPeriod].TimeMs div 1000;
+  EditWarningTime.ValueSec:= SettingsProList[IndexSet].Periods[IndexPeriod].WarningTimeMs div 1000;
+  CheckWarning.Checked:= SettingsProList[IndexSet].Periods[IndexPeriod].Warning;
+  ComboSound.ItemIndex:= Ord(SettingsProList[IndexSet].Periods[IndexPeriod].FinalSound);
+  ColorBox.Selected:= SettingsProList[IndexSet].Periods[IndexPeriod].Color;
+  PanelPeriodSettings.Enabled:= True;
 end;
 
 procedure TFrameSettingsPro.ShowStatistic;
