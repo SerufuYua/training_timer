@@ -1,3 +1,5 @@
+<p style="text-align: center;">![banner](./data/screenshots/icon_banner.png)</p>
+
 # Training Timer Professional
 
 ![screen 01](./data/screenshots/screen_01.png) ![screen 02](./data/screenshots/screen_02.png)
@@ -27,7 +29,7 @@ Make sure to first register [PlaySoundPackage Lazarus packages](https://packages
 
 ### Version 1.3.2
 
-New Feture: Enable/Disable period by clicking to left side of Period List.
+New Feature: Enable/Disable period by clicking to left side of Period List.
 
 Bug fixes and refactoring.
 
