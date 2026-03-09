@@ -13,7 +13,7 @@ A port to Android may be planned for the future.
 
 ## Binaries
 
-Binaries available on [GitHub](https://github.com/SerufuYua/training_timer/releases)
+Binaries available on [itch.io](https://serufuyua.itch.io/training-timer-professional) and [GitHub](https://github.com/SerufuYua/training_timer/releases)
 
 ## Building
 
