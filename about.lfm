@@ -105,7 +105,7 @@ object FrameAbout: TFrameAbout
     end
     object MemoAbout: TMemo
       Left = 4
-      Height = 96
+      Height = 77
       Top = 80
       Width = 312
       Align = alClient
@@ -123,8 +123,8 @@ object FrameAbout: TFrameAbout
     end
     object PanelWebUrl: TPanel
       Left = 4
-      Height = 23
-      Top = 180
+      Height = 42
+      Top = 161
       Width = 312
       Align = alBottom
       AutoSize = True
@@ -135,21 +135,39 @@ object FrameAbout: TFrameAbout
       ChildSizing.VerticalSpacing = 4
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 23
+      ClientHeight = 42
       ClientWidth = 312
       TabOrder = 1
-      object LabelWeb: TLabel
+      OnClick = PanelWebUrlClick
+      object LabelItch: TLabel
         Left = 4
         Height = 15
         Top = 4
-        Width = 27
-        Caption = 'Web:'
+        Width = 39
+        Caption = 'Itch:'
       end
-      object LabelUrl: TLabel
-        Left = 35
+      object LabelItchUrl: TLabel
+        Left = 47
         Height = 15
         Top = 4
-        Width = 240
+        Width = 276
+        Caption = 'https://serufuyua.itch.io/training-timer-professional'
+        OnClick = LabelUrlClick
+        OnMouseEnter = LabelUrlMouseEnter
+        OnMouseLeave = LabelUrlMouseLeave
+      end
+      object LabelGithub: TLabel
+        Left = 4
+        Height = 15
+        Top = 23
+        Width = 39
+        Caption = 'Github:'
+      end
+      object LabelGithubUrl: TLabel
+        Left = 47
+        Height = 15
+        Top = 23
+        Width = 276
         Caption = 'https://github.com/SerufuYua/training_timer'
         OnClick = LabelUrlClick
         OnMouseEnter = LabelUrlMouseEnter

@@ -19,10 +19,12 @@ type
     LabelLazarusValue: TLabel;
     LabelTitle: TLabel;
     LabelDummy1: TLabel;
+    LabelGithubUrl: TLabel;
     LabelVerion: TLabel;
-    LabelUrl: TLabel;
+    LabelItchUrl: TLabel;
     LabelVersionValue: TLabel;
-    LabelWeb: TLabel;
+    LabelItch: TLabel;
+    LabelGithub: TLabel;
     MemoAbout: TMemo;
     PanelVerInfo: TPanel;
     PanelWebUrl: TPanel;
@@ -32,6 +34,7 @@ type
     procedure LabelUrlClick(Sender: TObject);
     procedure LabelUrlMouseEnter(Sender: TObject);
     procedure LabelUrlMouseLeave(Sender: TObject);
+    procedure PanelWebUrlClick(Sender: TObject);
   protected
     FReturnEvent: TNotifyEvent;
   public
@@ -67,7 +70,8 @@ begin
   LabelLazarusValue.Caption:= lcl_version;
   LabelFPCvalue.Caption:= {$I %FPCVERSION%};
 
-  LabelUrl.Font.Color:= FMouseLeave;
+  LabelItchUrl.Font.Color:= FMouseLeave;
+  LabelGithubUrl.Font.Color:= FMouseLeave;
 end;
 
 procedure TFrameAbout.ButtonOkClick(Sender: TObject);
@@ -77,8 +81,16 @@ begin
 end;
 
 procedure TFrameAbout.LabelUrlClick(Sender: TObject);
+var
+  component: TComponent;
 begin
-  OpenURL('https://github.com/SerufuYua/training_timer');
+  if NOT (Sender is TComponent) then Exit;
+
+  component:= Sender as TComponent;
+  case component.Name of
+    'LabelItchUrl':   OpenURL('https://serufuyua.itch.io/training-timer-professional');
+    'LabelGithubUrl': OpenURL('https://github.com/SerufuYua/training_timer');
+  end;
 end;
 
 procedure TFrameAbout.LabelUrlMouseEnter(Sender: TObject);
@@ -99,6 +111,11 @@ begin
     Font.Color:= FMouseLeave;
     Cursor:= crDefault;
   end;
+end;
+
+procedure TFrameAbout.PanelWebUrlClick(Sender: TObject);
+begin
+
 end;
 
 end.
