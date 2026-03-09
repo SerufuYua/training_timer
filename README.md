@@ -1,9 +1,11 @@
-# Training Timer Pro
+# Training Timer Professional
 
 ![screen 01](./data/screenshots/screen_01.png) ![screen 02](./data/screenshots/screen_02.png)
 ![screen 03](./data/screenshots/screen_03.png) ![screen 04](./data/screenshots/screen_04.png)
 
 This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more.
+
+Professional mode allows you to set any custom time periods with any sounds and signal colors. You can create your own chains of periods: progressive, regressive, with an extended rest period in the middle, and much more.
 
 The app is designed for the Windows platform, becouse all similar apps are designed for mobile devices and nothing simple and usable for Windows.
 
