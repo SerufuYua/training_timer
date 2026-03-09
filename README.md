@@ -1,4 +1,4 @@
-<p style="text-align: center;">![banner](./data/icon/icon_banner.png)</p>
+![banner](./data/icon/icon_banner.png)
 
 # Training Timer Professional
 
