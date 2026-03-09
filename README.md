@@ -9,6 +9,8 @@ Professional mode allows you to set any custom time periods with any sounds and 
 
 The app is designed for the Windows platform, becouse all similar apps are designed for mobile devices and nothing simple and usable for Windows.
 
+The application is completely free and open source.
+
 A port to Android may be planned for the future.
 
 ## Binaries
