@@ -4,15 +4,15 @@ object FormTTimer: TFormTTimer
   Top = 250
   Width = 320
   Caption = 'Training Timer'
-  ClientHeight = 470
+  ClientHeight = 490
   ClientWidth = 320
-  Constraints.MinHeight = 470
+  Constraints.MinHeight = 490
   Constraints.MinWidth = 300
-  LCLVersion = '4.4.0.0'
+  LCLVersion = '4.6.0.0'
   OnCreate = FormCreate
   object ControlPageTimer: TPageControl
     Left = 0
-    Height = 470
+    Height = 490
     Top = 0
     Width = 320
     ActivePage = TabSettings
@@ -21,60 +21,60 @@ object FormTTimer: TFormTTimer
     TabOrder = 0
     object TabSettings: TTabSheet
       Caption = 'Settings'
-      ClientHeight = 442
+      ClientHeight = 462
       ClientWidth = 312
       inline FrameSettingsUse: TFrameSettings
-        Height = 442
+        Height = 462
         Width = 312
         Align = alClient
-        ClientHeight = 442
+        ClientHeight = 462
         ClientWidth = 312
       end
     end
     object TabSettingsPro: TTabSheet
       Caption = 'TabSettingsPro'
-      ClientHeight = 442
+      ClientHeight = 462
       ClientWidth = 312
       inline FrameSettingsProUse: TFrameSettingsPro
-        Height = 442
+        Height = 462
         Width = 312
         Align = alClient
-        ClientHeight = 442
+        ClientHeight = 462
         ClientWidth = 312
       end
     end
     object TabConfig: TTabSheet
       Caption = 'Config'
-      ClientHeight = 442
+      ClientHeight = 462
       ClientWidth = 312
       inline FrameConfigUse: TFrameConfig
-        Height = 442
+        Height = 462
         Width = 312
         Align = alClient
-        ClientHeight = 442
+        ClientHeight = 462
         ClientWidth = 312
       end
     end
     object TabTraining: TTabSheet
       Caption = 'Training'
-      ClientHeight = 442
+      ClientHeight = 462
       ClientWidth = 312
       inline FrameTimerUse: TFrameTimer
-        Height = 442
+        Height = 462
         Width = 312
-        ClientHeight = 442
+        ClientHeight = 462
         ClientWidth = 312
       end
     end
     object TabAbout: TTabSheet
       Caption = 'About'
-      ClientHeight = 442
+      ClientHeight = 462
       ClientWidth = 312
       inline FrameAboutUse: TFrameAbout
-        Height = 442
+        Height = 462
         Width = 312
         Align = alClient
-        ClientHeight = 442
+        ClientHeight = 462
         ClientWidth = 312
       end
     end
